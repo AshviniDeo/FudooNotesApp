@@ -5,14 +5,14 @@ export default function MyButton({onPress, children}) {
   return (
     <TouchableOpacity onPress={onPress} style={styles.btn}>
       <View>
-        <Text>{children}</Text>
+        <Text style={{color: 'white'}}>{children}</Text>
       </View>
     </TouchableOpacity>
   );
 }
 const styles = StyleSheet.create({
   btn: {
-    backgroundColor: '#eee8aa',
+    backgroundColor: 'darkslategrey',
     width: '40%',
     height: 50,
     borderBottomColor: '#cd853f',

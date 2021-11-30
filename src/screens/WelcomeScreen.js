@@ -11,14 +11,30 @@ import {
 import MyButton from '../utility/MyButton';
 import {styles} from '../utility/StyleSheet';
 import TextBox from '../utility/TextBox';
-export default function WelcomeScreen() {
+import HomeScreen from './HomeScreen';
+import SignUpScreen from './SignUpScreen';
+import ForgotPasswordScreen from './ForgotPasswordScreen';
+
+export default function WelcomeScreen({navigation}) {
   const bg = require('../assets/bgimg.jpg');
   const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
-  const onPressHandler = () => {
-    alert('Hiii');
+
+  const onSignIn = () => {
+    if (userName === 'Ashvini' && password === '1234') {
+      navigation.navigate({name: 'Home'});
+    } else {
+      alert('Invalid UserName/Password');
+      setPassword('');
+      setUserName('');
+    }
   };
-  console.log(userName);
+  const onSignUp = () => {
+    navigation.navigate({name: 'Sign Up'});
+  };
+  const forgetPassword = () => {
+    navigation.navigate({name: 'Forgot Password'});
+  };
   return (
     <ImageBackground source={bg} style={styles.background}>
       <View style={styles.container}>
@@ -29,17 +45,17 @@ export default function WelcomeScreen() {
           <TextBox
             onChangeText={text => setUserName(text)}
             value={userName}
-            placeHolder={'UserName/Email'}
+            placeHolder="UserName/Email"
           />
         </View>
         <View>
           <TextBox
             onChangeText={setPassword}
             value={password}
-            placeHolder={'UserName/Email'}
+            placeHolder="Enter Password"
           />
         </View>
-        <TouchableOpacity onPress={onPressHandler}>
+        <TouchableOpacity onPress={forgetPassword}>
           <View>
             <Text
               style={{
@@ -63,10 +79,10 @@ export default function WelcomeScreen() {
             left: '7%',
             right: '8%',
           }}>
-          <MyButton onPress={onPressHandler}>
+          <MyButton onPress={onSignIn}>
             <Text>Sign In</Text>
           </MyButton>
-          <MyButton onPress={onPressHandler}>
+          <MyButton onPress={onSignUp}>
             <Text>Sign Up</Text>
           </MyButton>
         </View>

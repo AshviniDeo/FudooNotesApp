@@ -1,7 +1,7 @@
 import React from 'react';
 import {TextInput, StyleSheet} from 'react-native';
 
-export default function TextBox({onChangeText, value, val}) {
+export default function TextBox({onChangeText, value, placeholder}) {
   return (
     <TextInput
       style={styles.box}
@@ -9,13 +9,13 @@ export default function TextBox({onChangeText, value, val}) {
       value={value}
       maxLength={40}
       editable
-      placeholder={val}
+      placeholder={placeholder}
     />
   );
 }
 const styles = StyleSheet.create({
   box: {
-    backgroundColor: '#eee8aa',
+    backgroundColor: 'darkslategrey',
     width: '75%',
     height: 50,
     borderBottomColor: '#cd853f',
@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
     left: '15%',
     textAlign: 'center',
     fontWeight: 'bold',
-    color: 'gray',
+    color: 'white',
     marginBottom: 30,
     right: '15%',
     top: 30,
