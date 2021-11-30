@@ -3,7 +3,7 @@ export const styles = StyleSheet.create({
   background: {
     height: '100%',
     width: '100%',
-    opacity: 0.8,
+    opacity: 0.7,
   },
   container: {
     flex: 1,

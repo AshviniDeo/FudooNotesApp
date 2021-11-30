@@ -1,13 +1,15 @@
 import React from 'react';
 import {TextInput, StyleSheet} from 'react-native';
 
-export default function TextBox({onChangeText, value}) {
+export default function TextBox({onChangeText, value, val}) {
   return (
     <TextInput
       style={styles.box}
       onChangeText={text => onChangeText(text)}
       value={value}
       maxLength={40}
+      editable
+      placeholder={val}
     />
   );
 }

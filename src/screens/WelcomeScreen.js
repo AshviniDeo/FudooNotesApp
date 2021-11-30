@@ -7,15 +7,18 @@ import {
   StyleSheet,
   TouchableOpacity,
 } from 'react-native';
-import MyButton from '../utility/MyButton';
 
+import MyButton from '../utility/MyButton';
 import {styles} from '../utility/StyleSheet';
 import TextBox from '../utility/TextBox';
 export default function WelcomeScreen() {
   const bg = require('../assets/bgimg.jpg');
-  const [userName, setUserName] = useState('Username/Email');
-  const [password, setPassword] = useState('Password');
-  const onPressHandler = () => {};
+  const [userName, setUserName] = useState('');
+  const [password, setPassword] = useState('');
+  const onPressHandler = () => {
+    alert('Hiii');
+  };
+  console.log(userName);
   return (
     <ImageBackground source={bg} style={styles.background}>
       <View style={styles.container}>
@@ -23,12 +26,20 @@ export default function WelcomeScreen() {
           <Image style={styles.logo} source={require('../assets/logo.png')} />
         </View>
         <View>
-          <TextBox onChangeText={setUserName} value={userName} />
+          <TextBox
+            onChangeText={text => setUserName(text)}
+            value={userName}
+            placeHolder={'UserName/Email'}
+          />
         </View>
         <View>
-          <TextBox onChangeText={setPassword} value={password} />
+          <TextBox
+            onChangeText={setPassword}
+            value={password}
+            placeHolder={'UserName/Email'}
+          />
         </View>
-        <TouchableOpacity onPress={onPressHandler()}>
+        <TouchableOpacity onPress={onPressHandler}>
           <View>
             <Text
               style={{
@@ -52,10 +63,10 @@ export default function WelcomeScreen() {
             left: '7%',
             right: '8%',
           }}>
-          <MyButton>
+          <MyButton onPress={onPressHandler}>
             <Text>Sign In</Text>
           </MyButton>
-          <MyButton>
+          <MyButton onPress={onPressHandler}>
             <Text>Sign Up</Text>
           </MyButton>
         </View>

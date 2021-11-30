@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 
 export default function MyButton({onPress, children}) {
   return (
@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
     borderStyle: 'solid',
     textAlign: 'center',
     fontWeight: 'bold',
-    tintColor: 'tomato',
+    borderRadius: 8,
     marginBottom: 30,
     borderRightColor: '#cd853f',
     borderRightWidth: 5,
