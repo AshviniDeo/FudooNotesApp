@@ -19,14 +19,27 @@ export default function WelcomeScreen({navigation}) {
   const bg = require('../assets/bgimg.jpg');
   const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
-
+  const [error, setError] = useState({});
+  const validation = () => {
+    let valid = true;
+    const temp = {};
+    if (!userName) {
+      valid = false;
+      temp['userName'] = 'Enter Valid Username';
+    }
+    if (!password) {
+      valid = false;
+      temp['password'] = 'Enter Valid Password';
+    }
+    setError(temp);
+    return valid;
+  };
   const onSignIn = () => {
-    if (userName === 'Ashvini' && password === '1234') {
-      navigation.navigate({name: 'Home'});
-    } else {
-      alert('Invalid UserName/Password');
-      setPassword('');
-      setUserName('');
+    if (validation()) {
+      if (userName === 'Ashvini' && password === '1234') {
+        alert('Login Succsessfull');
+        navigation.navigate({name: 'Home'});
+      }
     }
   };
   const onSignUp = () => {
@@ -45,24 +58,28 @@ export default function WelcomeScreen({navigation}) {
           <TextBox
             onChangeText={text => setUserName(text)}
             value={userName}
-            placeHolder="UserName/Email"
+            placeHolder={'UserName/Email'}
+            errorText={error.userName}
           />
         </View>
         <View>
           <TextBox
             onChangeText={setPassword}
             value={password}
-            placeHolder="Enter Password"
+            secureTextEntry
+            placeHolder={'Enter Password'}
+            errorText={error.password}
           />
         </View>
         <TouchableOpacity onPress={forgetPassword}>
           <View>
             <Text
               style={{
-                color: 'tomato',
+                color: 'blue',
                 textAlign: 'center',
                 fontWeight: 'bold',
                 top: 30,
+                padding: 3,
               }}>
               Forgot password.
             </Text>
