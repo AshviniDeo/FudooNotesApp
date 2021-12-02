@@ -6,7 +6,7 @@ export default function TextBox({
   onChangeText,
   value,
   secureTextEntry = false,
-  errorText = '',
+  errorText = undefined,
 }) {
   return (
     <View>
@@ -19,19 +19,19 @@ export default function TextBox({
         placeholder={placeHolder}
         secureTextEntry={secureTextEntry}
       />
-      <Text
-        style={{
-          color: 'red',
-          textAlign: 'center',
-          top: 5,
-
-          left: '15%',
-          right: '15%',
-          fontWeight: 'bold',
-          padding: 3,
-        }}>
-        {errorText}
-      </Text>
+      {errorText && (
+        <Text
+          style={{
+            color: 'red',
+            textAlign: 'center',
+            top: 5,
+            left: '15%',
+            right: '15%',
+            fontWeight: 'bold',
+          }}>
+          {errorText}
+        </Text>
+      )}
     </View>
   );
 }
@@ -53,6 +53,6 @@ const styles = StyleSheet.create({
     color: 'white',
     marginBottom: 30,
     right: '15%',
-    top: 30,
+    top: 20,
   },
 });

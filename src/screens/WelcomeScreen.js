@@ -14,6 +14,7 @@ import TextBox from '../utility/TextBox';
 import HomeScreen from './HomeScreen';
 import SignUpScreen from './SignUpScreen';
 import ForgotPasswordScreen from './ForgotPasswordScreen';
+import KeyboardAvoidingView from 'react-native/Libraries/Components/Keyboard/KeyboardAvoidingView';
 
 export default function WelcomeScreen({navigation}) {
   const bg = require('../assets/bgimg.jpg');
@@ -50,60 +51,65 @@ export default function WelcomeScreen({navigation}) {
   };
   return (
     <ImageBackground source={bg} style={styles.background}>
-      <View style={styles.container}>
-        <View style={{height: 200}}>
-          <Image style={styles.logo} source={require('../assets/logo.png')} />
-        </View>
-        <View>
-          <TextBox
-            onChangeText={text => setUserName(text)}
-            value={userName}
-            placeHolder={'UserName/Email'}
-            errorText={error.userName}
-          />
-        </View>
-        <View>
-          <TextBox
-            onChangeText={setPassword}
-            value={password}
-            secureTextEntry
-            placeHolder={'Enter Password'}
-            errorText={error.password}
-          />
-        </View>
-        <TouchableOpacity onPress={forgetPassword}>
-          <View>
-            <Text
-              style={{
-                color: 'blue',
-                textAlign: 'center',
-                fontWeight: 'bold',
-                top: 30,
-                padding: 3,
-              }}>
-              Forgot password.
-            </Text>
+      <KeyboardAvoidingView style={styles.container} behaviour="padding">
+        <View style={styles.container}>
+          <View style={{height: 200}}>
+            <Image
+              style={styles.logo}
+              source={require('../assets/logo2.png')}
+            />
           </View>
-        </TouchableOpacity>
+          <View>
+            <TextBox
+              onChangeText={text => setUserName(text)}
+              value={userName}
+              placeHolder={'UserName/Email'}
+              errorText={error.userName}
+            />
+          </View>
+          <View>
+            <TextBox
+              onChangeText={setPassword}
+              value={password}
+              secureTextEntry
+              placeHolder={'Enter Password'}
+              errorText={error.password}
+            />
+          </View>
+          <TouchableOpacity onPress={forgetPassword}>
+            <View>
+              <Text
+                style={{
+                  color: 'blue',
+                  textAlign: 'center',
+                  fontWeight: 'bold',
+                  top: 30,
+                  padding: 3,
+                }}>
+                Forgot password.
+              </Text>
+            </View>
+          </TouchableOpacity>
 
-        <View
-          style={{
-            justifyContent: 'space-evenly',
-            alignItems: 'center',
-            width: '80%',
-            flexDirection: 'row',
-            top: 30,
-            left: '7%',
-            right: '8%',
-          }}>
-          <MyButton onPress={onSignIn}>
-            <Text>Sign In</Text>
-          </MyButton>
-          <MyButton onPress={onSignUp}>
-            <Text>Sign Up</Text>
-          </MyButton>
+          <View
+            style={{
+              justifyContent: 'space-evenly',
+              alignItems: 'center',
+              width: '80%',
+              flexDirection: 'row',
+              top: 30,
+              left: '7%',
+              right: '8%',
+            }}>
+            <MyButton onPress={onSignIn}>
+              <Text>Sign In</Text>
+            </MyButton>
+            <MyButton onPress={onSignUp}>
+              <Text>Sign Up</Text>
+            </MyButton>
+          </View>
         </View>
-      </View>
+      </KeyboardAvoidingView>
     </ImageBackground>
   );
 }

@@ -17,6 +17,7 @@ export const styles = StyleSheet.create({
     height: 170,
     width: 170,
     resizeMode: 'contain',
+    opacity: 1,
   },
   output: {
     backgroundColor: 'darkslategrey',
