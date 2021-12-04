@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
 import {
   View,
   Text,
@@ -15,12 +15,15 @@ import HomeScreen from './HomeScreen';
 import SignUpScreen from './SignUpScreen';
 import ForgotPasswordScreen from './ForgotPasswordScreen';
 import KeyboardAvoidingView from 'react-native/Libraries/Components/Keyboard/KeyboardAvoidingView';
+import {AuthContext} from '../navigation/AuthProvider';
 
 export default function WelcomeScreen({navigation}) {
   const bg = require('../assets/bgimg.jpg');
   const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState({});
+
+  const {login} = useContext(AuthContext);
   const validation = () => {
     let valid = true;
     const temp = {};
@@ -36,11 +39,9 @@ export default function WelcomeScreen({navigation}) {
     return valid;
   };
   const onSignIn = () => {
-    if (validation()) {
-      if (userName === 'Ashvini' && password === '1234') {
-        alert('Login Succsessfull');
-        navigation.navigate({name: 'Home'});
-      }
+    if (validation) {
+      login(userName, password);
+      navigation.navigate({name: 'Home'});
     }
   };
   const onSignUp = () => {

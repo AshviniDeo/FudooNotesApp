@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import {
   View,
   Text,
@@ -9,6 +9,7 @@ import {
 import {styles} from '../utility/StyleSheet';
 import TextBox from '../utility/TextBox';
 import MyButton from '../utility/MyButton';
+import {AuthContext} from '../navigation/AuthProvider';
 
 export default function SignUpScreen({navigation}) {
   const [userName, setUserName] = useState('');
@@ -18,6 +19,8 @@ export default function SignUpScreen({navigation}) {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState({});
+
+  const {register} = useContext(AuthContext);
   const validation = () => {
     const emailRegx = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
 
@@ -62,7 +65,8 @@ export default function SignUpScreen({navigation}) {
   };
   const getRegister = () => {
     if (validation()) {
-      navigation.goBack();
+      register(email, password, userName);
+      navigation.navigate({name: 'Home'});
     }
   };
   return (
