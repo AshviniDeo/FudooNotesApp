@@ -38,10 +38,23 @@ export default function WelcomeScreen({navigation}) {
     setError(temp);
     return valid;
   };
+  const toNavigateHome = () => {
+    navigation.navigate({name: 'Home'});
+  };
+  const setCatchError = code => {
+    const temp = {};
+    if (code === 'auth/user-not-found') {
+      temp['userName'] = 'Invalid Email';
+    }
+
+    if (code === 'auth/wrong-password') {
+      temp['password'] = 'Invalid Password';
+    }
+    setError(temp);
+  };
   const onSignIn = () => {
-    if (validation) {
-      login(userName, password);
-      navigation.navigate({name: 'Home'});
+    if (validation()) {
+      login(userName, password, toNavigateHome, setCatchError);
     }
   };
   const onSignUp = () => {

@@ -11,7 +11,10 @@ const HomeScreen = ({navigation}) => {
         alignItems: 'center',
         alignContent: 'center',
       }}>
-      <Text>welcome Home {user.uid}</Text>
+      <Text>
+        welcome Home
+        {/* {user.uid} */}
+      </Text>
       <Pressable
         onPress={() => {
           signout();

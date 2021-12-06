@@ -10,11 +10,13 @@ export const AuthProvider = ({children}) => {
       value={{
         user,
         setUser,
-        login: async (email, password) => {
+        login: async (email, password, callback, errorCallback) => {
           try {
             await auth().signInWithEmailAndPassword(email, password);
+            callback();
           } catch (e) {
-            console.log(e);
+            console.log(e.code);
+            errorCallback(e.code);
           }
         },
         register: async (email, password, userName) => {
@@ -25,7 +27,7 @@ export const AuthProvider = ({children}) => {
               userName,
             );
           } catch (e) {
-            console.log(e);
+            console.log(e.code);
           }
         },
         signout: async () => {
