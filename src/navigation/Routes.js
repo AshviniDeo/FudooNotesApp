@@ -28,7 +28,6 @@ const Routes = () => {
   return (
     <NavigationContainer>
       {id === null ? <AuthStack /> : <AppStack />}
-      <AuthStack />
     </NavigationContainer>
   );
 };
