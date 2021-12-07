@@ -4,6 +4,7 @@ import AuthStack from './AuthStack';
 import auth from '@react-native-firebase/auth';
 import {AuthContext} from './AuthProvider';
 import AppStack from './AppStack';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Routes = () => {
   const {user, setUser} = useContext(AuthContext);
@@ -19,9 +20,14 @@ const Routes = () => {
   }, []);
 
   if (initialize) return null;
+  const getUid = async () => {
+    return await AsyncStorage.getItem('uid');
+  };
+  const id = getUid();
 
   return (
     <NavigationContainer>
+      {id === null ? <AuthStack /> : <AppStack />}
       <AuthStack />
     </NavigationContainer>
   );

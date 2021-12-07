@@ -63,10 +63,28 @@ export default function SignUpScreen({navigation}) {
     setError(temp);
     return valid;
   };
+
+  const toNavigateHome = () => {
+    navigation.navigate({name: 'Home'});
+  };
+  const setCatchError = code => {
+    const temp = {};
+    if (code === 'auth/email-already-in-use') {
+      temp['email'] = 'Email alredy in used';
+    }
+    setError(temp);
+  };
   const getRegister = () => {
     if (validation()) {
-      register(email, password, userName);
-      navigation.navigate({name: 'Home'});
+      register(
+        email,
+        password,
+        toNavigateHome,
+        setCatchError,
+        phone,
+        dateOfBirth,
+        userName,
+      );
     }
   };
   return (

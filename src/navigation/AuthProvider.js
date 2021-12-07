@@ -1,9 +1,12 @@
 import React, {createContext, useState} from 'react';
-import auth from '@react-native-firebase/auth';
+import auth, {firebase} from '@react-native-firebase/auth';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import firestore from '@react-native-firebase/firestore';
 
 export const AuthContext = createContext();
 
 export const AuthProvider = ({children}) => {
+  const db = firebase.firestore();
   const [user, setUser] = useState(null);
   return (
     <AuthContext.Provider
@@ -12,27 +15,47 @@ export const AuthProvider = ({children}) => {
         setUser,
         login: async (email, password, callback, errorCallback) => {
           try {
-            await auth().signInWithEmailAndPassword(email, password);
+            const userData = await auth().signInWithEmailAndPassword(
+              email,
+              password,
+            );
+            await AsyncStorage.setItem('uid', userData.user.uid);
+
             callback();
           } catch (e) {
             console.log(e.code);
             errorCallback(e.code);
           }
         },
-        register: async (email, password, userName) => {
+        register: async (
+          email,
+          password,
+          callback,
+          errorCallback,
+          phone,
+          dateOfBirth,
+          userName,
+        ) => {
           try {
-            await auth().createUserWithEmailAndPassword(
+            const userDetails = await auth().createUserWithEmailAndPassword(
               email,
               password,
-              userName,
             );
+            db.collection('PersonDetails').doc(userDetails.user.uid).set({
+              PhoneNumber: phone,
+              DateOfBirth: dateOfBirth,
+              UserName: userName,
+            });
+            callback();
           } catch (e) {
             console.log(e.code);
+            errorCallback(e.code);
           }
         },
         signout: async () => {
           try {
             await auth().signOut();
+            await AsyncStorage.removeItem('uid');
           } catch (e) {
             console.log(e);
           }

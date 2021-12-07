@@ -23,7 +23,7 @@ export default function WelcomeScreen({navigation}) {
   const [password, setPassword] = useState('');
   const [error, setError] = useState({});
 
-  const {login} = useContext(AuthContext);
+  const {user, login} = useContext(AuthContext);
   const validation = () => {
     let valid = true;
     const temp = {};
