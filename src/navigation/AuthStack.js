@@ -6,7 +6,7 @@ import WelcomeScreen from '../screens/WelcomeScreen';
 import HomeScreen from '../screens/HomeScreen';
 import SignUpScreen from '../screens/SignUpScreen';
 import ForgotPasswordScreen from '../screens/ForgotPasswordScreen';
-
+import CreateNotes from '../screens/CreateNotes';
 const AuthStack = () => {
   const Stack = createStackNavigator();
   return (
@@ -34,6 +34,11 @@ const AuthStack = () => {
         component={ForgotPasswordScreen}
         options={{headerTintColor: 'white'}}
       />
+      {/* <Stack.Screen
+        name="CreateNotes"
+        component={CreateNotes}
+        options={{headerShown: false}}
+      /> */}
     </Stack.Navigator>
   );
 };

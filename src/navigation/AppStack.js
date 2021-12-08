@@ -10,46 +10,39 @@ import CustomeDrawer from '../utility/CustomeDrawer';
 import Ionicon from 'react-native-vector-icons/Ionicons';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Feather from 'react-native-vector-icons/Feather';
+import ArchiveScreen from '../screens/ArchiveScreen';
+import Trash from '../screens/Trash';
+import Settings from '../screens/Settings';
+import CreateNotes from '../screens/CreateNotes';
+
 export default function AppStack() {
   const Drawer = createDrawerNavigator();
   return (
-    <Drawer.Navigator drawerContent={props => <CustomeDrawer {...props} />}>
-      <Drawer.Screen
-        name="Home"
-        component={HomeScreen}
-        options={{
-          drawerIcon: () => {
-            <Ionicon name="home" size={22} color="gray" />;
+    <View style={{flex: 1, backgroundColor: 'red'}}>
+      <Drawer.Navigator
+        initialRouteName="Home"
+        screenOptions={{
+          drawerStyle: {
+            backgroundColor: 'darkslategrey',
           },
-        }}
-      />
-      <Drawer.Screen
-        name="Notes"
-        component={Notes}
-        options={{
-          drawerIcon: () => {
-            <Ionicon name="bulb-outline" size={22} color="gray" />;
-          },
-        }}
-      />
-      <Drawer.Screen
-        name="Remainder"
-        component={Remainder}
-        options={{
-          drawerIcon: () => {
-            <FontAwesome5 name="bell" size={20} color="gray" />;
-          },
-        }}
-      />
-      <Drawer.Screen
-        name="New label"
-        component={CreateNewLabel}
-        options={{
-          drawerIcon: () => {
-            <Feather name="plus" size={20} color="gray" />;
-          },
-        }}
-      />
-    </Drawer.Navigator>
+          headerShown: false,
+          drawerInactiveTintColor: 'white',
+        }}>
+        <Drawer.Screen
+          name="Notes"
+          component={HomeScreen}
+          options={{
+            drawerIcon: () => {
+              <Ionicon name={'bulb-outline'} size={22} />;
+            },
+          }}
+        />
+        <Drawer.Screen name="Remainder" component={Remainder} />
+        <Drawer.Screen name="Create new label" component={CreateNewLabel} />
+        <Drawer.Screen name="Archive" component={'ArchiveScreen'} />
+        <Drawer.Screen name="Trash" component={'Trash'} />
+        <Drawer.Screen name="Settings" component={'Settings'} />
+      </Drawer.Navigator>
+    </View>
   );
 }
