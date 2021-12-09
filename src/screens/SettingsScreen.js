@@ -1,12 +1,12 @@
 import React from 'react';
 import {View, Text} from 'react-native';
 
-const CreateNotes = ({navigation}) => {
+const SettingsScreen = () => {
   return (
     <View>
-      <Text>Hiiiiii</Text>
+      <Text></Text>
     </View>
   );
 };
 
-export default CreateNotes;
+export default SettingsScreen;

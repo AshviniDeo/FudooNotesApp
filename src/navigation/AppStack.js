@@ -12,36 +12,28 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Feather from 'react-native-vector-icons/Feather';
 import ArchiveScreen from '../screens/ArchiveScreen';
 import Trash from '../screens/Trash';
-import Settings from '../screens/Settings';
-import CreateNotes from '../screens/CreateNotes';
+import SettingsScreen from '../screens/SettingsScreen';
 
 export default function AppStack() {
   const Drawer = createDrawerNavigator();
   return (
-    <View style={{flex: 1, backgroundColor: 'red'}}>
+    <View style={{flex: 1}}>
       <Drawer.Navigator
-        initialRouteName="Home"
+        initialRouteName="Dashboard"
         screenOptions={{
           drawerStyle: {
-            backgroundColor: 'darkslategrey',
+            backgroundColor: 'dimgrey',
           },
           headerShown: false,
           drawerInactiveTintColor: 'white',
-        }}>
-        <Drawer.Screen
-          name="Notes"
-          component={HomeScreen}
-          options={{
-            drawerIcon: () => {
-              <Ionicon name={'bulb-outline'} size={22} />;
-            },
-          }}
-        />
+        }}
+        drawerContent={props => <CustomeDrawer {...props} />}>
+        <Drawer.Screen name="Dashboard" component={HomeScreen} />
         <Drawer.Screen name="Remainder" component={Remainder} />
         <Drawer.Screen name="Create new label" component={CreateNewLabel} />
-        <Drawer.Screen name="Archive" component={'ArchiveScreen'} />
-        <Drawer.Screen name="Trash" component={'Trash'} />
-        <Drawer.Screen name="Settings" component={'Settings'} />
+        <Drawer.Screen name="ArchiveScreen" component={ArchiveScreen} />
+        <Drawer.Screen name="Trash" component={Trash} />
+        <Drawer.Screen name="Settings" component={SettingsScreen} />
       </Drawer.Navigator>
     </View>
   );

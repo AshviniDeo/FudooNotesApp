@@ -6,31 +6,36 @@ import {
   TextInput,
   StyleSheet,
   ImageBackground,
+  TouchableOpacity,
+  Image,
 } from 'react-native';
 import {AuthContext} from '../navigation/AuthProvider';
 import Ionicon from 'react-native-vector-icons/Ionicons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import {TouchableOpacity} from 'react-native-gesture-handler';
-import {FloatingAction} from 'react-native-floating-action';
 
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
-import CreateNotes from '../screens/CreateNotes';
+import Notes from './Notes';
 
 const Remainder = ({navigation}) => {
   const {signout} = useContext(AuthContext);
   const [search, setSearch] = useState();
-  const [active, setActive] = useState(true);
-
+  const [active, setActive] = useState(false);
+  const handlePress = () => {
+    setActive(!active);
+  };
+  const toNavigate = () => {
+    navigation.navigate(Notes);
+  };
   return (
-    <View style={{flex: 1}}>
+    <View style={{flex: 1, backgroundColor: 'black', opacity: 0.9}}>
       <View
         style={{
           justifyContent: 'space-evenly',
-          backgroundColor: 'mintcream',
+          backgroundColor: 'dimgrey',
           height: '8%',
           width: '100%',
-          borderRadius: 40,
+          borderRadius: 20,
           flexDirection: 'row',
           alignContent: 'space-between',
           alignItems: 'center',
@@ -40,34 +45,45 @@ const Remainder = ({navigation}) => {
             onPress={() => {
               navigation.openDrawer();
             }}>
-            <Ionicon name={'menu'} size={28} />
+            <Ionicon name={'menu'} size={28} color={'white'} />
           </TouchableOpacity>
+        </View>
+        <View>
+          <Text style={{color: 'white'}}>Remainder</Text>
         </View>
         <View
           style={{
             justifyContent: 'center',
-            alignItems: 'flex-start',
+            alignItems: 'flex-end',
             width: '50%',
           }}>
           <TouchableOpacity
             onPress={() => {
-              setIcon(false);
+              setActive(!active);
             }}>
-            <TextInput
-              placeholder={'Search your notes'}
-              onChangeText={text => {
-                setSearch(text);
-              }}
-              value={search}
-            />
+            {active ? (
+              <TextInput
+                placeholder={'Search your notes'}
+                placeholderTextColor={'white'}
+                onChangeText={text => {
+                  setSearch(text);
+                }}
+                value={search}
+              />
+            ) : (
+              <Ionicon name="search" size={22} color="white" />
+            )}
           </TouchableOpacity>
         </View>
         <View>
-          <Pressable onPress={() => setActive(false)}>
+          <Pressable
+            onPress={() => {
+              handlePress();
+            }}>
             {active ? (
-              <FontAwesome name={'tasks'} size={30} />
+              <FontAwesome name={'tasks'} size={30} color={'white'} />
             ) : (
-              <Ionicon name={'grid'} size={30} />
+              <Ionicon name={'grid'} size={30} color={'white'} />
             )}
           </Pressable>
         </View>
@@ -76,38 +92,60 @@ const Remainder = ({navigation}) => {
         style={{
           flexDirection: {active} ? 'row' : 'column',
           height: '75%',
-        }}></View>
+        }}>
+        <View
+          style={{
+            justifyContent: 'center',
+            alignContent: 'center',
+            alignItems: 'center',
+            left: '5%',
+          }}>
+          <FontAwesome name={'bell-o'} size={100} color={'yellow'} />
+          <Text
+            style={{
+              color: 'white',
+              fontSize: 18,
+              alignItems: 'center',
+              top: 15,
+            }}>
+            Notes with upcoming remainders appear here
+          </Text>
+        </View>
+      </View>
       <TouchableOpacity
         onPress={() => {
-          navigation.navigate(CreateNotes);
+          toNavigate();
         }}>
         <View
           style={{
             left: '75%',
             shadowColor: 'white',
             shadowRadius: 50,
-            backgroundColor: 'gainsboro',
-            height: 69,
+            backgroundColor: 'dimgray',
+            height: 70,
             width: 70,
             alignContent: 'center',
             justifyContent: 'center',
             alignItems: 'center',
             borderRadius: 20,
-            borderColor: 'gray',
-            bottom: 3,
+            borderColor: 'black',
+            borderEndWidth: 6,
+            borderBottomWidth: 6,
+            opacity: 0.9,
           }}>
-          <FontAwesome5 name={'plus'} size={50} color={'darkslategrey'} />
+          <FontAwesome name={'plus'} size={35} color={'white'} />
         </View>
       </TouchableOpacity>
       <View
         style={{
           justifyContent: 'flex-start',
-          backgroundColor: 'darkslategrey',
+          backgroundColor: 'dimgray',
           height: '8%',
           width: '100%',
           alignContent: 'space-between',
           flexDirection: 'row',
           padding: 15,
+          borderRadius: 20,
         }}>
         <View
           style={{
