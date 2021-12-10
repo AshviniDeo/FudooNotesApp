@@ -23,6 +23,7 @@ const Notes = ({navigation}) => {
   }, []);
   return (
     <View style={{flex: 1, backgroundColor: 'black', opacity: 0.9}}>
+      //Header-Bar==>Start
       <View
         style={{
           justifyContent: 'flex-start',
@@ -61,7 +62,7 @@ const Notes = ({navigation}) => {
             <MaterialCommunityIcons
               name={'pin-outline'}
               size={28}
-              color={'white'}
+              color={pinned ? 'blue' : 'white'}
             />
           </TouchableOpacity>
           <TouchableOpacity
@@ -72,7 +73,7 @@ const Notes = ({navigation}) => {
               <MaterialCommunityIcons
                 name={'bell-plus-outline'}
                 size={28}
-                color={'white'}
+                color={reminder ? 'blue' : 'white'}
               />
             </View>
           </TouchableOpacity>
@@ -84,12 +85,13 @@ const Notes = ({navigation}) => {
               <MaterialCommunityIcons
                 name={'archive-arrow-down-outline'}
                 size={28}
-                color={'white'}
+                color={archive ? 'blue' : 'white'}
               />
             </View>
           </TouchableOpacity>
         </View>
       </View>
+      //Header-Bar ===>End
       <View
         style={{
           paddingLeft: 15,
@@ -137,6 +139,7 @@ const Notes = ({navigation}) => {
           </TouchableOpacity>
         </View>
       </View>
+      //Bottom-Bar ==> Start
       <View
         style={{
           justifyContent: 'flex-start',
@@ -170,6 +173,7 @@ const Notes = ({navigation}) => {
           <Feather name={'more-vertical'} size={22} color="white" />
         </View>
       </View>
+      //Bottom-Bar ==>End
     </View>
   );
 };

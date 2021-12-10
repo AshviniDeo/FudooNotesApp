@@ -7,8 +7,6 @@ import HomeScreen from '../screens/HomeScreen';
 import SignUpScreen from '../screens/SignUpScreen';
 import ForgotPasswordScreen from '../screens/ForgotPasswordScreen';
 
-import AppStack from './AppStack';
-import Notes from '../screens/Notes';
 const AuthStack = () => {
   const Stack = createStackNavigator();
   return (
@@ -31,21 +29,6 @@ const AuthStack = () => {
         name="Forgot Password"
         component={ForgotPasswordScreen}
         options={{headerTintColor: 'white'}}
-      />
-      <Stack.Screen
-        name="DrawerNavigation"
-        component={AppStack}
-        options={{headerShown: false}}
-      />
-      <Stack.Screen
-        name="Home"
-        component={HomeScreen}
-        options={{headerShown: false}}
-      />
-      <Stack.Screen
-        name="Notes"
-        component={Notes}
-        options={{headerShown: false}}
       />
     </Stack.Navigator>
   );

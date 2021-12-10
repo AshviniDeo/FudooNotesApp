@@ -103,7 +103,7 @@ const HomeScreen = ({navigation}) => {
       </View>
       <TouchableOpacity
         onPress={() => {
-          navigation.navigate(Notes);
+          navigation.navigate('Notes');
         }}>
         <View
           style={{
