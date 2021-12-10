@@ -14,6 +14,7 @@ import Ionicon from 'react-native-vector-icons/Ionicons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Notes from './Notes';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 
 const HomeScreen = ({navigation}) => {
   const {signout} = useContext(AuthContext);
@@ -52,6 +53,7 @@ const HomeScreen = ({navigation}) => {
           }}>
           <TouchableOpacity>
             <TextInput
+              style={{fontSize: 18}}
               placeholder={'Search your notes'}
               placeholderTextColor={'white'}
               onChangeText={text => {
@@ -89,7 +91,7 @@ const HomeScreen = ({navigation}) => {
             alignItems: 'center',
             left: '10%',
           }}>
-          <Ionicon name={'bulb-outline'} size={100} color={'yellow'} />
+          <Ionicon name={'bulb-outline'} size={100} color={'white'} />
           <Text
             style={{
               color: 'white',
@@ -122,7 +124,7 @@ const HomeScreen = ({navigation}) => {
             borderBottomWidth: 6,
             opacity: 0.9,
           }}>
-          <FontAwesome name={'plus'} size={35} color={'white'} />
+          <AntDesign name={'plus'} size={35} color={'white'} />
         </View>
       </TouchableOpacity>
       <View

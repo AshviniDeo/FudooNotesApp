@@ -1,10 +1,17 @@
 import React, {useState, useEffect} from 'react';
-import {View, Text, TouchableOpacity, TextInput} from 'react-native';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  TextInput,
+  KeyboardAvoidingView,
+} from 'react-native';
 import Ionicon from 'react-native-vector-icons/Ionicons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Feather from 'react-native-vector-icons/Feather';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 const Notes = ({navigation}) => {
   const [pinned, setPinned] = useState(false);
   const [reminder, setReminder] = useState(false);
@@ -23,11 +30,11 @@ const Notes = ({navigation}) => {
   }, []);
   return (
     <View style={{flex: 1, backgroundColor: 'black', opacity: 0.9}}>
-      //Header-Bar==>Start
+      {/* Header-Bar==>Start */}
       <View
         style={{
           justifyContent: 'flex-start',
-          height: '8%',
+          height: '6%',
           width: '100%',
           flexDirection: 'row',
           alignContent: 'space-between',
@@ -91,13 +98,15 @@ const Notes = ({navigation}) => {
           </TouchableOpacity>
         </View>
       </View>
-      //Header-Bar ===>End
+      {/* //Header-Bar ===>End */}
+
       <View
         style={{
           paddingLeft: 15,
           flexWrap: 'wrap',
           height: '85%',
           flexDirection: 'column',
+          paddingTop: 10,
         }}>
         <View
           style={{
@@ -139,7 +148,8 @@ const Notes = ({navigation}) => {
           </TouchableOpacity>
         </View>
       </View>
-      //Bottom-Bar ==> Start
+
+      {/* //Bottom-Bar ==> Start */}
       <View
         style={{
           justifyContent: 'flex-start',
@@ -148,7 +158,7 @@ const Notes = ({navigation}) => {
           flexDirection: 'row',
         }}>
         <View style={{justifyContent: 'flex-start', paddingLeft: 15}}>
-          <FontAwesome name={'plus-square-o'} size={22} color="white" />
+          <AntDesign name={'plus'} size={22} color="white" />
         </View>
         <View style={{justifyContent: 'flex-start', paddingLeft: 15}}>
           <Ionicon name={'color-palette-outline'} size={22} color="white" />
@@ -173,7 +183,7 @@ const Notes = ({navigation}) => {
           <Feather name={'more-vertical'} size={22} color="white" />
         </View>
       </View>
-      //Bottom-Bar ==>End
+      {/* //Bottom-Bar ==>End */}
     </View>
   );
 };

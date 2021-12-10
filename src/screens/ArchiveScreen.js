@@ -46,7 +46,9 @@ const ArchiveScreen = ({navigation}) => {
           </TouchableOpacity>
         </View>
         <View>
-          <Text style={{color: 'white'}}>Archive</Text>
+          <Text style={{color: 'white', fontSize: 20, fontWeight: 'bold'}}>
+            Archive
+          </Text>
         </View>
         <View
           style={{
@@ -68,7 +70,7 @@ const ArchiveScreen = ({navigation}) => {
                 value={search}
               />
             ) : (
-              <Ionicon name="search" size={22} color="white" />
+              <Ionicon name="search" size={23} color="white" />
             )}
           </TouchableOpacity>
         </View>
@@ -97,7 +99,7 @@ const ArchiveScreen = ({navigation}) => {
             alignItems: 'center',
             left: '10%',
           }}>
-          <FontAwesome name={'archive'} size={100} color={'yellow'} />
+          <FontAwesome name={'archive'} size={100} color={'white'} />
           <Text
             style={{
               color: 'white',

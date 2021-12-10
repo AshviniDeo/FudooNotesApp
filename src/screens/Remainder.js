@@ -12,7 +12,7 @@ import {
 import {AuthContext} from '../navigation/AuthProvider';
 import Ionicon from 'react-native-vector-icons/Ionicons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-
+import AntDesign from 'react-native-vector-icons/AntDesign';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
 import Notes from './Notes';
@@ -49,7 +49,9 @@ const Remainder = ({navigation}) => {
           </TouchableOpacity>
         </View>
         <View>
-          <Text style={{color: 'white'}}>Remainder</Text>
+          <Text style={{color: 'white', fontSize: 20, fontWeight: 'bold'}}>
+            Remainder
+          </Text>
         </View>
         <View
           style={{
@@ -88,6 +90,7 @@ const Remainder = ({navigation}) => {
           </Pressable>
         </View>
       </View>
+      {/* Header-End */}
       <View
         style={{
           flexDirection: {active} ? 'row' : 'column',
@@ -100,7 +103,7 @@ const Remainder = ({navigation}) => {
             alignItems: 'center',
             left: '5%',
           }}>
-          <FontAwesome name={'bell-o'} size={100} color={'yellow'} />
+          <FontAwesome name={'bell-o'} size={70} color={'white'} />
           <Text
             style={{
               color: 'white',
@@ -133,8 +136,9 @@ const Remainder = ({navigation}) => {
             borderBottomWidth: 6,
             opacity: 0.9,
           }}>
-          <FontAwesome name={'plus'} size={35} color={'white'} />
+          <AntDesign name={'plus'} size={35} color={'white'} />
         </View>
+        {/* Bottom-Bar Start */}
       </TouchableOpacity>
       <View
         style={{

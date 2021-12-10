@@ -29,7 +29,15 @@ const Trash = ({navigation}) => {
           </TouchableOpacity>
         </View>
         <View>
-          <Text style={{color: 'white', fontSize: 20, left: 25}}>Trash</Text>
+          <Text
+            style={{
+              color: 'white',
+              fontSize: 20,
+              left: 25,
+              fontWeight: 'bold',
+            }}>
+            Trash
+          </Text>
         </View>
       </View>
       <View
@@ -45,7 +53,7 @@ const Trash = ({navigation}) => {
             alignSelf: 'center',
             left: '15%',
           }}>
-          <FontAwesome name={'trash'} size={100} color={'yellow'} />
+          <FontAwesome name={'trash'} size={100} color={'white'} />
           <Text
             style={{
               color: 'white',

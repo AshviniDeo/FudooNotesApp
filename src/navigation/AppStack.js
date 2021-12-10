@@ -50,7 +50,7 @@ export default AppStack = () => {
       <Stack.Screen
         name="Notes"
         component={Notes}
-        options={{headerTintColor: 'white'}}
+        options={{headerShown: false}}
       />
     </Stack.Navigator>
   );
