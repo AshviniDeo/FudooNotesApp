@@ -39,7 +39,7 @@ function AppDrawer() {
     </Drawer.Navigator>
   );
 }
-export default AppStack = () => {
+export const AppStack = () => {
   const Stack = createStackNavigator();
   return (
     <Stack.Navigator initialRouteName="AppDrawer">

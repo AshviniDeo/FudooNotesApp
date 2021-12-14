@@ -3,7 +3,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import AuthStack from './AuthStack';
 import auth from '@react-native-firebase/auth';
 import {AuthContext} from './AuthProvider';
-import AppStack from './AppStack';
+import {AppStack} from './AppStack';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import SplashScreen from '../screens/SplashScreen';
 
