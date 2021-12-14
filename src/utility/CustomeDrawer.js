@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {View, Text, TouchableOpacity, StyleSheet, Settings} from 'react-native';
 import {
   DrawerContentScrollView,
@@ -8,13 +8,20 @@ import {
 import Ionicon from 'react-native-vector-icons/Ionicons';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import HomeScreen from '../screens/HomeScreen';
 import Remainder from '../screens/Remainder';
 import CreateNewLabel from '../screens/CreateNewLabel';
 import ArchiveScreen from '../screens/ArchiveScreen';
 import Trash from '../screens/Trash';
 import SettingsScreen from '../screens/SettingsScreen';
+import {AuthContext} from '../navigation/AuthProvider';
+import AuthStack from '../navigation/AuthStack';
+import WelcomeScreen from '../screens/WelcomeScreen';
+
 const CustomeDrawer = ({navigation, props}) => {
+  const {signout} = useContext(AuthContext);
+
   return (
     <DrawerContentScrollView {...props} contentContainerStyle={{}}>
       <View style={{flex: 1, paddingTop: 10}}>
@@ -84,6 +91,17 @@ const CustomeDrawer = ({navigation, props}) => {
             <View style={styles.view}>
               <Ionicon name="settings-outline" size={22} color={'white'} />
               <Text style={styles.text}>Settings</Text>
+            </View>
+          </TouchableOpacity>
+        </View>
+        <View>
+          <TouchableOpacity
+            onPress={() => {
+              signout();
+            }}>
+            <View style={[styles.view, {justifyContent: 'center'}]}>
+              <MaterialCommunityIcons name="logout" size={22} color={'white'} />
+              <Text style={styles.text}>Logout</Text>
             </View>
           </TouchableOpacity>
         </View>

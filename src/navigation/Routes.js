@@ -5,29 +5,39 @@ import auth from '@react-native-firebase/auth';
 import {AuthContext} from './AuthProvider';
 import AppStack from './AppStack';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import SplashScreen from '../screens/SplashScreen';
 
 const Routes = () => {
-  const {user, setUser} = useContext(AuthContext);
+  const {signIn, setSignIn} = useContext(AuthContext);
   const {initialize, setInitialize} = useState(true);
+  const [id, setId] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
+  const getUid = React.useCallback(async () => {
+    const val = await AsyncStorage.getItem('uid');
+    setId(val);
+    if (val) setSignIn(true);
+    setIsLoading(false);
+  }, [setSignIn]);
+
   const onAuthStateChanged = user => {
-    setUser(user);
+    // setUser(user);
     if (initialize) setInitialize(false);
   };
 
   useEffect(() => {
-    const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
-    return subscriber;
-  }, []);
+    // const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
+    getUid();
+    // return subscriber;
+  }, [getUid]);
 
-  if (initialize) return null;
-  const getUid = async () => {
-    return await AsyncStorage.getItem('uid');
-  };
-  const id = getUid();
+  // if (initialize) return null;
+  if (isLoading) return <SplashScreen />;
+  console.log('----' + id);
 
   return (
     <NavigationContainer>
-      {id === null ? <AuthStack /> : <AppStack />}
+      {!signIn ? <AuthStack /> : <AppStack />}
+      {/* <AuthStack /> */}
     </NavigationContainer>
   );
 };

@@ -14,6 +14,7 @@ import ArchiveScreen from '../screens/ArchiveScreen';
 import Trash from '../screens/Trash';
 import SettingsScreen from '../screens/SettingsScreen';
 import {createStackNavigator} from '@react-navigation/stack';
+import WelcomeScreen from '../screens/WelcomeScreen';
 
 function AppDrawer() {
   const Drawer = createDrawerNavigator();
@@ -41,7 +42,7 @@ function AppDrawer() {
 export default AppStack = () => {
   const Stack = createStackNavigator();
   return (
-    <Stack.Navigator>
+    <Stack.Navigator initialRouteName="AppDrawer">
       <Stack.Screen
         name="AppDrawer"
         component={AppDrawer}

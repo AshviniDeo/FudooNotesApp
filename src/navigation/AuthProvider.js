@@ -1,27 +1,31 @@
 import React, {createContext, useState} from 'react';
-import auth, {firebase} from '@react-native-firebase/auth';
+import auth from '@react-native-firebase/auth';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import firestore from '@react-native-firebase/firestore';
 
 export const AuthContext = createContext();
 
 export const AuthProvider = ({children}) => {
-  const db = firebase.firestore();
-  const [user, setUser] = useState(null);
+  const [signIn, setSignIn] = useState(false);
+  const db = firestore();
+
+  const getUid = async () => {
+    return await AsyncStorage.getItem('uid');
+  };
+
   return (
     <AuthContext.Provider
       value={{
-        user,
-        setUser,
-        login: async (email, password, callback, errorCallback) => {
+        signIn,
+        setSignIn,
+        login: async (email, password, errorCallback) => {
           try {
             const userData = await auth().signInWithEmailAndPassword(
               email,
               password,
             );
             await AsyncStorage.setItem('uid', userData.user.uid);
-
-            callback();
+            setSignIn(true);
           } catch (e) {
             console.log(e.code);
             errorCallback(e.code);
@@ -41,10 +45,11 @@ export const AuthProvider = ({children}) => {
               email,
               password,
             );
-            db.collection('PersonDetails').doc(userDetails.user.uid).set({
+            db.collection('PersonalDetails').doc(userDetails.user.uid).set({
               PhoneNumber: phone,
               DateOfBirth: dateOfBirth,
               UserName: userName,
+              Email: email,
             });
             callback();
           } catch (e) {
@@ -56,10 +61,13 @@ export const AuthProvider = ({children}) => {
           try {
             await auth().signOut();
             await AsyncStorage.removeItem('uid');
+            setSignIn(false);
           } catch (e) {
             console.log(e);
           }
         },
+
+        fetchNoteData: async () => {},
       }}>
       {children}
     </AuthContext.Provider>

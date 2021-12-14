@@ -38,9 +38,7 @@ export default function WelcomeScreen({navigation}) {
     setError(temp);
     return valid;
   };
-  const toNavigateHome = () => {
-    navigation.navigate({name: 'Home'});
-  };
+
   const setCatchError = code => {
     const temp = {};
     if (code === 'auth/user-not-found') {
@@ -50,11 +48,16 @@ export default function WelcomeScreen({navigation}) {
     if (code === 'auth/wrong-password') {
       temp['password'] = 'Invalid Password';
     }
+
+    if (code === 'auth/user-not-found') {
+      temp['userName'] = 'User not Found';
+    }
+
     setError(temp);
   };
   const onSignIn = () => {
     if (validation()) {
-      login(userName, password, toNavigateHome, setCatchError);
+      login(userName, password, setCatchError);
     }
   };
   const onSignUp = () => {

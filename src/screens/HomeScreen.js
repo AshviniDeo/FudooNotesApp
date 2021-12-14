@@ -17,7 +17,7 @@ import Notes from './Notes';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 
 const HomeScreen = ({navigation}) => {
-  const {signout} = useContext(AuthContext);
+  const {signout, fetchNoteData} = useContext(AuthContext);
   const [search, setSearch] = useState();
   const [active, setActive] = useState(false);
   const handlePress = () => {

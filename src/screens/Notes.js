@@ -12,13 +12,16 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Feather from 'react-native-vector-icons/Feather';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import {createnote} from '../navigation/NoteServices';
+
 const Notes = ({navigation}) => {
   const [pinned, setPinned] = useState(false);
-  const [reminder, setReminder] = useState(false);
+  const [reminder, setReminder] = useState('');
   const [archive, setArchive] = useState(false);
   const [title, setTitle] = useState('');
   const [note, setNote] = useState('');
   const [currentDate, setCurrentDate] = useState('');
+
   useEffect(() => {
     var date = new Date().getDate(); //Current Date
     var month = new Date().getMonth() + 1; //Current Month
@@ -28,6 +31,12 @@ const Notes = ({navigation}) => {
 
     setCurrentDate(date + '/' + month + '/' + year + ' ' + hours + ':' + min);
   }, []);
+  const toNavigateDashboard = () => {
+    navigation.navigate('Dashboard');
+  };
+  const handlePress = () => {
+    createnote(title, note, pinned, archive, reminder, toNavigateDashboard);
+  };
   return (
     <View style={{flex: 1, backgroundColor: 'black', opacity: 0.9}}>
       {/* Header-Bar==>Start */}
@@ -49,7 +58,7 @@ const Notes = ({navigation}) => {
           }}>
           <TouchableOpacity
             onPress={() => {
-              navigation.goBack();
+              handlePress();
             }}>
             <Ionicon name={'arrow-back'} size={28} color={'white'} />
           </TouchableOpacity>
@@ -74,7 +83,9 @@ const Notes = ({navigation}) => {
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => {
-              setReminder(!reminder);
+              setReminder(prev => {
+                return reminder;
+              });
             }}>
             <View style={{paddingLeft: 15}}>
               <MaterialCommunityIcons
@@ -86,7 +97,9 @@ const Notes = ({navigation}) => {
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => {
-              setArchive(!archive);
+              setArchive(prev => {
+                return !archive;
+              });
             }}>
             <View style={{paddingLeft: 15}}>
               <MaterialCommunityIcons
@@ -117,7 +130,7 @@ const Notes = ({navigation}) => {
           }}>
           <TouchableOpacity>
             <TextInput
-              style={{fontSize: 22}}
+              style={{fontSize: 22, color: 'white'}}
               placeholder={'Title'}
               placeholderTextColor="white"
               onChangeText={text => {
@@ -135,7 +148,7 @@ const Notes = ({navigation}) => {
           }}>
           <TouchableOpacity>
             <TextInput
-              style={{fontSize: 16}}
+              style={{fontSize: 16, color: 'white'}}
               placeholder={'Note'}
               placeholderTextColor="white"
               onChangeText={text => {

@@ -6,6 +6,7 @@ import WelcomeScreen from '../screens/WelcomeScreen';
 import HomeScreen from '../screens/HomeScreen';
 import SignUpScreen from '../screens/SignUpScreen';
 import ForgotPasswordScreen from '../screens/ForgotPasswordScreen';
+import AppStack from './AppStack';
 
 const AuthStack = () => {
   const Stack = createStackNavigator();
@@ -15,7 +16,7 @@ const AuthStack = () => {
         headerStyle: {backgroundColor: 'darkslategrey'},
       }}>
       <Stack.Screen
-        name="Welcome"
+        name="WelcomeScreen"
         component={WelcomeScreen}
         options={{headerShown: false}}
       />
