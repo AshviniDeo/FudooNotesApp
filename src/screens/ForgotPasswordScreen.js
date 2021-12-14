@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, Text, ImageBackground} from 'react-native';
+import {View, ImageBackground} from 'react-native';
 import TextBox from '../utility/TextBox';
 import {styles} from '../utility/StyleSheet';
 import MyButton from '../utility/MyButton';
@@ -9,7 +9,7 @@ export default function ForgotPasswordScreen() {
   const getPassword = () => {
     const temp = {};
     if (!email) {
-      temp['email'] = 'Enter Valid Email Id';
+      temp.email = 'Enter Valid Email Id';
       setError(temp);
     }
   };

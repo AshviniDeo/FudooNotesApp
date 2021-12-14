@@ -4,16 +4,12 @@ import {
   Text,
   ImageBackground,
   Image,
-  StyleSheet,
   TouchableOpacity,
 } from 'react-native';
 
 import MyButton from '../utility/MyButton';
 import {styles} from '../utility/StyleSheet';
 import TextBox from '../utility/TextBox';
-import HomeScreen from './HomeScreen';
-import SignUpScreen from './SignUpScreen';
-import ForgotPasswordScreen from './ForgotPasswordScreen';
 import KeyboardAvoidingView from 'react-native/Libraries/Components/Keyboard/KeyboardAvoidingView';
 import {AuthContext} from '../navigation/AuthProvider';
 
@@ -23,17 +19,17 @@ export default function WelcomeScreen({navigation}) {
   const [password, setPassword] = useState('');
   const [error, setError] = useState({});
 
-  const {user, login} = useContext(AuthContext);
+  const {login} = useContext(AuthContext);
   const validation = () => {
     let valid = true;
     const temp = {};
     if (!userName) {
       valid = false;
-      temp['userName'] = 'Enter Valid Username';
+      temp.userName = 'Enter Valid Username';
     }
     if (!password) {
       valid = false;
-      temp['password'] = 'Enter Valid Password';
+      temp.password = 'Enter Valid Password';
     }
     setError(temp);
     return valid;
@@ -42,15 +38,15 @@ export default function WelcomeScreen({navigation}) {
   const setCatchError = code => {
     const temp = {};
     if (code === 'auth/user-not-found') {
-      temp['userName'] = 'Invalid Email';
+      temp.userName = 'Invalid Email';
     }
 
     if (code === 'auth/wrong-password') {
-      temp['password'] = 'Invalid Password';
+      temp.password = 'Invalid Password';
     }
 
     if (code === 'auth/user-not-found') {
-      temp['userName'] = 'User not Found';
+      temp.userName = 'User not Found';
     }
 
     setError(temp);

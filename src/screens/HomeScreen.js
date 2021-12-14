@@ -1,23 +1,18 @@
-import React, {useContext, useState} from 'react';
+import React, {useState} from 'react';
 import {
   View,
   Text,
   Pressable,
   TextInput,
   StyleSheet,
-  ImageBackground,
   TouchableOpacity,
-  Image,
 } from 'react-native';
-import {AuthContext} from '../navigation/AuthProvider';
+
 import Ionicon from 'react-native-vector-icons/Ionicons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-import Notes from './Notes';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 
 const HomeScreen = ({navigation}) => {
-  const {signout, fetchNoteData} = useContext(AuthContext);
   const [search, setSearch] = useState();
   const [active, setActive] = useState(false);
   const handlePress = () => {

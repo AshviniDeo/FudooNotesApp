@@ -9,10 +9,6 @@ export const AuthProvider = ({children}) => {
   const [signIn, setSignIn] = useState(false);
   const db = firestore();
 
-  const getUid = async () => {
-    return await AsyncStorage.getItem('uid');
-  };
-
   return (
     <AuthContext.Provider
       value={{
@@ -66,8 +62,6 @@ export const AuthProvider = ({children}) => {
             console.log(e);
           }
         },
-
-        fetchNoteData: async () => {},
       }}>
       {children}
     </AuthContext.Provider>

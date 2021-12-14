@@ -1,19 +1,8 @@
-import React, {useContext, useState} from 'react';
-import {
-  View,
-  Text,
-  Pressable,
-  TextInput,
-  StyleSheet,
-  ImageBackground,
-  TouchableOpacity,
-  Image,
-} from 'react-native';
-import {AuthContext} from '../navigation/AuthProvider';
+import React, {useState} from 'react';
+import {View, Text, Pressable, TextInput, TouchableOpacity} from 'react-native';
+
 import Ionicon from 'react-native-vector-icons/Ionicons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-
-import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
 const ArchiveScreen = ({navigation}) => {
   const [search, setSearch] = useState();
@@ -21,9 +10,7 @@ const ArchiveScreen = ({navigation}) => {
   const handlePress = () => {
     setActive(!active);
   };
-  const toNavigate = () => {
-    navigation.navigate(Notes);
-  };
+
   return (
     <View style={{flex: 1, backgroundColor: 'black', opacity: 0.9}}>
       <View

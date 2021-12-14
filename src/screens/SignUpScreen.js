@@ -1,7 +1,6 @@
 import React, {useContext, useState} from 'react';
 import {
   View,
-  Text,
   ImageBackground,
   ScrollView,
   KeyboardAvoidingView,
@@ -22,43 +21,43 @@ export default function SignUpScreen({navigation}) {
 
   const {register} = useContext(AuthContext);
   const validation = () => {
-    const emailRegx = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+    const emailRegx = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
 
     let valid = true;
     const temp = {};
     if (!userName) {
       valid = false;
-      temp['userName'] = 'Enter Username (mandatory)*';
+      temp.userName = 'Enter Username (mandatory)*';
     }
 
     if (!email) {
       valid = false;
-      temp['email'] = 'Enter Email (mandatory)*';
+      temp.email = 'Enter Email (mandatory)*';
     }
     if (!emailRegx.test(email)) {
       valid = false;
-      temp['email'] = 'Enter valid EmailID';
+      temp.email = 'Enter valid EmailID';
     }
     if (!phone) {
       valid = false;
-      temp['phone'] = 'Enter Phone Number (mandatory)*';
+      temp.phone = 'Enter Phone Number (mandatory)*';
     }
 
     if (!dateOfBirth) {
       valid = false;
-      temp['dateOfBirth'] = 'Enter Date of Birth (mandatory)*';
+      temp.dateOfBirth = 'Enter Date of Birth (mandatory)*';
     }
     if (!password) {
       valid = false;
-      temp['password'] = 'Enter Password (mandatory)*';
+      temp.password = 'Enter Password (mandatory)*';
     }
     if (!confirmPassword) {
       valid = false;
-      temp['confirmPassword'] = 'Enter Confirm Password (mandatory)*';
+      temp.confirmPassword = 'Enter Confirm Password (mandatory)*';
     }
-    if (confirmPassword != password) {
+    if (confirmPassword !== password) {
       valid = false;
-      temp['confirmPassword'] = 'Do not match Password ';
+      temp.confirmPassword = 'Do not match Password ';
     }
     setError(temp);
     return valid;
@@ -70,7 +69,7 @@ export default function SignUpScreen({navigation}) {
   const setCatchError = code => {
     const temp = {};
     if (code === 'auth/email-already-in-use') {
-      temp['email'] = 'Email alredy in used';
+      temp.email = 'Email alredy in used';
     }
     setError(temp);
   };

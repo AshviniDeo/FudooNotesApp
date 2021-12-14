@@ -1,14 +1,7 @@
 import React, {useState, useEffect} from 'react';
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  TextInput,
-  KeyboardAvoidingView,
-} from 'react-native';
+import {View, Text, TouchableOpacity, TextInput} from 'react-native';
 import Ionicon from 'react-native-vector-icons/Ionicons';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Feather from 'react-native-vector-icons/Feather';
 import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -63,7 +56,7 @@ const Notes = ({navigation}) => {
             <Ionicon name={'arrow-back'} size={28} color={'white'} />
           </TouchableOpacity>
         </View>
-        <View style={{width: '55%'}}></View>
+        <View style={{width: '55%'}} />
         <View
           style={{
             alignItems: 'flex-end',

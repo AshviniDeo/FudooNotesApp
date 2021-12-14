@@ -1,23 +1,11 @@
 import React, {useContext} from 'react';
-import {View, Text, TouchableOpacity, StyleSheet, Settings} from 'react-native';
-import {
-  DrawerContentScrollView,
-  DrawerItemList,
-  DrawerItem,
-} from '@react-navigation/drawer';
+import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
+import {DrawerContentScrollView} from '@react-navigation/drawer';
 import Ionicon from 'react-native-vector-icons/Ionicons';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import HomeScreen from '../screens/HomeScreen';
-import Remainder from '../screens/Remainder';
-import CreateNewLabel from '../screens/CreateNewLabel';
-import ArchiveScreen from '../screens/ArchiveScreen';
-import Trash from '../screens/Trash';
-import SettingsScreen from '../screens/SettingsScreen';
 import {AuthContext} from '../navigation/AuthProvider';
-import AuthStack from '../navigation/AuthStack';
-import WelcomeScreen from '../screens/WelcomeScreen';
 
 const CustomeDrawer = ({navigation, props}) => {
   const {signout} = useContext(AuthContext);
@@ -42,7 +30,7 @@ const CustomeDrawer = ({navigation, props}) => {
         <View>
           <TouchableOpacity
             onPress={() => {
-              navigation.navigate(Remainder);
+              navigation.navigate('Remainder');
             }}>
             <View style={styles.view}>
               <FontAwesome name="bell-o" size={22} color={'white'} />
