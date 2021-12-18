@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
   card: {
     padding: 20,
     backgroundColor: 'gray',
-    borderWidth: 1,
+    borderWidth: 1.5,
     borderColor: 'white',
     borderRadius: 20,
     justifyContent: 'center',

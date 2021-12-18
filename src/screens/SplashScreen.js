@@ -1,17 +1,12 @@
 import React from 'react';
-import {View, Text} from 'react-native';
+import {Text, ImageBackground} from 'react-native';
+import {styles} from '../utility/StyleSheet';
 
 const SplashScreen = () => {
   return (
-    <View
-      style={{
-        flex: 1,
-        justifyContent: 'center',
-        alignContent: 'center',
-        backgroundColor: 'gold',
-      }}>
-      <Text>Loading....</Text>
-    </View>
+    <ImageBackground style={{flex: 1}} source={require('../assets/Splash.jpg')}>
+      <Text style={styles.middleText}>Loading...</Text>
+    </ImageBackground>
   );
 };
 

@@ -6,6 +6,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import Feather from 'react-native-vector-icons/Feather';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {createnote} from '../navigation/NoteServices';
+import {styles} from '../utility/StyleSheet';
 
 const Notes = ({navigation}) => {
   const [pinned, setPinned] = useState(false);
@@ -33,16 +34,7 @@ const Notes = ({navigation}) => {
   return (
     <View style={{flex: 1, backgroundColor: 'black', opacity: 0.9}}>
       {/* Header-Bar==>Start */}
-      <View
-        style={{
-          justifyContent: 'flex-start',
-          height: '6%',
-          width: '100%',
-          flexDirection: 'row',
-          alignContent: 'space-between',
-          alignItems: 'center',
-          left: 15,
-        }}>
+      <View style={styles.noteBar}>
         <View
           style={{
             alignItems: 'flex-start',
@@ -112,16 +104,14 @@ const Notes = ({navigation}) => {
         style={{
           paddingLeft: 15,
           flexWrap: 'wrap',
-          height: '85%',
-          flexDirection: 'column',
-          paddingTop: 10,
+          flex: 3,
         }}>
         <View
           style={{
             height: '10%',
             alignContent: 'center',
             flexWrap: 'wrap',
-            width: '100%',
+            width: '90%',
           }}>
           <TouchableOpacity>
             <TextInput

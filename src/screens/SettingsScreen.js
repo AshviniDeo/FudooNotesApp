@@ -1,14 +1,22 @@
 import React from 'react';
-import {View, Text, Dimensions} from 'react-native';
+import {View, TouchableOpacity, Text} from 'react-native';
+import {styles} from '../utility/StyleSheet';
+import Ionicon from 'react-native-vector-icons/Ionicons';
 
-const SettingsScreen = () => {
-  const windowWidth = Dimensions.get('window').width;
-  const windowHeight = Dimensions.get('window').height;
-  console.log('Height : ', windowHeight);
-  console.log('Width', windowWidth);
+const SettingsScreen = ({navigation}) => {
   return (
-    <View>
-      <Text>Settings</Text>
+    <View style={styles.background}>
+      <View style={{flexDirection: 'row', left: 10, top: 10}}>
+        <View>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.openDrawer();
+            }}>
+            <Ionicon name={'menu'} size={28} color={'white'} />
+          </TouchableOpacity>
+        </View>
+        <Text style={styles.title}>Settings</Text>
+      </View>
     </View>
   );
 };

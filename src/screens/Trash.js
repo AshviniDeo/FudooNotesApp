@@ -2,23 +2,14 @@ import React, {useState} from 'react';
 import {View, Text, TouchableOpacity} from 'react-native';
 import Ionicon from 'react-native-vector-icons/Ionicons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import {styles} from '../utility/StyleSheet';
 
 const Trash = ({navigation}) => {
   const [active, setActive] = useState(false);
   return (
-    <View style={{flex: 1, backgroundColor: 'black', opacity: 0.9}}>
-      <View
-        style={{
-          justifyContent: 'flex-start',
-          backgroundColor: 'dimgrey',
-          height: '8%',
-          width: '100%',
-          borderRadius: 20,
-          flexDirection: 'row',
-          alignContent: 'space-between',
-          alignItems: 'center',
-        }}>
-        <View style={{alignItems: 'flex-start', left: 15}}>
+    <View style={styles.background}>
+      <View style={styles.trashBar}>
+        <View>
           <TouchableOpacity
             onPress={() => {
               navigation.openDrawer();
