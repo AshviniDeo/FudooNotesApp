@@ -28,7 +28,7 @@ const Notes = ({navigation}) => {
     navigation.navigate('Dashboard');
   };
   const handlePress = () => {
-    createnote(title, note, pinned, archive, reminder, toNavigateDashboard);
+    createnote(title, note, archive, pinned, reminder, toNavigateDashboard);
   };
   return (
     <View style={{flex: 1, backgroundColor: 'black', opacity: 0.9}}>
@@ -66,7 +66,9 @@ const Notes = ({navigation}) => {
           }}>
           <TouchableOpacity
             onPress={() => {
-              setPinned(!pinned);
+              setPinned(prev => {
+                return !pinned;
+              });
             }}>
             <MaterialCommunityIcons
               name={'pin-outline'}

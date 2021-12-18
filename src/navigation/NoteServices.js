@@ -11,7 +11,6 @@ export const createnote = async (
   Archive,
   Pinned,
   Remainder,
-  Trash,
   callback,
 ) => {
   try {
@@ -28,4 +27,48 @@ export const createnote = async (
   } catch (error) {
     console.log(error.code);
   }
+};
+
+export const fetchNoteData = async () => {
+  const arr = [];
+  const uid = await getUid();
+  return firestore()
+    .collection('PersonalDetails')
+    .doc(uid)
+    .collection('Notes')
+    .where('Archive', '!=', true)
+    .get()
+    .then(noteData => {
+      console.log('Total size:' + noteData.size);
+      noteData.forEach(note => {
+        const docData = note.data();
+        docData.noteId = note.id;
+        arr.push(docData);
+        console.log(arr);
+      });
+
+      return arr;
+    });
+};
+
+export const fetchArchiveData = async () => {
+  const arr = [];
+  const uid = await getUid();
+  return firestore()
+    .collection('PersonalDetails')
+    .doc(uid)
+    .collection('Notes')
+    .where('Archive', '==', true)
+    .get()
+    .then(noteData => {
+      console.log('Total size:' + noteData.size);
+      noteData.forEach(note => {
+        const docData = note.data();
+        docData.noteId = note.id;
+        arr.push(docData);
+        console.log(arr);
+      });
+
+      return arr;
+    });
 };

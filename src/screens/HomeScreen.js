@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   View,
   Text,
@@ -6,19 +6,36 @@ import {
   TextInput,
   StyleSheet,
   TouchableOpacity,
+  FlatList,
 } from 'react-native';
 
 import Ionicon from 'react-native-vector-icons/Ionicons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import {fetchNoteData} from '../navigation/NoteServices';
+import NoteCard from '../screens/NoteCard';
 
 const HomeScreen = ({navigation}) => {
   const [search, setSearch] = useState();
   const [active, setActive] = useState(false);
+  const [noteData, setNoteData] = useState([]);
   const handlePress = () => {
     setActive(!active);
   };
 
+  const fetchData = async () => {
+    let data = await fetchNoteData();
+    setNoteData(data);
+    console.log('===data ===');
+  };
+
+  useEffect(() => {
+    const unsubscribe = navigation.addListener('focus', () => {
+      fetchData();
+    });
+    return unsubscribe;
+  }, [navigation]);
+  console.log('NoteDatta=====>', noteData);
   return (
     <View style={{flex: 1, backgroundColor: 'black', opacity: 0.9}}>
       <View
@@ -31,6 +48,8 @@ const HomeScreen = ({navigation}) => {
           flexDirection: 'row',
           alignContent: 'space-between',
           alignItems: 'center',
+          paddingLeft: 10,
+          paddingRight: 10,
         }}>
         <View style={{alignItems: 'flex-start'}}>
           <TouchableOpacity
@@ -76,28 +95,89 @@ const HomeScreen = ({navigation}) => {
       </View>
       <View
         style={{
-          flexDirection: {active} ? 'row' : 'column',
           height: '75%',
         }}>
-        <View
-          style={{
-            justifyContent: 'center',
-            alignContent: 'center',
-            alignItems: 'center',
-            left: '10%',
-          }}>
-          <Ionicon name={'bulb-outline'} size={100} color={'white'} />
-          <Text
+        {noteData.length === 0 ? (
+          <View
             style={{
-              color: 'white',
-              fontSize: 20,
+              flex: 1,
+              justifyContent: 'center',
+              alignContent: 'center',
               alignItems: 'center',
-              top: 10,
+              left: '3%',
             }}>
-            Notes you added appear here
-          </Text>
-        </View>
+            <Ionicon name={'bulb-outline'} size={100} color={'white'} />
+            <Text
+              style={{
+                color: 'white',
+                fontSize: 20,
+                alignItems: 'center',
+                top: 10,
+              }}>
+              Notes you added appear here
+            </Text>
+          </View>
+        ) : (
+          <View style={{justifyContent: 'center', alignContent: 'center'}}>
+            <Text
+              style={{
+                color: 'white',
+                paddingLeft: 20,
+                paddingTop: 10,
+                fontSize: 16,
+              }}>
+              Pinned:
+            </Text>
+            <View>
+              <FlatList
+                data={noteData}
+                renderItem={({item}) =>
+                  item.Pinned === true ? (
+                    <TouchableOpacity
+                      onPress={() => {
+                        navigation.navigate('Notes', {
+                          editData: item,
+                          editId: item.id,
+                        });
+                      }}>
+                      <NoteCard {...item} />
+                    </TouchableOpacity>
+                  ) : null
+                }
+                numColumns={!active ? 1 : 2}
+              />
+            </View>
+
+            <Text
+              style={{
+                color: 'white',
+                paddingLeft: 20,
+                paddingTop: 10,
+                fontSize: 16,
+              }}>
+              Others:
+            </Text>
+            <FlatList
+              data={noteData}
+              renderItem={({item}) =>
+                item.Pinned === false ? (
+                  <TouchableOpacity
+                    onPress={() => {
+                      navigation.navigate('Notes', {
+                        editData: item,
+                        editId: item.id,
+                      });
+                    }}>
+                    <NoteCard {...item} />
+                  </TouchableOpacity>
+                ) : null
+              }
+              numColumns={!active ? 1 : 2}
+            />
+          </View>
+        )}
       </View>
+
       <TouchableOpacity
         onPress={() => {
           navigation.navigate('Notes');

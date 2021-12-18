@@ -1,4 +1,4 @@
-import React, {useState, useContext, useEffect} from 'react';
+import React, {useState, useContext, useEffect, useCallback} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import AuthStack from './AuthStack';
 import {AuthContext} from './AuthProvider';
@@ -10,7 +10,7 @@ const Routes = () => {
   const {signIn, setSignIn} = useContext(AuthContext);
   const [, setId] = useState('');
   const [isLoading, setIsLoading] = useState(true);
-  const getUid = React.useCallback(async () => {
+  const getUid = useCallback(async () => {
     const val = await AsyncStorage.getItem('uid');
     setId(val);
     if (val) {

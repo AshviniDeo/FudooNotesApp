@@ -1,15 +1,36 @@
-import React, {useState} from 'react';
-import {View, Text, Pressable, TextInput, TouchableOpacity} from 'react-native';
-
+import React, {useState, useEffect} from 'react';
+import {
+  View,
+  Text,
+  Pressable,
+  TextInput,
+  TouchableOpacity,
+  FlatList,
+} from 'react-native';
+import NoteCard from './NoteCard';
 import Ionicon from 'react-native-vector-icons/Ionicons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import {fetchArchiveData} from '../navigation/NoteServices';
 
 const ArchiveScreen = ({navigation}) => {
   const [search, setSearch] = useState();
   const [active, setActive] = useState(false);
+  const [noteData, setNoteData] = useState([]);
   const handlePress = () => {
     setActive(!active);
   };
+  const fetchData = async () => {
+    let data = await fetchArchiveData();
+    setNoteData(data);
+    console.log('===data ===');
+  };
+
+  useEffect(() => {
+    const unsubscribe = navigation.addListener('focus', () => {
+      fetchData();
+    });
+    return unsubscribe;
+  }, [navigation]);
 
   return (
     <View style={{flex: 1, backgroundColor: 'black', opacity: 0.9}}>
@@ -76,27 +97,57 @@ const ArchiveScreen = ({navigation}) => {
       </View>
       <View
         style={{
-          flexDirection: {active} ? 'row' : 'column',
           height: '85%',
+          width: '90%',
         }}>
-        <View
-          style={{
-            justifyContent: 'center',
-            alignContent: 'center',
-            alignItems: 'center',
-            left: '10%',
-          }}>
-          <FontAwesome name={'archive'} size={100} color={'white'} />
-          <Text
+        {noteData.length === 0 ? (
+          <View
             style={{
-              color: 'white',
-              fontSize: 18,
+              justifyContent: 'center',
+              alignContent: 'center',
               alignItems: 'center',
-              top: 15,
+              left: '10%',
+              top: '40%',
             }}>
-            Your achived notes appear here
-          </Text>
-        </View>
+            <FontAwesome name={'archive'} size={100} color={'white'} />
+            <Text
+              style={{
+                color: 'white',
+                fontSize: 18,
+                alignItems: 'center',
+                top: 15,
+              }}>
+              Your achived notes appear here
+            </Text>
+          </View>
+        ) : (
+          <View
+            style={{
+              justifyContent: 'center',
+              alignContent: 'center',
+              alignItems: 'center',
+              left: '5%',
+            }}>
+            <FlatList
+              style={{
+                width: '100%',
+              }}
+              data={noteData}
+              renderItem={({item}) => (
+                <TouchableOpacity
+                  onPress={() => {
+                    navigation.navigate('Notes', {
+                      editData: item,
+                      editId: item.id,
+                    });
+                  }}>
+                  <NoteCard {...item} />
+                </TouchableOpacity>
+              )}
+              numColumns={!active ? 1 : 2}
+            />
+          </View>
+        )}
       </View>
     </View>
   );
