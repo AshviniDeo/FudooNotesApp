@@ -1,14 +1,28 @@
-import React, {useContext} from 'react';
-import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
+import React, {useContext, useState, useEffect} from 'react';
+import {View, Text, TouchableOpacity, StyleSheet, FlatList} from 'react-native';
 import {DrawerContentScrollView} from '@react-navigation/drawer';
 import Ionicon from 'react-native-vector-icons/Ionicons';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {AuthContext} from '../navigation/AuthProvider';
+import {fetchLabels} from '../navigation/LabelServices';
+import Label from './Label';
 
 const CustomeDrawer = ({navigation, props}) => {
   const {signout} = useContext(AuthContext);
+  const [labelData, setLabelData] = useState([]);
+  const fetchData = async () => {
+    let data = await fetchLabels();
+    setLabelData(data);
+  };
+
+  useEffect(() => {
+    const unsubscribe = navigation.addListener('focus', () => {
+      fetchData();
+    });
+    return unsubscribe;
+  }, [navigation]);
 
   return (
     <DrawerContentScrollView {...props} contentContainerStyle={{}}>
@@ -49,6 +63,39 @@ const CustomeDrawer = ({navigation, props}) => {
             </View>
           </TouchableOpacity>
         </View>
+        {labelData.length === 0 ? null : (
+          <View>
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate('Create new label');
+              }}>
+              <View style={{flexDirection: 'column', top: 5, left: 10}}>
+                <Text
+                  style={{color: 'white', fontSize: 14, fontWeight: 'bold'}}>
+                  Labels:
+                </Text>
+                <View>
+                  <FlatList
+                    data={labelData}
+                    renderItem={({item}) =>
+                      labelData.length !== 0 ? (
+                        <TouchableOpacity
+                          onPress={() => {
+                            navigation.navigate('Create new label', {
+                              editData: item,
+                              editId: item.id,
+                            });
+                          }}>
+                          <Label {...item} />
+                        </TouchableOpacity>
+                      ) : null
+                    }
+                  />
+                </View>
+              </View>
+            </TouchableOpacity>
+          </View>
+        )}
         <View>
           <TouchableOpacity
             onPress={() => {

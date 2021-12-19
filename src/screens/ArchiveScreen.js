@@ -1,23 +1,21 @@
 import React, {useState, useEffect} from 'react';
-import {
-  View,
-  Text,
-  Pressable,
-  TextInput,
-  TouchableOpacity,
-  FlatList,
-} from 'react-native';
-import NoteCard from './NoteCard';
-import Ionicon from 'react-native-vector-icons/Ionicons';
+import {View, Text, TouchableOpacity, FlatList} from 'react-native';
+import NoteCard from '../utility/NoteCard';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import {fetchArchiveData} from '../navigation/NoteServices';
+import {styles} from '../utility/StyleSheet';
+import TopBar from '../utility/TopBar';
 
 const ArchiveScreen = ({navigation}) => {
-  const [search, setSearch] = useState();
+  const [search, setSearch] = useState('');
   const [active, setActive] = useState(false);
   const [noteData, setNoteData] = useState([]);
   const handlePress = () => {
-    setActive(!active);
+    let current;
+    setActive(prev => {
+      current = !active;
+    });
+    return current;
   };
   const fetchData = async () => {
     let data = await fetchArchiveData();
@@ -33,107 +31,57 @@ const ArchiveScreen = ({navigation}) => {
   }, [navigation]);
 
   return (
-    <View style={{flex: 1, backgroundColor: 'black', opacity: 0.9}}>
-      <View
-        style={{
-          justifyContent: 'space-evenly',
-          backgroundColor: 'dimgrey',
-          height: '8%',
-          width: '100%',
-          borderRadius: 20,
-          flexDirection: 'row',
-          alignContent: 'space-between',
-          alignItems: 'center',
-        }}>
-        <View style={{alignItems: 'flex-start'}}>
-          <TouchableOpacity
-            onPress={() => {
-              navigation.openDrawer();
-            }}>
-            <Ionicon name={'menu'} size={28} color={'white'} />
-          </TouchableOpacity>
-        </View>
-        <View>
-          <Text style={{color: 'white', fontSize: 20, fontWeight: 'bold'}}>
-            Archive
-          </Text>
-        </View>
+    <View style={styles.background}>
+      <TopBar
+        menuPress={() => {
+          navigation.openDrawer();
+        }}
+        text={<Text>Archive</Text>}
+        onSearch={text => {
+          setSearch(text);
+        }}
+        value={search}
+        onPress={() => {
+          handlePress();
+        }}
+      />
+      {search.length === 0 ? (
         <View
           style={{
-            justifyContent: 'center',
-            alignItems: 'flex-end',
-            width: '50%',
+            flex: 3,
           }}>
-          <TouchableOpacity
-            onPress={() => {
-              setActive(!active);
-            }}>
-            {active ? (
-              <TextInput
-                placeholder={'Search your notes'}
-                placeholderTextColor={'white'}
-                onChangeText={text => {
-                  setSearch(text);
-                }}
-                value={search}
+          {noteData.length === 0 ? (
+            <View style={styles.middle}>
+              <FontAwesome name={'archive'} size={100} color={'white'} />
+              <Text style={styles.middleText}>
+                Your achived notes appear here
+              </Text>
+            </View>
+          ) : (
+            <View style={styles.window}>
+              <FlatList
+                data={noteData}
+                renderItem={({item}) => (
+                  <TouchableOpacity
+                    onPress={() => {
+                      navigation.navigate('Notes', {
+                        editData: item,
+                        editId: item.id,
+                      });
+                    }}>
+                    <NoteCard {...item} />
+                  </TouchableOpacity>
+                )}
               />
-            ) : (
-              <Ionicon name="search" size={23} color="white" />
-            )}
-          </TouchableOpacity>
+            </View>
+          )}
         </View>
-        <View>
-          <Pressable
-            onPress={() => {
-              handlePress();
-            }}>
-            {active ? (
-              <FontAwesome name={'tasks'} size={30} color={'white'} />
-            ) : (
-              <Ionicon name={'grid'} size={30} color={'white'} />
-            )}
-          </Pressable>
-        </View>
-      </View>
-      <View
-        style={{
-          height: '85%',
-          width: '90%',
-        }}>
-        {noteData.length === 0 ? (
-          <View
-            style={{
-              justifyContent: 'center',
-              alignContent: 'center',
-              alignItems: 'center',
-              left: '10%',
-              top: '40%',
-            }}>
-            <FontAwesome name={'archive'} size={100} color={'white'} />
-            <Text
-              style={{
-                color: 'white',
-                fontSize: 18,
-                alignItems: 'center',
-                top: 15,
-              }}>
-              Your achived notes appear here
-            </Text>
-          </View>
-        ) : (
-          <View
-            style={{
-              justifyContent: 'center',
-              alignContent: 'center',
-              alignItems: 'center',
-              left: '5%',
-            }}>
-            <FlatList
-              style={{
-                width: '100%',
-              }}
-              data={noteData}
-              renderItem={({item}) => (
+      ) : (
+        <View style={{flex: 3}}>
+          <FlatList
+            data={noteData}
+            renderItem={({item}) =>
+              item.Title === search || item.Note === search ? (
                 <TouchableOpacity
                   onPress={() => {
                     navigation.navigate('Notes', {
@@ -143,12 +91,11 @@ const ArchiveScreen = ({navigation}) => {
                   }}>
                   <NoteCard {...item} />
                 </TouchableOpacity>
-              )}
-              numColumns={!active ? 1 : 2}
-            />
-          </View>
-        )}
-      </View>
+              ) : null
+            }
+          />
+        </View>
+      )}
     </View>
   );
 };

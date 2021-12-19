@@ -5,6 +5,34 @@ console.log('Height : ', windowHeight);
 console.log('Width :', windowWidth);
 
 export const styles = StyleSheet.create({
+  labelText: {
+    color: 'white',
+    fontSize: 18,
+    fontWeight: 'bold',
+    left: 10,
+  },
+  window: {
+    justifyContent: 'center',
+    alignContent: 'center',
+  },
+  labelBar: {
+    flexDirection: 'row',
+    borderBottomWidth: 1,
+    borderBottomColor: 'white',
+    width: '100%',
+    paddingBottom: 5,
+    justifyContent: 'flex-start',
+    alignContent: 'flex-start',
+    height: 50,
+  },
+  label: {
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignContent: 'center',
+    left: 10,
+    top: 5,
+    bottom: 5,
+  },
   noteBar: {
     justifyContent: 'flex-start',
     height: '6%',
@@ -80,6 +108,8 @@ export const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'black',
     opacity: 0.9,
+    alignContent: 'center',
+    justifyContent: 'flex-start',
   },
   container: {
     flex: 1,

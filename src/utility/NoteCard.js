@@ -9,6 +9,7 @@ const NoteCard = props => {
     </View>
   );
 };
+
 const styles = StyleSheet.create({
   card: {
     padding: 20,

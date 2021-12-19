@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, TouchableOpacity, TextInput, Text, Pressable} from 'react-native';
+import {View, TouchableOpacity, TextInput, Text} from 'react-native';
 import {styles} from './StyleSheet';
 import Ionicon from 'react-native-vector-icons/Ionicons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
@@ -18,14 +18,14 @@ const TopBar = ({menuPress, value, onSearch, text, onPress}) => {
       <View>
         <Text style={styles.title}>{text}</Text>
       </View>
-      <View>
+      <View style={{left: 20}}>
         <TouchableOpacity
           onPress={() => {
             setSearchIcon(!searchIcon);
           }}>
           {searchIcon ? (
             <TextInput
-              style={{color: 'white'}}
+              style={{color: 'white', left: -20}}
               placeholder={'Search your notes'}
               placeholderTextColor={'white'}
               onChangeText={onSearch}
@@ -36,17 +36,17 @@ const TopBar = ({menuPress, value, onSearch, text, onPress}) => {
           )}
         </TouchableOpacity>
       </View>
-      <View>
-        <Pressable
+      <View style={{left: 10}}>
+        <TouchableOpacity
           onPress={() => {
-            setIcon(!onPress);
+            setIcon(onPress);
           }}>
           {icon ? (
             <FontAwesome name={'tasks'} size={30} color={'white'} />
           ) : (
             <Ionicon name={'grid'} size={30} color={'white'} />
           )}
-        </Pressable>
+        </TouchableOpacity>
       </View>
       <View>
         <FontAwesome name={'user-circle'} size={30} color={'white'} />

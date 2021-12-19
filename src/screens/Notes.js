@@ -1,14 +1,13 @@
 import React, {useState, useEffect} from 'react';
 import {View, Text, TouchableOpacity, TextInput} from 'react-native';
 import Ionicon from 'react-native-vector-icons/Ionicons';
-
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Feather from 'react-native-vector-icons/Feather';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {createnote} from '../navigation/NoteServices';
 import {styles} from '../utility/StyleSheet';
 
-const Notes = ({navigation}) => {
+const Notes = ({navigation, route}) => {
   const [pinned, setPinned] = useState(false);
   const [reminder, setReminder] = useState('');
   const [archive, setArchive] = useState(false);
