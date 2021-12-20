@@ -136,7 +136,7 @@ export const styles = StyleSheet.create({
     flex: 1,
     margin: 10,
     justifyContent: 'flex-start',
-    alignContent: 'space-between',
+    alignContent: 'center',
   },
   logo: {
     top: 50,

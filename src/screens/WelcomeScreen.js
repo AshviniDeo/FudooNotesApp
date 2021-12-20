@@ -82,7 +82,7 @@ export default function WelcomeScreen({navigation}) {
           </View>
           <View>
             <TextBox
-              onChangeText={setPassword}
+              onChangeText={text => setPassword(text)}
               value={password}
               secureTextEntry
               placeHolder={'Enter Password'}
@@ -98,6 +98,7 @@ export default function WelcomeScreen({navigation}) {
                   fontWeight: 'bold',
                   top: 30,
                   padding: 3,
+                  fontSize: 16,
                 }}>
                 Forgot password.
               </Text>
@@ -107,18 +108,24 @@ export default function WelcomeScreen({navigation}) {
           <View
             style={{
               justifyContent: 'space-evenly',
-              alignItems: 'center',
+              alignContent: 'center',
               width: '80%',
               flexDirection: 'row',
               top: 30,
               left: '7%',
-              right: '8%',
+              right: '10%',
             }}>
             <MyButton onPress={onSignIn}>
-              <Text>Sign In</Text>
+              <Text
+                style={{color: '#cd853f', fontWeight: 'bold', fontSize: 20}}>
+                Sign In
+              </Text>
             </MyButton>
             <MyButton onPress={onSignUp}>
-              <Text>Sign Up</Text>
+              <Text
+                style={{color: '#cd853f', fontWeight: 'bold', fontSize: 20}}>
+                Sign Up
+              </Text>
             </MyButton>
           </View>
         </View>
