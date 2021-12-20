@@ -8,7 +8,7 @@ import BottomBar from '../utility/BottomBar';
 
 const Remainder = ({navigation}) => {
   const [search, setSearch] = useState(false);
-
+  const [active, setActive] = useState(true);
   const [value, setValue] = useState('');
 
   return (
@@ -25,6 +25,11 @@ const Remainder = ({navigation}) => {
           setValue(text);
         }}
         value={value}
+        searchIcon={false}
+        onPress={() => {
+          setActive(!active);
+        }}
+        icon={active}
       />
       {/* Header-End */}
       <View
@@ -32,7 +37,7 @@ const Remainder = ({navigation}) => {
           flex: 3,
         }}>
         <View style={styles.blank}>
-          <FontAwesome name={'bell-o'} size={70} color={'white'} />
+          <FontAwesome name={'bell-o'} size={100} color={'gold'} />
           <Text style={styles.blankText}>
             Notes with upcoming remainders appear here
           </Text>

@@ -6,13 +6,13 @@ import Ionicon from 'react-native-vector-icons/Ionicons';
 const SettingsScreen = ({navigation}) => {
   return (
     <View style={styles.background}>
-      <View style={{flexDirection: 'row', left: 10, top: 10}}>
+      <View style={styles.trashBar}>
         <View>
           <TouchableOpacity
             onPress={() => {
               navigation.openDrawer();
             }}>
-            <Ionicon name={'menu'} size={28} color={'white'} />
+            <Ionicon name={'menu'} size={28} color={'rgba(0,0,0,0.9)'} />
           </TouchableOpacity>
         </View>
         <Text style={styles.title}>Settings</Text>

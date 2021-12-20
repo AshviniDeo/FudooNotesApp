@@ -121,6 +121,7 @@ const CreateNewLabel = ({navigation}) => {
                 </TouchableOpacity>
               ) : null
             }
+            keyExtractor={item => item.labelId}
           />
         </View>
       )}

@@ -18,10 +18,10 @@ function AppDrawer() {
       initialRouteName="Dashboard"
       screenOptions={{
         drawerStyle: {
-          backgroundColor: 'dimgrey',
+          backgroundColor: 'white',
         },
         headerShown: false,
-        drawerInactiveTintColor: 'white',
+        drawerActiveBackgroundColor: '#e6e6fa',
       }}
       drawerContent={props => <CustomeDrawer {...props} />}>
       <Drawer.Screen name="Dashboard" component={HomeScreen} />

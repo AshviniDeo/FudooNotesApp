@@ -10,13 +10,7 @@ const ArchiveScreen = ({navigation}) => {
   const [search, setSearch] = useState('');
   const [active, setActive] = useState(false);
   const [noteData, setNoteData] = useState([]);
-  const handlePress = () => {
-    let current;
-    setActive(prev => {
-      current = !active;
-    });
-    return current;
-  };
+
   const fetchData = async () => {
     let data = await fetchArchiveData();
     setNoteData(data);
@@ -42,8 +36,10 @@ const ArchiveScreen = ({navigation}) => {
         }}
         value={search}
         onPress={() => {
-          handlePress();
+          setActive(!active);
         }}
+        icon={active}
+        searchIcon={false}
       />
       {search.length === 0 ? (
         <View
@@ -52,7 +48,7 @@ const ArchiveScreen = ({navigation}) => {
           }}>
           {noteData.length === 0 ? (
             <View style={styles.middle}>
-              <FontAwesome name={'archive'} size={100} color={'white'} />
+              <FontAwesome name={'archive'} size={100} color={'gold'} />
               <Text style={styles.middleText}>
                 Your achived notes appear here
               </Text>
@@ -72,6 +68,9 @@ const ArchiveScreen = ({navigation}) => {
                     <NoteCard {...item} />
                   </TouchableOpacity>
                 )}
+                numColumns={active ? 2 : 1}
+                key={active ? 2 : 1}
+                keyExtractor={item => item.noteId}
               />
             </View>
           )}
@@ -93,6 +92,9 @@ const ArchiveScreen = ({navigation}) => {
                 </TouchableOpacity>
               ) : null
             }
+            numColumns={active ? 2 : 1}
+            key={active ? 2 : 1}
+            keyExtractor={item => item.noteId}
           />
         </View>
       )}

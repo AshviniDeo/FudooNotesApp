@@ -4,52 +4,59 @@ import {styles} from './StyleSheet';
 import Ionicon from 'react-native-vector-icons/Ionicons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
-const TopBar = ({menuPress, value, onSearch, text, onPress}) => {
-  const [icon, setIcon] = useState(true);
-  const [searchIcon, setSearchIcon] = useState(false);
-
+const TopBar = ({
+  menuPress,
+  value,
+  onSearch,
+  text,
+  onPress,
+  icon,
+  searchIcon,
+}) => {
+  const COLOR = 'rgba(0,0,0,0.9)';
+  const [, setSearchIcon] = useState(false);
   return (
     <View style={styles.topBar}>
       <View>
         <TouchableOpacity onPress={menuPress}>
-          <Ionicon name={'menu'} size={28} color={'white'} />
+          <Ionicon name={'menu'} size={28} color={COLOR} />
         </TouchableOpacity>
       </View>
-      <View>
-        <Text style={styles.title}>{text}</Text>
-      </View>
-      <View style={{left: 20}}>
-        <TouchableOpacity
-          onPress={() => {
-            setSearchIcon(!searchIcon);
-          }}>
-          {searchIcon ? (
-            <TextInput
-              style={{color: 'white', left: -20}}
-              placeholder={'Search your notes'}
-              placeholderTextColor={'white'}
-              onChangeText={onSearch}
-              value={value}
-            />
-          ) : (
-            <Ionicon name="search" size={22} color="white" />
-          )}
-        </TouchableOpacity>
+      {searchIcon === false && (
+        <View>
+          <Text style={styles.title}>{text}</Text>
+        </View>
+      )}
+      <View style={{left: 10}}>
+        {searchIcon && (
+          <TextInput
+            style={{color: COLOR, paddingLeft: -20, fontSize: 18}}
+            placeholder={'Search your notes'}
+            placeholderTextColor={'gray'}
+            onChangeText={onSearch}
+            value={value}
+          />
+        )}
+        {searchIcon === false && (
+          <TouchableOpacity
+            onPress={() => {
+              setSearchIcon(!searchIcon);
+            }}>
+            <Ionicon name="search" size={22} color={COLOR} />
+          </TouchableOpacity>
+        )}
       </View>
       <View style={{left: 10}}>
-        <TouchableOpacity
-          onPress={() => {
-            setIcon(onPress);
-          }}>
+        <TouchableOpacity onPress={onPress}>
           {icon ? (
-            <FontAwesome name={'tasks'} size={30} color={'white'} />
+            <FontAwesome name={'tasks'} size={30} color={COLOR} />
           ) : (
-            <Ionicon name={'grid'} size={30} color={'white'} />
+            <Ionicon name={'grid'} size={30} color={COLOR} />
           )}
         </TouchableOpacity>
       </View>
       <View>
-        <FontAwesome name={'user-circle'} size={30} color={'white'} />
+        <FontAwesome name={'user-circle'} size={30} color={COLOR} />
       </View>
     </View>
   );

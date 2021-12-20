@@ -13,10 +13,10 @@ const NoteCard = props => {
 const styles = StyleSheet.create({
   card: {
     padding: 20,
-    backgroundColor: 'gray',
-    borderWidth: 1.5,
-    borderColor: 'white',
-    borderRadius: 20,
+    backgroundColor: 'aliceblue',
+    borderWidth: 0.5,
+    borderColor: 'gray',
+    borderRadius: 10,
     justifyContent: 'center',
     alignContent: 'center',
     marginTop: 10,
@@ -25,12 +25,12 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 20,
-    fontWeight: 'bold',
-    color: 'white',
+    color: 'black',
+    fontWeight: '500',
   },
   note: {
     fontSize: 16,
-    color: 'white',
+    color: 'dimgray',
   },
 });
 export default NoteCard;

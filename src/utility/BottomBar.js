@@ -4,6 +4,7 @@ import {styles} from './StyleSheet';
 import Ionicon from 'react-native-vector-icons/Ionicons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 
+const COLOR = 'rgba(0,0,0,0.9)';
 const BottomBar = ({navigation, onPress}) => {
   return (
     <View style={styles.bottomBar}>
@@ -11,24 +12,24 @@ const BottomBar = ({navigation, onPress}) => {
         <Ionicon
           style={styles.icon}
           name={'checkbox-outline'}
-          color={'white'}
+          color={COLOR}
           size={22}
         />
 
-        <Ionicon style={styles.icon} name={'brush'} color={'white'} size={22} />
+        <Ionicon style={styles.icon} name={'brush'} color={COLOR} size={22} />
 
         <Ionicon
           style={styles.icon}
           name={'mic-outline'}
-          color={'white'}
+          color={COLOR}
           size={22}
         />
 
-        <Ionicon style={styles.icon} name={'image'} color={'white'} size={22} />
+        <Ionicon style={styles.icon} name={'image'} color={COLOR} size={22} />
         <View style={{width: '45%'}}></View>
         <TouchableOpacity onPress={onPress}>
           <View style={styles.plus}>
-            <AntDesign name={'plus'} size={40} color={'black'} />
+            <AntDesign name={'plus'} size={40} color={COLOR} />
           </View>
         </TouchableOpacity>
       </View>

@@ -1,11 +1,10 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {View, Text, TouchableOpacity} from 'react-native';
 import Ionicon from 'react-native-vector-icons/Ionicons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import {styles} from '../utility/StyleSheet';
 
 const Trash = ({navigation}) => {
-  const [active, setActive] = useState(false);
   return (
     <View style={styles.background}>
       <View style={styles.trashBar}>
@@ -14,38 +13,30 @@ const Trash = ({navigation}) => {
             onPress={() => {
               navigation.openDrawer();
             }}>
-            <Ionicon name={'menu'} size={28} color={'white'} />
+            <Ionicon name={'menu'} size={28} color={'rgba(0,0,0,0.9)'} />
           </TouchableOpacity>
         </View>
         <View>
-          <Text
-            style={{
-              color: 'white',
-              fontSize: 20,
-              left: 25,
-              fontWeight: 'bold',
-            }}>
-            Trash
-          </Text>
+          <Text style={styles.trashText}>Trash</Text>
         </View>
       </View>
       <View
         style={{
-          flexDirection: {active} ? 'row' : 'column',
-          height: '85%',
+          flexDirection: 'column',
+          flex: 3,
         }}>
         <View
           style={{
             justifyContent: 'center',
             alignContent: 'center',
             alignItems: 'center',
-            alignSelf: 'center',
-            left: '15%',
+            left: '5%',
+            top: '30%',
           }}>
-          <FontAwesome name={'trash'} size={100} color={'white'} />
+          <FontAwesome name={'trash'} size={100} color={'gold'} />
           <Text
             style={{
-              color: 'white',
+              color: 'rgba(0,0,0,0.9)',
               fontSize: 18,
               alignItems: 'center',
               top: 15,

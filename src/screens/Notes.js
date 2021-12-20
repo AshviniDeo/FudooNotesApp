@@ -4,17 +4,19 @@ import Ionicon from 'react-native-vector-icons/Ionicons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Feather from 'react-native-vector-icons/Feather';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import {createnote} from '../navigation/NoteServices';
+import {createnote, updatenote} from '../navigation/NoteServices';
 import {styles} from '../utility/StyleSheet';
 
 const Notes = ({navigation, route}) => {
   const [pinned, setPinned] = useState(false);
   const [reminder, setReminder] = useState('');
   const [archive, setArchive] = useState(false);
-  const [title, setTitle] = useState('');
-  const [note, setNote] = useState('');
+  const [title, setTitle] = useState(route.params?.editData?.Title || '');
+  const [note, setNote] = useState(route.params?.editData?.Note || '');
+  const [trash, setTrash] = useState(false);
   const [currentDate, setCurrentDate] = useState('');
-
+  const receiveId = route.params?.editId;
+  const COLOR = 'rgba(0,0,0,0.8)';
   useEffect(() => {
     var date = new Date().getDate(); //Current Date
     var month = new Date().getMonth() + 1; //Current Month
@@ -28,10 +30,24 @@ const Notes = ({navigation, route}) => {
     navigation.navigate('Dashboard');
   };
   const handlePress = () => {
-    createnote(title, note, archive, pinned, reminder, toNavigateDashboard);
+    if (route.params?.editData) {
+      updatenote(
+        title,
+        note,
+        archive,
+        pinned,
+        reminder,
+        trash,
+        receiveId,
+        toNavigateDashboard,
+      );
+      console.log('data update');
+    } else {
+      createnote(title, note, archive, pinned, reminder, toNavigateDashboard);
+    }
   };
   return (
-    <View style={{flex: 1, backgroundColor: 'black', opacity: 0.9}}>
+    <View style={styles.background}>
       {/* Header-Bar==>Start */}
       <View style={styles.noteBar}>
         <View
@@ -44,7 +60,7 @@ const Notes = ({navigation, route}) => {
             onPress={() => {
               handlePress();
             }}>
-            <Ionicon name={'arrow-back'} size={28} color={'white'} />
+            <Ionicon name={'arrow-back'} size={28} color={COLOR} />
           </TouchableOpacity>
         </View>
         <View style={{width: '55%'}} />
@@ -64,7 +80,7 @@ const Notes = ({navigation, route}) => {
             <MaterialCommunityIcons
               name={'pin-outline'}
               size={28}
-              color={pinned ? 'blue' : 'white'}
+              color={pinned ? 'gray' : COLOR}
             />
           </TouchableOpacity>
           <TouchableOpacity
@@ -77,7 +93,7 @@ const Notes = ({navigation, route}) => {
               <MaterialCommunityIcons
                 name={'bell-plus-outline'}
                 size={28}
-                color={reminder ? 'blue' : 'white'}
+                color={reminder ? 'gray' : COLOR}
               />
             </View>
           </TouchableOpacity>
@@ -91,7 +107,7 @@ const Notes = ({navigation, route}) => {
               <MaterialCommunityIcons
                 name={'archive-arrow-down-outline'}
                 size={28}
-                color={archive ? 'blue' : 'white'}
+                color={archive ? 'gray' : COLOR}
               />
             </View>
           </TouchableOpacity>
@@ -114,9 +130,9 @@ const Notes = ({navigation, route}) => {
           }}>
           <TouchableOpacity>
             <TextInput
-              style={{fontSize: 22, color: 'white'}}
+              style={{fontSize: 22, color: COLOR}}
               placeholder={'Title'}
-              placeholderTextColor="white"
+              placeholderTextColor="gray"
               onChangeText={text => {
                 setTitle(text);
               }}
@@ -132,9 +148,9 @@ const Notes = ({navigation, route}) => {
           }}>
           <TouchableOpacity>
             <TextInput
-              style={{fontSize: 16, color: 'white'}}
+              style={{fontSize: 16, color: 'gray'}}
               placeholder={'Note'}
-              placeholderTextColor="white"
+              placeholderTextColor="gray"
               onChangeText={text => {
                 setNote(text);
               }}
@@ -155,10 +171,10 @@ const Notes = ({navigation, route}) => {
           flexDirection: 'row',
         }}>
         <View style={{justifyContent: 'flex-start', paddingLeft: 15}}>
-          <AntDesign name={'plus'} size={22} color="white" />
+          <AntDesign name={'plus'} size={22} color={COLOR} />
         </View>
         <View style={{justifyContent: 'flex-start', paddingLeft: 15}}>
-          <Ionicon name={'color-palette-outline'} size={22} color="white" />
+          <Ionicon name={'color-palette-outline'} size={22} color={COLOR} />
         </View>
         <View
           style={{
@@ -167,7 +183,8 @@ const Notes = ({navigation, route}) => {
             width: '70%',
             alignContent: 'center',
           }}>
-          <Text style={{color: 'white', alignItems: 'center'}}>
+          <Text
+            style={{color: {COLOR}, alignItems: 'center', alignSelf: 'center'}}>
             Edited {currentDate}
           </Text>
         </View>
@@ -176,8 +193,9 @@ const Notes = ({navigation, route}) => {
             justifyContent: 'flex-end',
             paddingLeft: 15,
             alignContent: 'center',
+            bottom: 10,
           }}>
-          <Feather name={'more-vertical'} size={22} color="white" />
+          <Feather name={'more-vertical'} size={22} color={COLOR} />
         </View>
       </View>
       {/* //Bottom-Bar ==>End */}

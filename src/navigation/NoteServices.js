@@ -29,6 +29,33 @@ export const createnote = async (
   }
 };
 
+export const updatenote = async (
+  Title,
+  Note,
+  Archive,
+  Pinned,
+  Remainder,
+  Trash,
+  reciveId,
+  callback,
+) => {
+  try {
+    const data = {
+      Title,
+      Note,
+      Archive,
+      Pinned,
+      Remainder,
+      Trash,
+    };
+    const id = await getUid();
+    await dbData.doc(id).collection('Notes').doc(reciveId).update(data);
+    callback();
+  } catch (error) {
+    console.log(error.code);
+  }
+};
+
 export const fetchNoteData = async () => {
   const arr = [];
   const uid = await getUid();

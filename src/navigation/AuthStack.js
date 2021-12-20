@@ -9,7 +9,7 @@ const AuthStack = () => {
   return (
     <Stack.Navigator
       screenOptions={{
-        headerStyle: {backgroundColor: 'darkslategrey'},
+        headerStyle: {backgroundColor: '#e6e6fa'},
       }}>
       <Stack.Screen
         name="WelcomeScreen"
@@ -20,12 +20,12 @@ const AuthStack = () => {
       <Stack.Screen
         name="Sign Up"
         component={SignUpScreen}
-        options={{headerTintColor: 'white'}}
+        options={{headerTintColor: 'rgba(0,0,0,0.8)'}}
       />
       <Stack.Screen
         name="Forgot Password"
         component={ForgotPasswordScreen}
-        options={{headerTintColor: 'white'}}
+        options={{headerTintColor: 'rgba(0,0,0,0.8)'}}
       />
     </Stack.Navigator>
   );

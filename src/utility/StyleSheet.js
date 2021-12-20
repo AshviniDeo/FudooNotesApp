@@ -4,9 +4,27 @@ const windowHeight = Dimensions.get('window').height;
 console.log('Height : ', windowHeight);
 console.log('Width :', windowWidth);
 
+const COLOR = 'rgba(0,0,0,0.9)';
+
 export const styles = StyleSheet.create({
+  trashText: {
+    color: COLOR,
+    fontSize: 20,
+    left: 25,
+    fontWeight: 'bold',
+    alignContent: 'center',
+    justifyContent: 'center',
+  },
+  list: {
+    width: '90%',
+  },
+  grid: {
+    width: '50%',
+    left: 5,
+    right: 5,
+  },
   labelText: {
-    color: 'white',
+    color: COLOR,
     fontSize: 18,
     fontWeight: 'bold',
     left: 10,
@@ -14,11 +32,12 @@ export const styles = StyleSheet.create({
   window: {
     justifyContent: 'center',
     alignContent: 'center',
+    paddingLeft: 20,
   },
   labelBar: {
     flexDirection: 'row',
     borderBottomWidth: 1,
-    borderBottomColor: 'white',
+    borderBottomColor: COLOR,
     width: '100%',
     paddingBottom: 5,
     justifyContent: 'flex-start',
@@ -43,27 +62,29 @@ export const styles = StyleSheet.create({
     left: 15,
   },
   trashBar: {
-    backgroundColor: 'dimgray',
+    backgroundColor: '#e6e6fa',
     height: '7%',
     alignContent: 'center',
     justifyContent: 'flex-start',
+    alignItems: 'center',
     paddingLeft: 10,
     flexDirection: 'row',
   },
   subtitles: {
-    color: 'white',
+    color: 'rgba(0,0,0,0.8)',
     paddingLeft: 20,
     paddingTop: 10,
     fontSize: 14,
     fontWeight: 'bold',
   },
   plus: {
-    backgroundColor: 'dimgray',
+    backgroundColor: '#e6e6fa',
     borderRadius: 50,
     height: 90,
     width: 90,
     borderWidth: 8,
-    borderBottomColor: 'rgba(0,0,0,0.9)',
+    borderColor: 'white',
+    borderBottomColor: 'white',
     alignContent: 'center',
     justifyContent: 'center',
     alignItems: 'center',
@@ -81,7 +102,7 @@ export const styles = StyleSheet.create({
   },
   bottomBar: {
     width: '100%',
-    backgroundColor: 'dimgrey',
+    backgroundColor: '#e6e6fa',
     height: '8%',
     flexDirection: 'row',
     alignContent: 'center',
@@ -90,8 +111,8 @@ export const styles = StyleSheet.create({
     paddingRight: 10,
   },
   topBar: {
-    justifyContent: 'space-evenly',
-    backgroundColor: 'dimgrey',
+    justifyContent: 'space-around',
+    backgroundColor: '#e6e6fa',
     height: '7%',
     width: '100%',
     borderRadius: 20,
@@ -106,7 +127,7 @@ export const styles = StyleSheet.create({
   },
   background: {
     flex: 1,
-    backgroundColor: 'black',
+    backgroundColor: 'white',
     opacity: 0.9,
     alignContent: 'center',
     justifyContent: 'flex-start',
@@ -126,10 +147,10 @@ export const styles = StyleSheet.create({
     opacity: 1,
   },
   output: {
-    backgroundColor: 'darkslategrey',
-    width: '75%',
-    height: 50,
-    borderBottomColor: '#cd853f',
+    backgroundColor: 'white',
+    width: '80%',
+    height: 70,
+    borderBottomColor: COLOR,
     borderBottomWidth: 5,
     borderStyle: 'solid',
     alignItems: 'center',
@@ -139,13 +160,13 @@ export const styles = StyleSheet.create({
     left: '15%',
     textAlign: 'center',
     fontWeight: 'bold',
-    color: 'white',
+    color: COLOR,
     marginBottom: 30,
     right: '15%',
     top: 30,
   },
   title: {
-    color: 'white',
+    color: COLOR,
     fontSize: 20,
     fontWeight: 'bold',
     left: 10,
@@ -158,7 +179,7 @@ export const styles = StyleSheet.create({
     top: '40%',
   },
   blankText: {
-    color: 'white',
+    color: COLOR,
     fontSize: 18,
     alignItems: 'center',
     top: 15,
@@ -175,7 +196,7 @@ export const styles = StyleSheet.create({
     left: '3%',
   },
   middleText: {
-    color: 'white',
+    color: COLOR,
     fontSize: 20,
     alignItems: 'center',
     top: 10,
