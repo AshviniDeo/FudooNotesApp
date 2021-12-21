@@ -88,20 +88,18 @@ const CustomeDrawer = ({navigation, props}) => {
                 }}>
                 <Text style={{color: COLOR, fontSize: 14}}>Labels:</Text>
                 <View>
-                  {labelData.map(
-                    (item, index) => (
-                      <TouchableOpacity
-                        onPress={() => {
-                          navigation.navigate('Create new label', {
-                            editData: item,
-                            editId: item.id,
-                          });
-                        }}>
-                        <Label {...item} />
-                      </TouchableOpacity>
-                    ),
-                    index => index.labelId,
-                  )}
+                  {labelData.map((item, index) => (
+                    <TouchableOpacity
+                      key={item.labelId}
+                      onPress={() => {
+                        navigation.navigate('Create new label', {
+                          editData: item,
+                          editId: item.labelId,
+                        });
+                      }}>
+                      <Label {...item} />
+                    </TouchableOpacity>
+                  ))}
                 </View>
               </View>
             </TouchableOpacity>

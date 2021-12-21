@@ -62,7 +62,7 @@ const ArchiveScreen = ({navigation}) => {
                     onPress={() => {
                       navigation.navigate('Notes', {
                         editData: item,
-                        editId: item.id,
+                        editId: item.noteId,
                       });
                     }}>
                     <NoteCard {...item} />
@@ -85,7 +85,7 @@ const ArchiveScreen = ({navigation}) => {
                   onPress={() => {
                     navigation.navigate('Notes', {
                       editData: item,
-                      editId: item.id,
+                      editId: item.noteId,
                     });
                   }}>
                   <NoteCard {...item} />

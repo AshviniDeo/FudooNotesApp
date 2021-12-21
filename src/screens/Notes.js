@@ -29,8 +29,9 @@ const Notes = ({navigation, route}) => {
   const toNavigateDashboard = () => {
     navigation.navigate('Dashboard');
   };
+  console.log(receiveId);
   const handlePress = () => {
-    if (route.params?.editData) {
+    if (receiveId) {
       updatenote(
         title,
         note,
@@ -41,7 +42,8 @@ const Notes = ({navigation, route}) => {
         receiveId,
         toNavigateDashboard,
       );
-      console.log('data update');
+
+      console.log('========>data update');
     } else {
       createnote(title, note, archive, pinned, reminder, toNavigateDashboard);
     }

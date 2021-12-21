@@ -1,5 +1,13 @@
 import React, {useCallback, useEffect, useState} from 'react';
-import {View, Text, TouchableOpacity, FlatList, Image} from 'react-native';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  FlatList,
+  Image,
+  ScrollView,
+  KeyboardAvoidingView,
+} from 'react-native';
 
 import Ionicon from 'react-native-vector-icons/Ionicons';
 
@@ -18,9 +26,7 @@ const HomeScreen = ({navigation}) => {
   const fetchData = useCallback(async () => {
     let data = await fetchNoteData();
     setNoteData(data);
-    if (data) {
-      setIsLoading(false);
-    }
+    setIsLoading(false);
   }, [setIsLoading]);
 
   useEffect(() => {
@@ -32,116 +38,130 @@ const HomeScreen = ({navigation}) => {
   }, [navigation, fetchData]);
 
   if (isLoading) {
-    <Image source={require('../assets/spinner.gif')} />;
+    return (
+      <Image
+        resizeMode="cover"
+        style={{flex: 1, width: '100%'}}
+        source={{
+          uri: 'https://cdn.dribbble.com/users/108183/screenshots/2301400/media/6af65dd321fbdf53a04ed7464a644f53.gif',
+        }}
+      />
+    );
   }
 
   return (
     <View style={styles.background}>
-      <TopBar
-        menuPress={() => {
-          navigation.openDrawer();
-        }}
-        searchIcon={true}
-        onSearch={text => {
-          setSearch(text);
-        }}
-        value={search}
-        onPress={() => {
-          setActive(!active);
-        }}
-        icon={active}
-      />
-      {search.length === 0 ? (
-        <View
-          style={{
-            flex: 3,
-          }}>
-          {noteData.length === 0 ? (
-            <View style={styles.middle}>
-              <Ionicon name={'bulb-outline'} size={100} color={'gold'} />
-              <Text style={styles.middleText}>Notes you added appear here</Text>
+      <KeyboardAvoidingView>
+        <ScrollView nestedScrollEnabled={true}>
+          <TopBar
+            menuPress={() => {
+              navigation.openDrawer();
+            }}
+            searchIcon={true}
+            onSearch={text => {
+              setSearch(text);
+            }}
+            value={search}
+            onPress={() => {
+              setActive(!active);
+            }}
+            icon={active}
+          />
+          {search.length === 0 ? (
+            <View
+              style={{
+                flex: 3,
+              }}>
+              {noteData.length === 0 ? (
+                <View style={styles.middle}>
+                  <Ionicon name={'bulb-outline'} size={100} color={'gold'} />
+                  <Text style={styles.middleText}>
+                    Notes you added appear here
+                  </Text>
+                </View>
+              ) : (
+                <View style={styles.window}>
+                  {noteData.find(item => item.Pinned) && (
+                    <Text style={styles.subtitles}>Pinned:</Text>
+                  )}
+                  <FlatList
+                    scrollEnabled={false}
+                    data={noteData}
+                    renderItem={({item}) =>
+                      item.Pinned && (
+                        <TouchableOpacity
+                          style={!active ? styles.grid : styles.list}
+                          onPress={() => {
+                            navigation.navigate('Notes', {
+                              editData: item,
+                              editId: item.noteId,
+                            });
+                          }}>
+                          <NoteCard {...item} />
+                        </TouchableOpacity>
+                      )
+                    }
+                    numColumns={active ? 1 : 2}
+                    key={active ? 1 : 2}
+                    keyExtractor={item => item.noteId}
+                  />
+                  {noteData.find(item => item.Pinned === false) && (
+                    <Text style={styles.subtitles}>Others:</Text>
+                  )}
+                  <FlatList
+                    data={noteData}
+                    scrollEnabled={false}
+                    renderItem={({item}) =>
+                      item.Pinned === false ? (
+                        <TouchableOpacity
+                          style={!active ? styles.grid : styles.list}
+                          onPress={() => {
+                            navigation.navigate('Notes', {
+                              editData: item,
+                              editId: item.noteId,
+                            });
+                          }}>
+                          <NoteCard {...item} />
+                        </TouchableOpacity>
+                      ) : null
+                    }
+                    numColumns={active ? 1 : 2}
+                    key={active ? 3 : 4}
+                    keyExtractor={item => item.noteId}
+                  />
+                </View>
+              )}
             </View>
           ) : (
-            <View style={styles.window}>
-              {noteData.find(item => item.Pinned) && (
-                <Text style={styles.subtitles}>Pinned:</Text>
-              )}
+            <View style={{flex: 3}}>
               <FlatList
-                scrollEnabled={false}
                 data={noteData}
                 renderItem={({item}) =>
-                  item.Pinned && (
+                  item.Title === search || item.Note === search ? (
                     <TouchableOpacity
-                      style={!active ? styles.grid : styles.list}
                       onPress={() => {
                         navigation.navigate('Notes', {
                           editData: item,
-                          editId: item.id,
-                        });
-                      }}>
-                      <NoteCard {...item} />
-                    </TouchableOpacity>
-                  )
-                }
-                numColumns={active ? 1 : 2}
-                key={active ? 1 : 2}
-                keyExtractor={item => item.noteId}
-              />
-              {noteData.find(item => item.Pinned === false) && (
-                <Text style={styles.subtitles}>Others:</Text>
-              )}
-              <FlatList
-                data={noteData}
-                scrollEnabled={false}
-                renderItem={({item}) =>
-                  item.Pinned === false ? (
-                    <TouchableOpacity
-                      style={!active ? styles.grid : styles.list}
-                      onPress={() => {
-                        navigation.navigate('Notes', {
-                          editData: item,
-                          editId: item.id,
+                          editId: item.noteId,
                         });
                       }}>
                       <NoteCard {...item} />
                     </TouchableOpacity>
                   ) : null
                 }
-                numColumns={active ? 1 : 2}
-                key={active ? 3 : 4}
+                numColumns={!active ? 2 : 1}
+                key={!active ? 5 : 6}
                 keyExtractor={item => item.noteId}
               />
             </View>
           )}
-        </View>
-      ) : (
-        <View style={{flex: 3}}>
-          <FlatList
-            data={noteData}
-            renderItem={({item}) =>
-              item.Title === search || item.Note === search ? (
-                <TouchableOpacity
-                  onPress={() => {
-                    navigation.navigate('Notes', {
-                      editData: item,
-                      editId: item.id,
-                    });
-                  }}>
-                  <NoteCard {...item} />
-                </TouchableOpacity>
-              ) : null
-            }
-            numColumns={!active ? 2 : 1}
-            key={!active ? 5 : 6}
-            keyExtractor={item => item.noteId}
+          <BottomBar
+            onPress={() => {
+              navigation.navigate('Notes');
+            }}
           />
-        </View>
-      )}
-      <BottomBar
-        onPress={() => {
-          navigation.navigate('Notes');
-        }}
-      />
+        </ScrollView>
+      </KeyboardAvoidingView>
     </View>
   );
 };
