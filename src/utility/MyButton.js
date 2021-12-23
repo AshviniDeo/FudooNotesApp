@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
   btn: {
     backgroundColor: COLOR.SECONDARY,
     width: WIDTH.HALF_WIDTH,
-    height: HEIGHT.BAR_HEIGHT,
+    height: HEIGHT.SIGNBTN,
     borderBottomColor: COLOR.AUTH_COLOR,
     borderBottomWidth: BORDER.THICK_BORDER,
     borderStyle: 'solid',
@@ -29,5 +29,7 @@ const styles = StyleSheet.create({
     alignContent: 'center',
     justifyContent: 'center',
     padding: PADDING.SECONADARY_PADDING,
+    marginLeft: MARGIN.PRIMARY_MARGIN,
+    marginRight: MARGIN.PRIMARY_MARGIN,
   },
 });

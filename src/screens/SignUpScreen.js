@@ -143,12 +143,7 @@ export default function SignUpScreen({navigation}) {
                 errorText={error.confirmPassword}
               />
             </View>
-            <View
-              style={{
-                justifyContent: 'center',
-                alignContent: 'center',
-                alignItems: 'center',
-              }}>
+            <View style={styles.buttonLogIn}>
               <MyButton onPress={getRegister}>Register</MyButton>
             </View>
           </View>

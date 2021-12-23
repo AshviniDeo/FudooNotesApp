@@ -36,9 +36,10 @@ const styles = StyleSheet.create({
     borderStyle: 'solid',
     justifyContent: 'center',
     alignContent: 'center',
+    alignItems: 'center',
     fontWeight: 'bold',
     color: COLOR.HEADING,
-    fontSize: 16,
+    fontSize: SIZES.NOTE,
     padding: PADDING.PRIMARY_PADDING,
   },
   errorText: {

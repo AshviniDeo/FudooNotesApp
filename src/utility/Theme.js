@@ -74,4 +74,5 @@ export const HEIGHT = {
   BAR_HEIGHT: '7%',
   LOGO_HEIGHT: '20%',
   BUTTON_HEIGHT: 100,
+  SIGNBTN: 50,
 };

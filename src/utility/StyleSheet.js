@@ -10,6 +10,7 @@ export const styles = StyleSheet.create({
   buttonLogIn: {
     flexDirection: 'row',
     width: WIDTH.SECONDARY_WIDTH,
+    paddingTop: PADDING.PRIMARY_PADDING,
   },
   button: {
     color: COLOR.AUTH_COLOR,
