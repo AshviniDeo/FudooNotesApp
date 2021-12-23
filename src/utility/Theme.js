@@ -17,6 +17,8 @@ export const COLOR = {
   PLACE_HOLDER_COLOR: 'gray',
   TRANSPARENT: 'rgba(0,0,0,0)',
   ERROR_TEXT: 'red',
+  NOTE_CARD: 'aliceblue',
+  SHADOW: 'skyblue',
 };
 
 export const SIZES = {
@@ -29,6 +31,8 @@ export const SIZES = {
   SMALL_TEXT: 14,
   MEDIUM_TEXT: 18,
   LARGE_TEXT: 22,
+  TITLE: 20,
+  NOTE: 16,
 };
 
 export const PADDING = {
@@ -43,6 +47,7 @@ export const MARGIN = {
   PRIMARY_MARGIN: 8,
   SECONDARY_MARGIN: 30,
   BUTTON_MARGIN: 120,
+  BOTTOM_MARGIN: 4,
 };
 
 export const BORDER = {
@@ -51,6 +56,7 @@ export const BORDER = {
   MEDIUM_BORDER: 1,
   BORDER_RADIUS: 50,
   ROUND_CORNER: 20,
+  CORNER: 10,
 };
 
 export const WIDTH = {
@@ -59,6 +65,7 @@ export const WIDTH = {
   SECONDARY_WIDTH: '80%',
   BUTTON_WIDTH: 100,
   LOGO_WIDTH: '20%',
+  DATE: '70%',
 };
 
 export const HEIGHT = {

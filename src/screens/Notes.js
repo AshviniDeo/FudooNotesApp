@@ -12,6 +12,7 @@ import Feather from 'react-native-vector-icons/Feather';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {createnote, updatenote} from '../navigation/NoteServices';
 import {styles} from '../utility/StyleSheet';
+import {COLOR, HEIGHT, PADDING, SIZES, WIDTH} from '../utility/Theme';
 
 const Notes = ({navigation, route}) => {
   const [pinned, setPinned] = useState(false);
@@ -22,7 +23,7 @@ const Notes = ({navigation, route}) => {
   const [trash, setTrash] = useState(false);
   const [currentDate, setCurrentDate] = useState('');
   const receiveId = route.params?.editId;
-  const COLOR = 'rgba(0,0,0,0.8)';
+
   useEffect(() => {
     var date = new Date().getDate(); //Current Date
     var month = new Date().getMonth() + 1; //Current Month
@@ -65,10 +66,14 @@ const Notes = ({navigation, route}) => {
             onPress={() => {
               handlePress();
             }}>
-            <Ionicon name={'arrow-back'} size={28} color={COLOR} />
+            <Ionicon
+              name={'arrow-back'}
+              size={SIZES.ICON_MEDIUM}
+              color={COLOR.TEXT_COLOR}
+            />
           </TouchableOpacity>
         </View>
-        <View style={{width: '50%'}} />
+        <View style={{width: WIDTH.HALF_WIDTH}} />
         <View style={custome.view}>
           <TouchableOpacity
             onPress={() => {
@@ -78,8 +83,8 @@ const Notes = ({navigation, route}) => {
             }}>
             <MaterialCommunityIcons
               name={'pin-outline'}
-              size={28}
-              color={pinned ? 'gray' : COLOR}
+              size={SIZES.ICON_MEDIUM}
+              color={pinned ? COLOR.ACTIVE_COLOR : COLOR.TEXT_COLOR}
             />
           </TouchableOpacity>
           <TouchableOpacity
@@ -88,11 +93,11 @@ const Notes = ({navigation, route}) => {
                 return reminder;
               });
             }}>
-            <View style={{paddingLeft: 15}}>
+            <View style={styles.icon}>
               <MaterialCommunityIcons
                 name={'bell-plus-outline'}
-                size={28}
-                color={reminder ? 'gray' : COLOR}
+                size={SIZES.ICON_MEDIUM}
+                color={reminder ? COLOR.ACTIVE_COLOR : COLOR.TEXT_COLOR}
               />
             </View>
           </TouchableOpacity>
@@ -102,11 +107,11 @@ const Notes = ({navigation, route}) => {
                 return !archive;
               });
             }}>
-            <View style={{paddingLeft: 15}}>
+            <View style={styles.icon}>
               <MaterialCommunityIcons
                 name={'archive-arrow-down-outline'}
-                size={28}
-                color={archive ? 'gray' : COLOR}
+                size={SIZES.ICON_MEDIUM}
+                color={archive ? COLOR.ACTIVE_COLOR : COLOR.TEXT_COLOR}
               />
             </View>
           </TouchableOpacity>
@@ -116,11 +121,11 @@ const Notes = ({navigation, route}) => {
                 return !trash;
               });
             }}>
-            <View style={{paddingLeft: 15}}>
+            <View style={styles.icon}>
               <Ionicon
                 name={'trash-outline'}
-                size={28}
-                color={trash ? 'gray' : COLOR}
+                size={SIZES.ICON_MEDIUM}
+                color={trash ? COLOR.ACTIVE_COLOR : COLOR.TEXT_COLOR}
               />
             </View>
           </TouchableOpacity>
@@ -128,42 +133,34 @@ const Notes = ({navigation, route}) => {
       </View>
       {/* //Header-Bar ===>End */}
 
-      <View
-        style={{
-          paddingLeft: 15,
-          flexWrap: 'wrap',
-          flex: 3,
-        }}>
+      <View style={custome.window}>
         <View style={custome.titleInput}>
           <TouchableOpacity>
             <TextInput
-              style={{fontSize: 22, color: COLOR}}
+              style={custome.titleText}
               placeholder={'Title'}
-              placeholderTextColor="gray"
+              placeholderTextColor={COLOR.PLACE_HOLDER_COLOR}
               onChangeText={text => {
                 setTitle(text);
               }}
               value={title}
               editable
+              maxLength={40}
             />
           </TouchableOpacity>
         </View>
-        <View
-          style={{
-            width: '100%',
-            flexWrap: 'wrap',
-          }}>
+        <View>
           <TouchableOpacity>
             <TextInput
-              style={{fontSize: 16, color: 'gray'}}
+              style={custome.note}
               placeholder={'Note'}
-              placeholderTextColor="gray"
+              placeholderTextColor={COLOR.PLACE_HOLDER_COLOR}
               onChangeText={text => {
                 setNote(text);
               }}
               value={note}
               editable
-              multiline
+              multiline={true}
             />
           </TouchableOpacity>
         </View>
@@ -171,24 +168,33 @@ const Notes = ({navigation, route}) => {
 
       {/* //Bottom-Bar ==> Start */}
       <View style={custome.bottom}>
-        <View style={{justifyContent: 'flex-start', paddingLeft: 15}}>
-          <AntDesign name={'plus'} size={22} color={COLOR} />
+        <View style={styles.icon}>
+          <AntDesign
+            name={'plus'}
+            size={SIZES.ICON_MEDIUM}
+            color={COLOR.TEXT_COLOR}
+          />
         </View>
-        <View style={{justifyContent: 'flex-start', paddingLeft: 15}}>
-          <Ionicon name={'color-palette-outline'} size={22} color={COLOR} />
+        <View style={styles.icon}>
+          <Ionicon
+            name={'color-palette-outline'}
+            size={SIZES.ICON_MEDIUM}
+            color={COLOR.TEXT_COLOR}
+          />
         </View>
         <View style={custome.date}>
-          <Text
-            style={{color: {COLOR}, alignItems: 'center', alignSelf: 'center'}}>
-            Edited {currentDate}
-          </Text>
+          <Text style={custome.dateText}>Edited {currentDate}</Text>
         </View>
         <View style={custome.more}>
           <TouchableOpacity
             onPress={() => {
               onMoreOption();
             }}>
-            <Feather name={'more-vertical'} size={22} color={COLOR} />
+            <Feather
+              name={'more-vertical'}
+              size={SIZES.ICON_MEDIUM}
+              color={COLOR.TEXT_COLOR}
+            />
           </TouchableOpacity>
         </View>
       </View>
@@ -199,27 +205,28 @@ const Notes = ({navigation, route}) => {
 const custome = StyleSheet.create({
   more: {
     justifyContent: 'flex-end',
-    paddingLeft: 15,
+    paddingLeft: PADDING.SECONADARY_PADDING,
     alignContent: 'center',
-    bottom: 10,
+    paddingBottom: PADDING.PRIMARY_PADDING,
   },
   date: {
-    justifyContent: 'flex-start',
-    paddingLeft: 15,
-    width: '70%',
+    justifyContent: 'center',
+    paddingLeft: PADDING.NEGATIVE_PADDING,
+    width: WIDTH.DATE,
     alignContent: 'center',
+    paddingBottom: PADDING.SECONADARY_PADDING,
   },
   bottom: {
     justifyContent: 'flex-start',
     alignContent: 'center',
-    height: '5%',
+    height: HEIGHT.BAR_HEIGHT,
     flexDirection: 'row',
   },
   titleInput: {
-    height: '10%',
+    height: HEIGHT.SECTION_HEIGHT,
     alignContent: 'center',
     flexWrap: 'wrap',
-    width: '90%',
+    width: WIDTH.FULL_WIDTH,
   },
   topBar: {
     alignItems: 'flex-start',
@@ -231,6 +238,20 @@ const custome = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-evenly',
     alignContent: 'flex-end',
+  },
+  dateText: {
+    color: COLOR.TEXT_COLOR,
+    alignItems: 'center',
+    alignSelf: 'center',
+  },
+  note: {fontSize: SIZES.NOTE, color: COLOR.PLACE_HOLDER_COLOR},
+  window: {
+    flex: SIZES.FLEX,
+    padding: PADDING.PRIMARY_PADDING,
+  },
+  titleText: {
+    fontSize: SIZES.LARGE_TEXT,
+    color: COLOR.TEXT_COLOR,
   },
 });
 export default Notes;

@@ -1,5 +1,6 @@
 import React from 'react';
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
+import {BORDER, COLOR, HEIGHT, MARGIN, PADDING, WIDTH} from './Theme';
 
 export default function MyButton({onPress, children}) {
   return (
@@ -12,23 +13,21 @@ export default function MyButton({onPress, children}) {
 }
 const styles = StyleSheet.create({
   btn: {
-    backgroundColor: 'lavender',
-    width: '50%',
-    height: 50,
-    borderBottomColor: '#cd853f',
-    borderBottomWidth: 5,
+    backgroundColor: COLOR.SECONDARY,
+    width: WIDTH.HALF_WIDTH,
+    height: HEIGHT.BAR_HEIGHT,
+    borderBottomColor: COLOR.AUTH_COLOR,
+    borderBottomWidth: BORDER.THICK_BORDER,
     borderStyle: 'solid',
     textAlign: 'center',
     fontWeight: 'bold',
-    borderRadius: 8,
-    marginBottom: 30,
-    borderRightColor: 'skyblue',
-    borderRightWidth: 5,
+    borderRadius: BORDER.CORNER,
+    marginBottom: MARGIN.SECONDARY_MARGIN,
+    borderRightColor: COLOR.SHADOW,
+    borderRightWidth: BORDER.THICK_BORDER,
     alignItems: 'center',
     alignContent: 'center',
     justifyContent: 'center',
-    top: 30,
-    color: 'black',
-    paddingRight: 20,
+    padding: PADDING.SECONADARY_PADDING,
   },
 });

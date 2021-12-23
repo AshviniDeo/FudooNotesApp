@@ -1,5 +1,6 @@
 import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
+import {BORDER, COLOR, MARGIN, PADDING, SIZES} from './Theme';
 
 const NoteCard = props => {
   return (
@@ -12,25 +13,25 @@ const NoteCard = props => {
 
 const styles = StyleSheet.create({
   card: {
-    padding: 20,
-    backgroundColor: 'aliceblue',
-    borderWidth: 0.5,
-    borderColor: 'gray',
-    borderRadius: 10,
+    padding: PADDING.PRIMARY_PADDING,
+    backgroundColor: COLOR.NOTE_CARD,
+    borderWidth: BORDER.LIGHT_BORDER,
+    borderColor: COLOR.PLACE_HOLDER_COLOR,
+    borderRadius: BORDER.CORNER,
     justifyContent: 'center',
     alignContent: 'center',
-    marginTop: 10,
-    marginRight: 10,
-    marginLeft: 10,
+    margin: MARGIN.PRIMARY_MARGIN,
+    paddingBottom: MARGIN.BOTTOM_MARGIN,
+    marginBottom: MARGIN.BOTTOM_MARGIN,
   },
   title: {
-    fontSize: 20,
-    color: 'black',
-    fontWeight: '500',
+    fontSize: SIZES.TITLE,
+    color: COLOR.HEADING,
+    fontWeight: 'bold',
   },
   note: {
-    fontSize: 16,
-    color: 'dimgray',
+    fontSize: SIZES.MEDIUM_TEXT,
+    color: COLOR.PLACE_HOLDER_COLOR,
   },
 });
 export default NoteCard;
