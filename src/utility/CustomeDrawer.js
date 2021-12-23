@@ -8,7 +8,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import {AuthContext} from '../navigation/AuthProvider';
 import {fetchLabels} from '../navigation/LabelServices';
 import Label from './Label';
-import {COLOR, SIZES} from './Theme';
+import {COLOR, SIZES, PADDING, MARGIN, BORDER, FONT, DIRECTION} from './Theme';
 
 const CustomeDrawer = ({navigation, props}) => {
   const {signout} = useContext(AuthContext);
@@ -31,7 +31,7 @@ const CustomeDrawer = ({navigation, props}) => {
       {...props}
       contentContainerStyle={{}}
       nestedScrollEnabled={true}>
-      <View style={{flex: 1, paddingTop: 10}}>
+      <View style={styles.container}>
         <View style={[styles.view, styles.heading]}>
           <Text style={styles.heading}>FundooNotes</Text>
         </View>
@@ -74,7 +74,7 @@ const CustomeDrawer = ({navigation, props}) => {
               navigation.navigate('Create new label');
               setActive(!active);
             }}>
-            <View style={[styles.view, {paddingTop: 20}]}>
+            <View style={[styles.view, styles.labelView]}>
               <AntDesign
                 name="plus"
                 size={SIZES.ICON_SMALL}
@@ -96,14 +96,14 @@ const CustomeDrawer = ({navigation, props}) => {
                   style={
                     ([styles.view],
                     {
-                      justifyContent: 'space-between',
-                      flexDirection: 'row',
+                      justifyContent: DIRECTION.SPACE_BETWEEN,
+                      flexDirection: DIRECTION.FLEX_ROW,
                     })
                   }>
                   <Text
                     style={{
                       color: COLOR.TEXT_COLOR,
-                      fontSize: 14,
+                      fontSize: SIZES.SMALL_TEXT,
                     }}>
                     Labels
                   </Text>
@@ -140,7 +140,7 @@ const CustomeDrawer = ({navigation, props}) => {
               navigation.navigate('ArchiveScreen');
               setActive(!active);
             }}>
-            <View style={[styles.view, {paddingTop: 20}]}>
+            <View style={[styles.view, {paddingTop: PADDING.PRIMARY_PADDING}]}>
               <Ionicon
                 name="archive-outline"
                 size={SIZES.ICON_SMALL}
@@ -187,7 +187,7 @@ const CustomeDrawer = ({navigation, props}) => {
             onPress={() => {
               signout();
             }}>
-            <View style={[styles.view, {justifyContent: 'center'}]}>
+            <View style={[styles.view, {justifyContent: DIRECTION.FLEX_ALIGN}]}>
               <MaterialCommunityIcons
                 name="logout"
                 size={SIZES.ICON_SMALL}
@@ -202,28 +202,36 @@ const CustomeDrawer = ({navigation, props}) => {
   );
 };
 const styles = StyleSheet.create({
+  container: {flex: SIZES.FLEX, paddingTop: PADDING.PRIMARY_PADDING},
   editBar: {
     flexDirection: 'column',
-    top: 10,
-    left: 10,
-    paddingBottom: 10,
+    paddingTop: PADDING.PRIMARY_PADDING,
+    paddingLeft: PADDING.PRIMARY_PADDING,
   },
-  editText: {color: COLOR.TEXT_COLOR, fontSize: 14, marginRight: 30},
-  text: {
-    fontSize: 18,
+  editText: {
     color: COLOR.TEXT_COLOR,
-    paddingLeft: 10,
+    fontSize: SIZES.SMALL_TEXT,
+    marginRight: MARGIN.PRIMARY_MARGIN,
+  },
+  text: {
+    fontSize: SIZES.MEDIUM_TEXT,
+    color: COLOR.TEXT_COLOR,
+    paddingLeft: PADDING.PRIMARY_PADDING,
   },
   view: {
-    paddingTop: 20,
-    flexDirection: 'row',
-    paddingLeft: 10,
+    paddingTop: PADDING.PRIMARY_PADDING,
+    flexDirection: DIRECTION.FLEX_ROW,
+    paddingLeft: PADDING.PRIMARY_PADDING,
   },
   heading: {
-    fontSize: 22,
-    fontWeight: 'bold',
-    color: 'black',
+    fontSize: SIZES.LARGE_TEXT,
+    fontWeight: FONT.FONT_WEIGHT,
+    color: COLOR.HEADING,
   },
-  line: {borderTopColor: 'lavender', borderTopWidth: 0.8, top: 10},
+  line: {
+    borderTopColor: COLOR.SECONDARY,
+    borderTopWidth: BORDER.LIGHT_BORDER,
+    marginTop: MARGIN.PRIMARY_MARGIN,
+  },
 });
 export default CustomeDrawer;

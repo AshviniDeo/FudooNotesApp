@@ -55,7 +55,7 @@ const HomeScreen = ({navigation}) => {
 
   const BottomList = () => {
     return (
-      <View>
+      <View style={styles.window}>
         {noteData.find(item => item.Pinned === false) && (
           <Text style={styles.subtitles}>Others:</Text>
         )}
@@ -98,10 +98,7 @@ const HomeScreen = ({navigation}) => {
       />
 
       {search.length === 0 ? (
-        <View
-          style={{
-            flex: 3,
-          }}>
+        <View style={styles.container}>
           {noteData.length === 0 ? (
             <View style={styles.middle}>
               <Ionicon name={'bulb-outline'} size={100} color={'gold'} />
@@ -109,7 +106,7 @@ const HomeScreen = ({navigation}) => {
             </View>
           ) : (
             <View style={styles.window}>
-              {noteData.find(item => item.Pinned) && (
+              {pinData.find(item => item.Pinned) && (
                 <Text style={styles.subtitles}>Pinned:</Text>
               )}
               <FlatList
@@ -135,7 +132,7 @@ const HomeScreen = ({navigation}) => {
           )}
         </View>
       ) : (
-        <View style={{flex: 3}}>
+        <View style={styles.container}>
           <FlatList
             data={noteData}
             renderItem={({item}) =>
