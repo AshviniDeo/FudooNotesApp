@@ -8,7 +8,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import {AuthContext} from '../navigation/AuthProvider';
 import {fetchLabels} from '../navigation/LabelServices';
 import Label from './Label';
-import TEXT_COLOR from './ThemeColor';
+import {COLOR, SIZES} from './Theme';
 
 const CustomeDrawer = ({navigation, props}) => {
   const {signout} = useContext(AuthContext);
@@ -42,7 +42,11 @@ const CustomeDrawer = ({navigation, props}) => {
               setActive(!active);
             }}>
             <View style={styles.view}>
-              <Ionicon name="bulb-outline" size={22} color={TEXT_COLOR} />
+              <Ionicon
+                name="bulb-outline"
+                size={SIZES.ICON_SMALL}
+                color={COLOR.TEXT_COLOR}
+              />
               <Text style={styles.text}>Notes</Text>
             </View>
           </TouchableOpacity>
@@ -54,7 +58,11 @@ const CustomeDrawer = ({navigation, props}) => {
               setActive(!active);
             }}>
             <View style={styles.view}>
-              <FontAwesome name="bell-o" size={22} color={TEXT_COLOR} />
+              <FontAwesome
+                name="bell-o"
+                size={SIZES.ICON_SMALL}
+                color={COLOR.TEXT_COLOR}
+              />
               <Text style={styles.text}>Remainder</Text>
             </View>
           </TouchableOpacity>
@@ -67,7 +75,11 @@ const CustomeDrawer = ({navigation, props}) => {
               setActive(!active);
             }}>
             <View style={[styles.view, {paddingTop: 20}]}>
-              <AntDesign name="plus" size={22} color={TEXT_COLOR} />
+              <AntDesign
+                name="plus"
+                size={SIZES.ICON_SMALL}
+                color={COLOR.TEXT_COLOR}
+              />
               <Text style={styles.text}>Create new label</Text>
             </View>
           </TouchableOpacity>
@@ -90,7 +102,7 @@ const CustomeDrawer = ({navigation, props}) => {
                   }>
                   <Text
                     style={{
-                      color: TEXT_COLOR,
+                      color: COLOR.TEXT_COLOR,
                       fontSize: 14,
                     }}>
                     Labels
@@ -129,7 +141,11 @@ const CustomeDrawer = ({navigation, props}) => {
               setActive(!active);
             }}>
             <View style={[styles.view, {paddingTop: 20}]}>
-              <Ionicon name="archive-outline" size={22} color={TEXT_COLOR} />
+              <Ionicon
+                name="archive-outline"
+                size={SIZES.ICON_SMALL}
+                color={COLOR.TEXT_COLOR}
+              />
               <Text style={styles.text}>Archive</Text>
             </View>
           </TouchableOpacity>
@@ -141,7 +157,11 @@ const CustomeDrawer = ({navigation, props}) => {
               setActive(!active);
             }}>
             <View style={styles.view}>
-              <Ionicon name="trash-outline" size={22} color={TEXT_COLOR} />
+              <Ionicon
+                name="trash-outline"
+                size={SIZES.ICON_SMALL}
+                color={COLOR.TEXT_COLOR}
+              />
               <Text style={styles.text}>Trash</Text>
             </View>
           </TouchableOpacity>
@@ -153,7 +173,11 @@ const CustomeDrawer = ({navigation, props}) => {
               setActive(!active);
             }}>
             <View style={styles.view}>
-              <Ionicon name="settings-outline" size={22} color={TEXT_COLOR} />
+              <Ionicon
+                name="settings-outline"
+                size={SIZES.ICON_SMALL}
+                color={COLOR.TEXT_COLOR}
+              />
               <Text style={styles.text}>Settings</Text>
             </View>
           </TouchableOpacity>
@@ -166,8 +190,8 @@ const CustomeDrawer = ({navigation, props}) => {
             <View style={[styles.view, {justifyContent: 'center'}]}>
               <MaterialCommunityIcons
                 name="logout"
-                size={22}
-                color={TEXT_COLOR}
+                size={SIZES.ICON_SMALL}
+                color={COLOR.TEXT_COLOR}
               />
               <Text style={styles.text}>Logout</Text>
             </View>
@@ -184,10 +208,10 @@ const styles = StyleSheet.create({
     left: 10,
     paddingBottom: 10,
   },
-  editText: {color: TEXT_COLOR, fontSize: 14, marginRight: 30},
+  editText: {color: COLOR.TEXT_COLOR, fontSize: 14, marginRight: 30},
   text: {
     fontSize: 18,
-    color: TEXT_COLOR,
+    color: COLOR.TEXT_COLOR,
     paddingLeft: 10,
   },
   view: {
