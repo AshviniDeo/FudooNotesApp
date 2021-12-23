@@ -5,6 +5,7 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import {fetchArchiveData} from '../navigation/NoteServices';
 import {styles} from '../utility/StyleSheet';
 import TopBar from '../utility/TopBar';
+import {COLOR, SIZES} from '../utility/Theme';
 
 const ArchiveScreen = ({navigation}) => {
   const [search, setSearch] = useState('');
@@ -14,7 +15,6 @@ const ArchiveScreen = ({navigation}) => {
   const fetchData = async () => {
     let data = await fetchArchiveData();
     setNoteData(data);
-    console.log('===data ===', data);
   };
 
   useEffect(() => {
@@ -42,13 +42,14 @@ const ArchiveScreen = ({navigation}) => {
         searchIcon={false}
       />
       {search.length === 0 ? (
-        <View
-          style={{
-            flex: 3,
-          }}>
+        <View style={styles.container}>
           {noteData.length === 0 ? (
             <View style={styles.middle}>
-              <FontAwesome name={'archive'} size={100} color={'gold'} />
+              <FontAwesome
+                name={'archive'}
+                size={SIZES.EMPTY_ICON}
+                color={COLOR.EMPTY_FIELD_ICON}
+              />
               <Text style={styles.middleText}>
                 Your achived notes appear here
               </Text>

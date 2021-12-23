@@ -1,5 +1,6 @@
 import React from 'react';
 import {TextInput, StyleSheet, Text, View} from 'react-native';
+import {BORDER, COLOR, HEIGHT, PADDING, SIZES, WIDTH} from './Theme';
 
 export default function TextBox({
   placeHolder = '',
@@ -17,41 +18,33 @@ export default function TextBox({
         maxLength={40}
         editable
         placeholder={placeHolder}
+        placeholderTextColor={COLOR.PLACE_HOLDER_COLOR}
         secureTextEntry={secureTextEntry}
       />
-      {errorText && (
-        <Text
-          style={{
-            color: 'red',
-            textAlign: 'center',
-            top: 5,
-            left: '15%',
-            right: '15%',
-            fontWeight: 'bold',
-          }}>
-          {errorText}
-        </Text>
-      )}
+      {errorText && <Text style={styles.errorText}>{errorText}</Text>}
     </View>
   );
 }
 const styles = StyleSheet.create({
   box: {
-    backgroundColor: 'rgba(0,0,0,0)',
-    width: '90%',
-    height: 50,
-    borderBottomColor: 'black',
-    borderBottomWidth: 2,
+    flexWrap: 'wrap',
+    backgroundColor: COLOR.TRANSPARENT,
+    width: WIDTH.FULL_WIDTH,
+    height: HEIGHT.BUTTON_HEIGHT,
+    borderBottomColor: COLOR.AUTH_COLOR,
+    borderBottomWidth: BORDER.MEDIUM_BORDER,
     borderStyle: 'solid',
-    borderRadius: 9,
     justifyContent: 'center',
     alignContent: 'center',
-    left: '10%',
     fontWeight: 'bold',
-    color: 'black',
-    marginBottom: 30,
-    right: '10%',
-    top: 20,
-    fontSize: 18,
+    color: COLOR.HEADING,
+    fontSize: 16,
+    padding: PADDING.PRIMARY_PADDING,
+  },
+  errorText: {
+    color: COLOR.ERROR_TEXT,
+    textAlign: 'center',
+    padding: PADDING.PRIMARY_PADDING,
+    fontWeight: 'bold',
   },
 });

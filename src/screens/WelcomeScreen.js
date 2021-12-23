@@ -12,6 +12,7 @@ import {styles} from '../utility/StyleSheet';
 import TextBox from '../utility/TextBox';
 import KeyboardAvoidingView from 'react-native/Libraries/Components/Keyboard/KeyboardAvoidingView';
 import {AuthContext} from '../navigation/AuthProvider';
+import {PADDING, WIDTH} from '../utility/Theme';
 
 export default function WelcomeScreen({navigation}) {
   const bg = require('../assets/bgimg.jpg');
@@ -65,13 +66,14 @@ export default function WelcomeScreen({navigation}) {
   return (
     <ImageBackground source={bg} style={styles.background}>
       <KeyboardAvoidingView style={styles.container} behaviour="padding">
-        <View style={styles.container}>
-          <View style={{height: 200}}>
-            <Image
-              style={styles.logo}
-              source={require('../assets/logo2.png')}
-            />
-          </View>
+        <View
+          style={[
+            styles.container,
+            {
+              justifyContent: 'flex-end',
+              paddingBottom: PADDING.BUTTON_PADDING,
+            },
+          ]}>
           <View>
             <TextBox
               onChangeText={text => setUserName(text)}
@@ -91,41 +93,16 @@ export default function WelcomeScreen({navigation}) {
           </View>
           <TouchableOpacity onPress={forgetPassword}>
             <View>
-              <Text
-                style={{
-                  color: 'blue',
-                  textAlign: 'center',
-                  fontWeight: 'bold',
-                  top: 30,
-                  padding: 3,
-                  fontSize: 16,
-                }}>
-                Forgot password.
-              </Text>
+              <Text style={styles.passwordLink}>Forgot password.</Text>
             </View>
           </TouchableOpacity>
 
-          <View
-            style={{
-              justifyContent: 'space-evenly',
-              alignContent: 'center',
-              width: '80%',
-              flexDirection: 'row',
-              top: 30,
-              left: '7%',
-              right: '10%',
-            }}>
+          <View style={styles.buttonLogIn}>
             <MyButton onPress={onSignIn}>
-              <Text
-                style={{color: '#cd853f', fontWeight: 'bold', fontSize: 20}}>
-                Sign In
-              </Text>
+              <Text style={styles.button}>Sign In</Text>
             </MyButton>
             <MyButton onPress={onSignUp}>
-              <Text
-                style={{color: '#cd853f', fontWeight: 'bold', fontSize: 20}}>
-                Sign Up
-              </Text>
+              <Text style={styles.button}>Sign Up</Text>
             </MyButton>
           </View>
         </View>

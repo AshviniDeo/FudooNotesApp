@@ -6,13 +6,13 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import Entypo from 'react-native-vector-icons/Entypo';
 import {createLabel, fetchLabels} from '../navigation/LabelServices';
 import Label from '../utility/Label';
+import {COLOR, PADDING, SIZES} from '../utility/Theme';
 
 const CreateNewLabel = ({navigation, route}) => {
   const [active, setActive] = useState(false);
   const [label, setLabel] = useState('');
-  const [edit, setEdit] = useState(true);
   const [labelData, setLabelData] = useState([]);
-  const COLOR = 'rgba(0,0,0,0.8)';
+
   const handlePress = () => {
     createLabel(label).then(() => {
       fetchData();
@@ -24,7 +24,6 @@ const CreateNewLabel = ({navigation, route}) => {
   const fetchData = async () => {
     let data = await fetchLabels();
     setLabelData(data);
-    setEdit(true);
   };
 
   useEffect(() => {
@@ -37,20 +36,19 @@ const CreateNewLabel = ({navigation, route}) => {
   return (
     <View style={styles.background}>
       <View style={[styles.labelBar, {justifyContent: 'flex-start'}]}>
-        <View style={{left: 10, top: 10}}>
+        <View style={styles.icon}>
           <TouchableOpacity
             onPress={() => {
               navigation.navigate('Dashboard');
             }}>
-            <Ionicon name={'arrow-back'} size={28} color={COLOR} />
+            <Ionicon
+              name={'arrow-back'}
+              size={SIZES.ICON_MEDIUM}
+              color={COLOR.TEXT_COLOR}
+            />
           </TouchableOpacity>
         </View>
-        <View
-          style={{
-            left: 15,
-            top: 10,
-            bottom: 5,
-          }}>
+        <View style={styles.trashText}>
           <Text style={styles.labelText}>Edit Labels</Text>
         </View>
       </View>
@@ -63,18 +61,16 @@ const CreateNewLabel = ({navigation, route}) => {
               onPress={() => {
                 setActive(!active);
               }}>
-              <AntDesign name={'plus'} size={22} color={COLOR} />
+              <AntDesign
+                name={'plus'}
+                size={SIZES.ICON_MEDIUM}
+                color={COLOR.TEXT_COLOR}
+              />
               <Text style={styles.labelText}>Create new label</Text>
             </TouchableOpacity>
           </View>
         ) : (
-          <View
-            style={{
-              alignContent: 'center',
-              justifyContent: 'center',
-              flexDirection: 'row',
-              top: 5,
-            }}>
+          <View style={styles.editLabel}>
             <TouchableOpacity
               style={styles.label}
               onPress={() => {
@@ -94,24 +90,27 @@ const CreateNewLabel = ({navigation, route}) => {
               value={label}
             />
             <TouchableOpacity
-              style={[styles.label, {left: 20}]}
+              style={[styles.label, {paddingLeft: PADDING.BUTTON_PADDING}]}
               onPress={() => {
                 handlePress();
               }}>
-              <Ionicon name={'checkmark'} size={25} color={COLOR} />
+              <Ionicon
+                name={'checkmark'}
+                size={SIZES.ICON_MEDIUM}
+                color={COLOR.ACTIVE_COLOR}
+              />
             </TouchableOpacity>
           </View>
         )}
       </View>
       {labelData.length === 0 ? null : (
-        <View style={{paddingTop: 10}}>
+        <View style={styles.window}>
           <FlatList
             data={labelData}
             renderItem={({item}) =>
               labelData.length !== 0 ? (
                 <TouchableOpacity
                   onPress={() => {
-                    setEdit(false);
                     navigation.navigate('Create new label', {
                       editData: item,
                       editId: item.labelId,
@@ -119,10 +118,6 @@ const CreateNewLabel = ({navigation, route}) => {
                   }}>
                   <View style={styles.editLabel}>
                     <Label {...item} fetchData={fetchData} />
-
-                    {edit && (
-                      <Ionicon name="md-pencil-sharp" size={22} color={COLOR} />
-                    )}
                   </View>
                 </TouchableOpacity>
               ) : null

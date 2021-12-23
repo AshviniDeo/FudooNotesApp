@@ -5,6 +5,7 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import {styles} from '../utility/StyleSheet';
 import {fetchTrashData} from '../navigation/NoteServices';
 import NoteCard from '../utility/NoteCard';
+import {COLOR, SIZES} from '../utility/Theme';
 
 const Trash = ({navigation}) => {
   const [noteData, setNoteData] = useState([]);
@@ -12,7 +13,6 @@ const Trash = ({navigation}) => {
   const fetchData = async () => {
     let data = await fetchTrashData();
     setNoteData(data);
-    console.log('===data ===', data);
   };
 
   useEffect(() => {
@@ -29,37 +29,26 @@ const Trash = ({navigation}) => {
             onPress={() => {
               navigation.openDrawer();
             }}>
-            <Ionicon name={'menu'} size={28} color={'rgba(0,0,0,0.9)'} />
+            <Ionicon
+              name={'menu'}
+              size={SIZES.ICON_MEDIUM}
+              color={COLOR.TEXT_COLOR}
+            />
           </TouchableOpacity>
         </View>
         <View>
           <Text style={styles.trashText}>Trash</Text>
         </View>
       </View>
-      <View
-        style={{
-          flexDirection: 'column',
-          flex: 3,
-        }}>
+      <View style={styles.window}>
         {noteData.length === 0 ? (
-          <View
-            style={{
-              justifyContent: 'center',
-              alignContent: 'center',
-              alignItems: 'center',
-              left: '5%',
-              top: '30%',
-            }}>
-            <FontAwesome name={'trash'} size={100} color={'gold'} />
-            <Text
-              style={{
-                color: 'rgba(0,0,0,0.9)',
-                fontSize: 18,
-                alignItems: 'center',
-                top: 15,
-              }}>
-              No notes in Trash
-            </Text>
+          <View style={styles.middle}>
+            <FontAwesome
+              name={'trash'}
+              size={SIZES.EMPTY_ICON}
+              color={COLOR.EMPTY_FIELD_ICON}
+            />
+            <Text style={styles.middleText}>No notes in Trash</Text>
           </View>
         ) : (
           <View style={styles.window}>

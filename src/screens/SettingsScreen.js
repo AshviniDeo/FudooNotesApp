@@ -2,6 +2,7 @@ import React from 'react';
 import {View, TouchableOpacity, Text} from 'react-native';
 import {styles} from '../utility/StyleSheet';
 import Ionicon from 'react-native-vector-icons/Ionicons';
+import {COLOR, SIZES} from '../utility/Theme';
 
 const SettingsScreen = ({navigation}) => {
   return (
@@ -12,10 +13,14 @@ const SettingsScreen = ({navigation}) => {
             onPress={() => {
               navigation.openDrawer();
             }}>
-            <Ionicon name={'menu'} size={28} color={'rgba(0,0,0,0.9)'} />
+            <Ionicon
+              name={'menu'}
+              size={SIZES.ICON_MEDIUM}
+              color={COLOR.TEXT_COLOR}
+            />
           </TouchableOpacity>
         </View>
-        <Text style={styles.title}>Settings</Text>
+        <Text style={styles.trashText}>Settings</Text>
       </View>
     </View>
   );

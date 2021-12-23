@@ -4,8 +4,8 @@ import {styles} from './StyleSheet';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {daleteLabel, updateLabel} from '../navigation/LabelServices';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import {COLOR, SIZES} from './Theme';
 
-const COLOR = 'rgba(0,0,0,0.8)';
 const Label = props => {
   const [label, setlabel] = useState(props.Label);
   const [edit, setEdit] = useState(true);
@@ -28,19 +28,23 @@ const Label = props => {
 
   return (
     <View>
-      <View style={styles.label}>
+      <View style={styles.labelView}>
         {edit ? (
           <MaterialCommunityIcons
             name="label-outline"
-            size={22}
-            color={COLOR}
+            size={SIZES.ICON_MEDIUM}
+            color={COLOR.TEXT_COLOR}
           />
         ) : (
           <TouchableOpacity
             onPress={() => {
               onDeleteButton();
             }}>
-            <Ionicons name="trash-outline" size={22} color={'black'} />
+            <Ionicons
+              name="trash-outline"
+              size={SIZES.ICON_MEDIUM}
+              color={COLOR.TEXT_COLOR}
+            />
           </TouchableOpacity>
         )}
         <TextInput
@@ -50,16 +54,31 @@ const Label = props => {
           }}
           value={label}
           onFocus={() => {
-            setEdit(false);
+            setEdit(!edit);
           }}
         />
 
-        {!edit && (
+        {!edit ? (
           <TouchableOpacity
             onPress={() => {
               handlePress();
             }}>
-            <Ionicons name="checkmark" size={22} color={'blue'} />
+            <Ionicons
+              name="checkmark"
+              size={SIZES.ICON_MEDIUM}
+              color={COLOR.ACTIVE_COLOR}
+            />
+          </TouchableOpacity>
+        ) : (
+          <TouchableOpacity
+            onPress={() => {
+              setEdit(false);
+            }}>
+            <Ionicons
+              name="md-pencil-sharp"
+              size={SIZES.ICON_MEDIUM}
+              color={COLOR.TEXT_COLOR}
+            />
           </TouchableOpacity>
         )}
       </View>

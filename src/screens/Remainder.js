@@ -5,6 +5,7 @@ import {styles} from '../utility/StyleSheet';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import TopBar from '../utility/TopBar';
 import BottomBar from '../utility/BottomBar';
+import {COLOR, SIZES} from '../utility/Theme';
 
 const Remainder = ({navigation}) => {
   const [search, setSearch] = useState(false);
@@ -32,12 +33,13 @@ const Remainder = ({navigation}) => {
         icon={active}
       />
       {/* Header-End */}
-      <View
-        style={{
-          flex: 3,
-        }}>
+      <View style={styles.container}>
         <View style={styles.blank}>
-          <FontAwesome name={'bell-o'} size={100} color={'gold'} />
+          <FontAwesome
+            name={'bell-o'}
+            size={SIZES.EMPTY_ICON}
+            color={COLOR.EMPTY_FIELD_ICON}
+          />
           <Text style={styles.blankText}>
             Notes with upcoming remainders appear here
           </Text>

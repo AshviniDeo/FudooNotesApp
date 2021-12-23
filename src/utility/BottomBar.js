@@ -3,8 +3,8 @@ import {View, TouchableOpacity} from 'react-native';
 import {styles} from './StyleSheet';
 import Ionicon from 'react-native-vector-icons/Ionicons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import {COLOR, SIZES} from './Theme';
 
-const COLOR = 'rgba(0,0,0,0.9)';
 const BottomBar = ({navigation, onPress}) => {
   return (
     <View style={styles.bottomBar}>
@@ -12,24 +12,38 @@ const BottomBar = ({navigation, onPress}) => {
         <Ionicon
           style={styles.icon}
           name={'checkbox-outline'}
-          color={COLOR}
-          size={25}
+          color={COLOR.TEXT_COLOR}
+          size={SIZES.ICON_MEDIUM}
         />
 
-        <Ionicon style={styles.icon} name={'brush'} color={COLOR} size={25} />
+        <Ionicon
+          style={styles.icon}
+          name={'brush'}
+          color={COLOR}
+          size={SIZES.ICON_MEDIUM}
+        />
 
         <Ionicon
           style={styles.icon}
           name={'mic-outline'}
-          color={COLOR}
-          size={25}
+          color={COLOR.TEXT_COLOR}
+          size={SIZES.ICON_MEDIUM}
         />
 
-        <Ionicon style={styles.icon} name={'image'} color={COLOR} size={25} />
-        <View style={styles.space}></View>
-        <TouchableOpacity onPress={onPress}>
+        <Ionicon
+          style={styles.icon}
+          name={'image'}
+          color={COLOR}
+          size={SIZES.ICON_MEDIUM}
+        />
+
+        <TouchableOpacity style={styles.barButton} onPress={onPress}>
           <View style={styles.plus}>
-            <AntDesign name={'plus'} size={40} color={COLOR} />
+            <AntDesign
+              name={'plus'}
+              size={SIZES.ICON_LARGE}
+              color={COLOR.TEXT_COLOR}
+            />
           </View>
         </TouchableOpacity>
       </View>

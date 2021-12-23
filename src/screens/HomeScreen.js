@@ -9,6 +9,7 @@ import BottomBar from '../utility/BottomBar';
 import {styles} from '../utility/StyleSheet';
 import TopBar from '../utility/TopBar';
 import {LogBox} from 'react-native';
+import {COLOR, SIZES} from '../utility/Theme';
 
 LogBox.ignoreLogs(['Reanimated 2']);
 const HomeScreen = ({navigation}) => {
@@ -101,7 +102,11 @@ const HomeScreen = ({navigation}) => {
         <View style={styles.container}>
           {noteData.length === 0 ? (
             <View style={styles.middle}>
-              <Ionicon name={'bulb-outline'} size={100} color={'gold'} />
+              <Ionicon
+                name={'bulb-outline'}
+                size={SIZES.EMPTY_ICON}
+                color={COLOR.EMPTY_FIELD_ICON}
+              />
               <Text style={styles.middleText}>Notes you added appear here</Text>
             </View>
           ) : (

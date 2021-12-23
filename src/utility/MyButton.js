@@ -5,9 +5,7 @@ export default function MyButton({onPress, children}) {
   return (
     <TouchableOpacity onPress={onPress} style={styles.btn}>
       <View>
-        <Text style={{color: '#cd853f', fontWeight: 'bold', fontSize: 20}}>
-          {children}
-        </Text>
+        <Text>{children}</Text>
       </View>
     </TouchableOpacity>
   );

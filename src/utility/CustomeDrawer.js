@@ -8,7 +8,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import {AuthContext} from '../navigation/AuthProvider';
 import {fetchLabels} from '../navigation/LabelServices';
 import Label from './Label';
-import {COLOR, SIZES, PADDING, MARGIN, BORDER, FONT, DIRECTION} from './Theme';
+import {COLOR, SIZES, PADDING, MARGIN, BORDER, WIDTH} from './Theme';
 
 const CustomeDrawer = ({navigation, props}) => {
   const {signout} = useContext(AuthContext);
@@ -96,8 +96,8 @@ const CustomeDrawer = ({navigation, props}) => {
                   style={
                     ([styles.view],
                     {
-                      justifyContent: DIRECTION.SPACE_BETWEEN,
-                      flexDirection: DIRECTION.FLEX_ROW,
+                      justifyContent: 'space-between',
+                      flexDirection: 'row',
                     })
                   }>
                   <Text
@@ -187,7 +187,7 @@ const CustomeDrawer = ({navigation, props}) => {
             onPress={() => {
               signout();
             }}>
-            <View style={[styles.view, {justifyContent: DIRECTION.FLEX_ALIGN}]}>
+            <View style={[styles.view, {justifyContent: 'center'}]}>
               <MaterialCommunityIcons
                 name="logout"
                 size={SIZES.ICON_SMALL}
@@ -220,12 +220,13 @@ const styles = StyleSheet.create({
   },
   view: {
     paddingTop: PADDING.PRIMARY_PADDING,
-    flexDirection: DIRECTION.FLEX_ROW,
+    flexDirection: 'row',
     paddingLeft: PADDING.PRIMARY_PADDING,
+    width: WIDTH.FULL_WIDTH,
   },
   heading: {
     fontSize: SIZES.LARGE_TEXT,
-    fontWeight: FONT.FONT_WEIGHT,
+    fontWeight: 'bold',
     color: COLOR.HEADING,
   },
   line: {
