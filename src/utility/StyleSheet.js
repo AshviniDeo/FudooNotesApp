@@ -147,7 +147,7 @@ export const styles = StyleSheet.create({
   barButton: {
     justifyContent: 'flex-end',
     marginLeft: MARGIN.BUTTON_MARGIN,
-    marginBottom: MARGIN.SECONDARY_MARGIN,
+    marginBottom: MARGIN.BOTTOM_MARGIN,
   },
   plus: {
     backgroundColor: COLOR.SECONDARY,

@@ -46,8 +46,11 @@ export const PADDING = {
 export const MARGIN = {
   PRIMARY_MARGIN: 8,
   SECONDARY_MARGIN: 30,
-  BUTTON_MARGIN: 120,
-  BOTTOM_MARGIN: 4,
+  BUTTON_MARGIN:
+    windowWidth === 411.42857142857144
+      ? Dimensions.get('window').width * 0.27
+      : Dimensions.get('window').width * 0.2,
+  BOTTOM_MARGIN: '5%',
 };
 
 export const BORDER = {
