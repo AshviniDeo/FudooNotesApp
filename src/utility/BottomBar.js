@@ -13,20 +13,20 @@ const BottomBar = ({navigation, onPress}) => {
           style={styles.icon}
           name={'checkbox-outline'}
           color={COLOR}
-          size={22}
+          size={25}
         />
 
-        <Ionicon style={styles.icon} name={'brush'} color={COLOR} size={22} />
+        <Ionicon style={styles.icon} name={'brush'} color={COLOR} size={25} />
 
         <Ionicon
           style={styles.icon}
           name={'mic-outline'}
           color={COLOR}
-          size={22}
+          size={25}
         />
 
-        <Ionicon style={styles.icon} name={'image'} color={COLOR} size={22} />
-        <View style={{width: '45%'}}></View>
+        <Ionicon style={styles.icon} name={'image'} color={COLOR} size={25} />
+        <View style={styles.space}></View>
         <TouchableOpacity onPress={onPress}>
           <View style={styles.plus}>
             <AntDesign name={'plus'} size={40} color={COLOR} />

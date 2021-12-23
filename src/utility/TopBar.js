@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {View, TouchableOpacity, TextInput, Text} from 'react-native';
 import {styles} from './StyleSheet';
 import Ionicon from 'react-native-vector-icons/Ionicons';
@@ -14,21 +14,21 @@ const TopBar = ({
   searchIcon,
 }) => {
   const COLOR = 'rgba(0,0,0,0.9)';
-  const [, setSearchIcon] = useState(false);
+
   return (
     <View style={styles.topBar}>
       <View>
         <TouchableOpacity onPress={menuPress}>
-          <Ionicon name={'menu'} size={28} color={COLOR} />
+          <Ionicon name={'menu'} size={30} color={COLOR} />
         </TouchableOpacity>
       </View>
-      {searchIcon === false && (
+      {!searchIcon && (
         <View>
           <Text style={styles.title}>{text}</Text>
         </View>
       )}
       <View style={{left: 10}}>
-        {searchIcon && (
+        {searchIcon ? (
           <TextInput
             style={{color: COLOR, paddingLeft: -20, fontSize: 18}}
             placeholder={'Search your notes'}
@@ -36,27 +36,26 @@ const TopBar = ({
             onChangeText={onSearch}
             value={value}
           />
-        )}
-        {searchIcon === false && (
+        ) : (
           <TouchableOpacity
             onPress={() => {
-              setSearchIcon(!searchIcon);
+              searchIcon = true;
             }}>
-            <Ionicon name="search" size={22} color={COLOR} />
+            <Ionicon name="search" size={25} color={COLOR} />
           </TouchableOpacity>
         )}
       </View>
       <View style={{left: 10}}>
         <TouchableOpacity onPress={onPress}>
           {icon ? (
-            <FontAwesome name={'tasks'} size={30} color={COLOR} />
+            <FontAwesome name={'tasks'} size={25} color={COLOR} />
           ) : (
-            <Ionicon name={'grid'} size={30} color={COLOR} />
+            <Ionicon name={'grid'} size={25} color={COLOR} />
           )}
         </TouchableOpacity>
       </View>
       <View>
-        <FontAwesome name={'user-circle'} size={30} color={COLOR} />
+        <FontAwesome name={'user-circle'} size={25} color={COLOR} />
       </View>
     </View>
   );

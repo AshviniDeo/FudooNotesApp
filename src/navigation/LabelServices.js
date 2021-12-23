@@ -18,6 +18,28 @@ export const createLabel = async Label => {
     console.log(error.code);
   }
 };
+
+export const updateLabel = async (Label, labelId) => {
+  try {
+    const data = {
+      Label,
+    };
+    const id = await getUid();
+    await dbData.doc(id).collection('Labels').doc(labelId).update(data);
+  } catch (error) {
+    console.log(error.code);
+  }
+};
+
+export const daleteLabel = async labelId => {
+  try {
+    const id = await getUid();
+    await dbData.doc(id).collection('Labels').doc(labelId).delete();
+  } catch (error) {
+    console.log(error.code);
+  }
+};
+
 export const fetchLabels = async () => {
   const arr = [];
   const uid = await getUid();
@@ -27,12 +49,10 @@ export const fetchLabels = async () => {
     .collection('Labels')
     .get()
     .then(noteData => {
-      console.log('Total size:' + noteData.size);
       noteData.forEach(label => {
         const docData = label.data();
         docData.labelId = label.id;
         arr.push(docData);
-        console.log(arr);
       });
 
       return arr;

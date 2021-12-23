@@ -6,12 +6,17 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import Entypo from 'react-native-vector-icons/Entypo';
 import {createLabel, fetchLabels} from '../navigation/LabelServices';
 import Label from '../utility/Label';
-const CreateNewLabel = ({navigation}) => {
+
+const CreateNewLabel = ({navigation, route}) => {
   const [active, setActive] = useState(false);
   const [label, setLabel] = useState('');
+  const [edit, setEdit] = useState(true);
   const [labelData, setLabelData] = useState([]);
+  const COLOR = 'rgba(0,0,0,0.8)';
   const handlePress = () => {
-    createLabel(label);
+    createLabel(label).then(() => {
+      fetchData();
+    });
     setLabel('');
     setActive(!active);
   };
@@ -19,6 +24,7 @@ const CreateNewLabel = ({navigation}) => {
   const fetchData = async () => {
     let data = await fetchLabels();
     setLabelData(data);
+    setEdit(true);
   };
 
   useEffect(() => {
@@ -30,13 +36,13 @@ const CreateNewLabel = ({navigation}) => {
 
   return (
     <View style={styles.background}>
-      <View style={styles.labelBar}>
+      <View style={[styles.labelBar, {justifyContent: 'flex-start'}]}>
         <View style={{left: 10, top: 10}}>
           <TouchableOpacity
             onPress={() => {
               navigation.navigate('Dashboard');
             }}>
-            <Ionicon name={'arrow-back'} size={28} color={'white'} />
+            <Ionicon name={'arrow-back'} size={28} color={COLOR} />
           </TouchableOpacity>
         </View>
         <View
@@ -45,11 +51,11 @@ const CreateNewLabel = ({navigation}) => {
             top: 10,
             bottom: 5,
           }}>
-          <Text style={styles.title}>Edit Labels</Text>
+          <Text style={styles.labelText}>Edit Labels</Text>
         </View>
       </View>
 
-      <View style={styles.labelBar}>
+      <View style={[styles.labelBar, {justifyContent: 'flex-start'}]}>
         {!active ? (
           <View>
             <TouchableOpacity
@@ -57,7 +63,7 @@ const CreateNewLabel = ({navigation}) => {
               onPress={() => {
                 setActive(!active);
               }}>
-              <AntDesign name={'plus'} size={22} color={'white'} />
+              <AntDesign name={'plus'} size={22} color={COLOR} />
               <Text style={styles.labelText}>Create new label</Text>
             </TouchableOpacity>
           </View>
@@ -75,19 +81,13 @@ const CreateNewLabel = ({navigation}) => {
                 navigation.navigate('Dashboard');
                 setActive(!active);
               }}>
-              <Entypo name={'cross'} size={25} color={'white'} />
+              <Entypo name={'cross'} size={25} color={COLOR} />
             </TouchableOpacity>
             <TextInput
-              style={{
-                left: 15,
-                fontSize: 18,
-                bottom: 5,
-                fontWeight: '400',
-                color: 'white',
-              }}
+              style={styles.labelBox}
               editable={true}
-              placeholder="Create new Note"
-              placeholderTextColor={'white'}
+              placeholder="Create new label"
+              placeholderTextColor={'gray'}
               onChangeText={text => {
                 setLabel(text);
               }}
@@ -98,26 +98,32 @@ const CreateNewLabel = ({navigation}) => {
               onPress={() => {
                 handlePress();
               }}>
-              <Ionicon name={'checkmark'} size={25} color={'white'} />
+              <Ionicon name={'checkmark'} size={25} color={COLOR} />
             </TouchableOpacity>
           </View>
         )}
       </View>
       {labelData.length === 0 ? null : (
-        <View>
-          <Text style={styles.subtitles}>Labels:</Text>
+        <View style={{paddingTop: 10}}>
           <FlatList
             data={labelData}
             renderItem={({item}) =>
               labelData.length !== 0 ? (
                 <TouchableOpacity
                   onPress={() => {
+                    setEdit(false);
                     navigation.navigate('Create new label', {
                       editData: item,
-                      editId: item.id,
+                      editId: item.labelId,
                     });
                   }}>
-                  <Label {...item} />
+                  <View style={styles.editLabel}>
+                    <Label {...item} fetchData={fetchData} />
+
+                    {edit && (
+                      <Ionicon name="md-pencil-sharp" size={22} color={COLOR} />
+                    )}
+                  </View>
                 </TouchableOpacity>
               ) : null
             }

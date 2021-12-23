@@ -14,7 +14,7 @@ const ArchiveScreen = ({navigation}) => {
   const fetchData = async () => {
     let data = await fetchArchiveData();
     setNoteData(data);
-    console.log('===data ===');
+    console.log('===data ===', data);
   };
 
   useEffect(() => {
@@ -38,7 +38,7 @@ const ArchiveScreen = ({navigation}) => {
         onPress={() => {
           setActive(!active);
         }}
-        icon={active}
+        icon={true}
         searchIcon={false}
       />
       {search.length === 0 ? (
@@ -59,6 +59,7 @@ const ArchiveScreen = ({navigation}) => {
                 data={noteData}
                 renderItem={({item}) => (
                   <TouchableOpacity
+                    style={active ? styles.grid : styles.list}
                     onPress={() => {
                       navigation.navigate('Notes', {
                         editData: item,

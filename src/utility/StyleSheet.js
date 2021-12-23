@@ -7,6 +7,34 @@ console.log('Width :', windowWidth);
 const COLOR = 'rgba(0,0,0,0.9)';
 
 export const styles = StyleSheet.create({
+  space: {flex: 2},
+  lableInput: {left: 10, top: -11, paddingBottom: -10, width: '80%'},
+  labelBox: {
+    left: 15,
+    fontSize: 18,
+    bottom: 5,
+    fontWeight: '400',
+    color: 'rgba(0,0,0,0.8)',
+  },
+  labelList: {
+    alignContent: 'center',
+    justifyContent: 'center',
+    flexDirection: 'row',
+    top: 5,
+  },
+  editLabel: {
+    width: '80%',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignContent: 'center',
+  },
+  loader: {
+    flex: 1,
+    width: '100%',
+    justifyContent: 'center',
+    alignContent: 'center',
+    alignItems: 'center',
+  },
   trashText: {
     color: COLOR,
     fontSize: 20,
@@ -16,12 +44,12 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   list: {
-    width: '90%',
+    width: '100%',
   },
   grid: {
+    alignContent: 'center',
     width: '50%',
     left: 5,
-    right: 5,
   },
   labelText: {
     color: COLOR,
@@ -32,7 +60,8 @@ export const styles = StyleSheet.create({
   window: {
     justifyContent: 'center',
     alignContent: 'center',
-    paddingLeft: 20,
+    marginLeft: 20,
+    marginRight: 20,
   },
   labelBar: {
     flexDirection: 'row',
@@ -47,10 +76,9 @@ export const styles = StyleSheet.create({
   label: {
     flexDirection: 'row',
     justifyContent: 'flex-start',
-    alignContent: 'center',
+    alignContent: 'space-between',
     left: 10,
     top: 5,
-    bottom: 5,
   },
   noteBar: {
     justifyContent: 'flex-start',
@@ -101,6 +129,8 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
   },
   bottomBar: {
+    position: 'absolute',
+    bottom: 0,
     width: '100%',
     backgroundColor: '#e6e6fa',
     height: '8%',
@@ -109,6 +139,7 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     paddingLeft: 10,
     paddingRight: 10,
+    justifyContent: 'flex-end',
   },
   topBar: {
     justifyContent: 'space-around',

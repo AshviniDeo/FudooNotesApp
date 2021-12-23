@@ -8,8 +8,8 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import {AuthContext} from '../navigation/AuthProvider';
 import {fetchLabels} from '../navigation/LabelServices';
 import Label from './Label';
+import TEXT_COLOR from './ThemeColor';
 
-const COLOR = 'rgba(0,0,0,0.8)';
 const CustomeDrawer = ({navigation, props}) => {
   const {signout} = useContext(AuthContext);
   const [labelData, setLabelData] = useState([]);
@@ -42,7 +42,7 @@ const CustomeDrawer = ({navigation, props}) => {
               setActive(!active);
             }}>
             <View style={styles.view}>
-              <Ionicon name="bulb-outline" size={22} color={COLOR} />
+              <Ionicon name="bulb-outline" size={22} color={TEXT_COLOR} />
               <Text style={styles.text}>Notes</Text>
             </View>
           </TouchableOpacity>
@@ -54,7 +54,7 @@ const CustomeDrawer = ({navigation, props}) => {
               setActive(!active);
             }}>
             <View style={styles.view}>
-              <FontAwesome name="bell-o" size={22} color={COLOR} />
+              <FontAwesome name="bell-o" size={22} color={TEXT_COLOR} />
               <Text style={styles.text}>Remainder</Text>
             </View>
           </TouchableOpacity>
@@ -66,8 +66,8 @@ const CustomeDrawer = ({navigation, props}) => {
               navigation.navigate('Create new label');
               setActive(!active);
             }}>
-            <View style={styles.view}>
-              <AntDesign name="plus" size={22} color={COLOR} />
+            <View style={[styles.view, {paddingTop: 20}]}>
+              <AntDesign name="plus" size={22} color={TEXT_COLOR} />
               <Text style={styles.text}>Create new label</Text>
             </View>
           </TouchableOpacity>
@@ -79,14 +79,29 @@ const CustomeDrawer = ({navigation, props}) => {
                 navigation.navigate('Create new label');
                 setActive(!active);
               }}>
-              <View
-                style={{
-                  flexDirection: 'column',
-                  top: 5,
-                  left: 10,
-                  paddingBottom: 5,
-                }}>
-                <Text style={{color: COLOR, fontSize: 14}}>Labels:</Text>
+              <View style={styles.editBar}>
+                <View
+                  style={
+                    ([styles.view],
+                    {
+                      justifyContent: 'space-between',
+                      flexDirection: 'row',
+                    })
+                  }>
+                  <Text
+                    style={{
+                      color: TEXT_COLOR,
+                      fontSize: 14,
+                    }}>
+                    Labels
+                  </Text>
+                  <TouchableOpacity
+                    onPress={() => {
+                      navigation.navigate('Create new label');
+                    }}>
+                    <Text style={styles.editText}>Edits</Text>
+                  </TouchableOpacity>
+                </View>
                 <View>
                   {labelData.map((item, index) => (
                     <TouchableOpacity
@@ -113,8 +128,8 @@ const CustomeDrawer = ({navigation, props}) => {
               navigation.navigate('ArchiveScreen');
               setActive(!active);
             }}>
-            <View style={styles.view}>
-              <Ionicon name="archive-outline" size={22} color={COLOR} />
+            <View style={[styles.view, {paddingTop: 20}]}>
+              <Ionicon name="archive-outline" size={22} color={TEXT_COLOR} />
               <Text style={styles.text}>Archive</Text>
             </View>
           </TouchableOpacity>
@@ -126,7 +141,7 @@ const CustomeDrawer = ({navigation, props}) => {
               setActive(!active);
             }}>
             <View style={styles.view}>
-              <Ionicon name="trash-outline" size={22} color={COLOR} />
+              <Ionicon name="trash-outline" size={22} color={TEXT_COLOR} />
               <Text style={styles.text}>Trash</Text>
             </View>
           </TouchableOpacity>
@@ -138,7 +153,7 @@ const CustomeDrawer = ({navigation, props}) => {
               setActive(!active);
             }}>
             <View style={styles.view}>
-              <Ionicon name="settings-outline" size={22} color={COLOR} />
+              <Ionicon name="settings-outline" size={22} color={TEXT_COLOR} />
               <Text style={styles.text}>Settings</Text>
             </View>
           </TouchableOpacity>
@@ -149,7 +164,11 @@ const CustomeDrawer = ({navigation, props}) => {
               signout();
             }}>
             <View style={[styles.view, {justifyContent: 'center'}]}>
-              <MaterialCommunityIcons name="logout" size={22} color={COLOR} />
+              <MaterialCommunityIcons
+                name="logout"
+                size={22}
+                color={TEXT_COLOR}
+              />
               <Text style={styles.text}>Logout</Text>
             </View>
           </TouchableOpacity>
@@ -159,9 +178,16 @@ const CustomeDrawer = ({navigation, props}) => {
   );
 };
 const styles = StyleSheet.create({
+  editBar: {
+    flexDirection: 'column',
+    top: 10,
+    left: 10,
+    paddingBottom: 10,
+  },
+  editText: {color: TEXT_COLOR, fontSize: 14, marginRight: 30},
   text: {
-    fontSize: 16,
-    color: COLOR,
+    fontSize: 18,
+    color: TEXT_COLOR,
     paddingLeft: 10,
   },
   view: {
@@ -174,6 +200,6 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: 'black',
   },
-  line: {borderTopColor: '#00ffff', borderTopWidth: 0.5, top: 5},
+  line: {borderTopColor: 'lavender', borderTopWidth: 0.8, top: 10},
 });
 export default CustomeDrawer;

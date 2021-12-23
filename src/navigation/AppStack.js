@@ -9,6 +9,7 @@ import SettingsScreen from '../screens/SettingsScreen';
 import Remainder from '../screens/Remainder';
 import Trash from '../screens/Trash';
 import ArchiveScreen from '../screens/ArchiveScreen';
+import Label from '../utility/Label';
 
 function AppDrawer() {
   const Drawer = createDrawerNavigator();
@@ -45,6 +46,11 @@ export const AppStack = () => {
       <Stack.Screen
         name="Notes"
         component={Notes}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="Label"
+        component={Label}
         options={{headerShown: false}}
       />
     </Stack.Navigator>

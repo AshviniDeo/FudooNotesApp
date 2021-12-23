@@ -1,5 +1,10 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import firestore from '@react-native-firebase/firestore';
+import firestore, {
+  query,
+  collection,
+  where,
+  getDocs,
+} from '@react-native-firebase/firestore';
 
 const getUid = async () => {
   return await AsyncStorage.getItem('uid');
@@ -66,12 +71,10 @@ export const fetchNoteData = async () => {
     .where('Archive', '!=', true)
     .get()
     .then(noteData => {
-      console.log('Total size:' + noteData.size);
       noteData.forEach(note => {
         const docData = note.data();
         docData.noteId = note.id;
         arr.push(docData);
-        console.log(arr);
       });
 
       return arr;
@@ -88,12 +91,30 @@ export const fetchArchiveData = async () => {
     .where('Archive', '==', true)
     .get()
     .then(noteData => {
-      console.log('Total size:' + noteData.size);
       noteData.forEach(note => {
         const docData = note.data();
         docData.noteId = note.id;
         arr.push(docData);
-        console.log(arr);
+      });
+
+      return arr;
+    });
+};
+
+export const fetchTrashData = async () => {
+  const arr = [];
+  const uid = await getUid();
+  return firestore()
+    .collection('PersonalDetails')
+    .doc(uid)
+    .collection('Notes')
+    .where('Trash', '==', true)
+    .get()
+    .then(noteData => {
+      noteData.forEach(note => {
+        const docData = note.data();
+        docData.noteId = note.id;
+        arr.push(docData);
       });
 
       return arr;

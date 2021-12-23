@@ -1,5 +1,11 @@
 import React, {useState, useEffect} from 'react';
-import {View, Text, TouchableOpacity, TextInput} from 'react-native';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  TextInput,
+  StyleSheet,
+} from 'react-native';
 import Ionicon from 'react-native-vector-icons/Ionicons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Feather from 'react-native-vector-icons/Feather';
@@ -42,22 +48,19 @@ const Notes = ({navigation, route}) => {
         receiveId,
         toNavigateDashboard,
       );
-
-      console.log('========>data update');
     } else {
       createnote(title, note, archive, pinned, reminder, toNavigateDashboard);
     }
+  };
+
+  const onMoreOption = () => {
+    <View></View>;
   };
   return (
     <View style={styles.background}>
       {/* Header-Bar==>Start */}
       <View style={styles.noteBar}>
-        <View
-          style={{
-            alignItems: 'flex-start',
-            justifyContent: 'flex-start',
-            alignContent: 'flex-start',
-          }}>
+        <View style={custome.topBar}>
           <TouchableOpacity
             onPress={() => {
               handlePress();
@@ -65,14 +68,8 @@ const Notes = ({navigation, route}) => {
             <Ionicon name={'arrow-back'} size={28} color={COLOR} />
           </TouchableOpacity>
         </View>
-        <View style={{width: '55%'}} />
-        <View
-          style={{
-            alignItems: 'flex-end',
-            flexDirection: 'row',
-            justifyContent: 'space-evenly',
-            alignContent: 'flex-end',
-          }}>
+        <View style={{width: '50%'}} />
+        <View style={custome.view}>
           <TouchableOpacity
             onPress={() => {
               setPinned(prev => {
@@ -113,6 +110,20 @@ const Notes = ({navigation, route}) => {
               />
             </View>
           </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => {
+              setTrash(prev => {
+                return !trash;
+              });
+            }}>
+            <View style={{paddingLeft: 15}}>
+              <Ionicon
+                name={'trash-outline'}
+                size={28}
+                color={trash ? 'gray' : COLOR}
+              />
+            </View>
+          </TouchableOpacity>
         </View>
       </View>
       {/* //Header-Bar ===>End */}
@@ -123,13 +134,7 @@ const Notes = ({navigation, route}) => {
           flexWrap: 'wrap',
           flex: 3,
         }}>
-        <View
-          style={{
-            height: '10%',
-            alignContent: 'center',
-            flexWrap: 'wrap',
-            width: '90%',
-          }}>
+        <View style={custome.titleInput}>
           <TouchableOpacity>
             <TextInput
               style={{fontSize: 22, color: COLOR}}
@@ -165,44 +170,67 @@ const Notes = ({navigation, route}) => {
       </View>
 
       {/* //Bottom-Bar ==> Start */}
-      <View
-        style={{
-          justifyContent: 'flex-start',
-          alignContent: 'center',
-          height: '5%',
-          flexDirection: 'row',
-        }}>
+      <View style={custome.bottom}>
         <View style={{justifyContent: 'flex-start', paddingLeft: 15}}>
           <AntDesign name={'plus'} size={22} color={COLOR} />
         </View>
         <View style={{justifyContent: 'flex-start', paddingLeft: 15}}>
           <Ionicon name={'color-palette-outline'} size={22} color={COLOR} />
         </View>
-        <View
-          style={{
-            justifyContent: 'flex-start',
-            paddingLeft: 15,
-            width: '70%',
-            alignContent: 'center',
-          }}>
+        <View style={custome.date}>
           <Text
             style={{color: {COLOR}, alignItems: 'center', alignSelf: 'center'}}>
             Edited {currentDate}
           </Text>
         </View>
-        <View
-          style={{
-            justifyContent: 'flex-end',
-            paddingLeft: 15,
-            alignContent: 'center',
-            bottom: 10,
-          }}>
-          <Feather name={'more-vertical'} size={22} color={COLOR} />
+        <View style={custome.more}>
+          <TouchableOpacity
+            onPress={() => {
+              onMoreOption();
+            }}>
+            <Feather name={'more-vertical'} size={22} color={COLOR} />
+          </TouchableOpacity>
         </View>
       </View>
       {/* //Bottom-Bar ==>End */}
     </View>
   );
 };
-
+const custome = StyleSheet.create({
+  more: {
+    justifyContent: 'flex-end',
+    paddingLeft: 15,
+    alignContent: 'center',
+    bottom: 10,
+  },
+  date: {
+    justifyContent: 'flex-start',
+    paddingLeft: 15,
+    width: '70%',
+    alignContent: 'center',
+  },
+  bottom: {
+    justifyContent: 'flex-start',
+    alignContent: 'center',
+    height: '5%',
+    flexDirection: 'row',
+  },
+  titleInput: {
+    height: '10%',
+    alignContent: 'center',
+    flexWrap: 'wrap',
+    width: '90%',
+  },
+  topBar: {
+    alignItems: 'flex-start',
+    justifyContent: 'flex-start',
+    alignContent: 'flex-start',
+  },
+  view: {
+    alignItems: 'flex-end',
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    alignContent: 'flex-end',
+  },
+});
 export default Notes;
