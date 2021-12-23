@@ -117,7 +117,7 @@ const CreateNewLabel = ({navigation, route}) => {
                     });
                   }}>
                   <View style={styles.editLabel}>
-                    <Label {...item} fetchData={fetchData} />
+                    <Label {...item} fetchData={fetchData} toggle={true} />
                   </View>
                 </TouchableOpacity>
               ) : null

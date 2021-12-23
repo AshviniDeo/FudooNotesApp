@@ -1,10 +1,10 @@
 import React, {useState} from 'react';
-import {View, TouchableOpacity, TextInput} from 'react-native';
+import {View, TouchableOpacity, TextInput, Text} from 'react-native';
 import {styles} from './StyleSheet';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {daleteLabel, updateLabel} from '../navigation/LabelServices';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import {COLOR, SIZES} from './Theme';
+import {COLOR, PADDING, SIZES} from './Theme';
 
 const Label = props => {
   const [label, setlabel] = useState(props.Label);
@@ -47,40 +47,50 @@ const Label = props => {
             />
           </TouchableOpacity>
         )}
-        <TextInput
-          style={[styles.label, styles.lableInput]}
-          onChangeText={text => {
-            setlabel(text);
-          }}
-          value={label}
-          onFocus={() => {
-            setEdit(!edit);
-          }}
-        />
-
-        {!edit ? (
-          <TouchableOpacity
-            onPress={() => {
-              handlePress();
-            }}>
-            <Ionicons
-              name="checkmark"
-              size={SIZES.ICON_MEDIUM}
-              color={COLOR.ACTIVE_COLOR}
-            />
-          </TouchableOpacity>
+        {props.toggle ? (
+          <TextInput
+            style={[styles.label, styles.lableInput]}
+            onChangeText={text => {
+              setlabel(text);
+            }}
+            value={label}
+            onFocus={() => {
+              props.toggle && setEdit(!edit);
+            }}
+          />
         ) : (
-          <TouchableOpacity
-            onPress={() => {
-              setEdit(false);
-            }}>
-            <Ionicons
-              name="md-pencil-sharp"
-              size={SIZES.ICON_MEDIUM}
-              color={COLOR.TEXT_COLOR}
-            />
-          </TouchableOpacity>
+          <Text
+            style={[styles.editText, {paddingLeft: PADDING.PRIMARY_PADDING}]}>
+            {props.Label}
+          </Text>
         )}
+        {props.toggle ? (
+          <View>
+            {!edit ? (
+              <TouchableOpacity
+                onPress={() => {
+                  handlePress();
+                }}>
+                <Ionicons
+                  name="checkmark"
+                  size={SIZES.ICON_MEDIUM}
+                  color={COLOR.ACTIVE_COLOR}
+                />
+              </TouchableOpacity>
+            ) : (
+              <TouchableOpacity
+                onPress={() => {
+                  setEdit(false);
+                }}>
+                <Ionicons
+                  name="md-pencil-sharp"
+                  size={SIZES.ICON_MEDIUM}
+                  color={COLOR.TEXT_COLOR}
+                />
+              </TouchableOpacity>
+            )}
+          </View>
+        ) : null}
       </View>
     </View>
   );

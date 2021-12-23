@@ -2,6 +2,11 @@ import {StyleSheet} from 'react-native';
 import {COLOR, PADDING, SIZES, WIDTH, MARGIN, BORDER, HEIGHT} from './Theme';
 
 export const styles = StyleSheet.create({
+  searchInput: {
+    color: COLOR.TEXT_COLOR,
+    paddingLeft: PADDING.NEGATIVE_PADDING,
+    fontSize: SIZES.MEDIUM_TEXT,
+  },
   buttonLogIn: {
     flexDirection: 'row',
     width: WIDTH.SECONDARY_WIDTH,
@@ -133,6 +138,11 @@ export const styles = StyleSheet.create({
     fontSize: SIZES.SMALL_TEXT,
     fontWeight: 'bold',
   },
+  editText: {
+    color: COLOR.TEXT_COLOR,
+    fontSize: SIZES.SMALL_TEXT,
+    marginRight: MARGIN.PRIMARY_MARGIN,
+  },
   barButton: {
     justifyContent: 'flex-end',
     marginLeft: MARGIN.BUTTON_MARGIN,
@@ -247,16 +257,16 @@ export const styles = StyleSheet.create({
     flexWrap: 'wrap',
   },
   middle: {
-    flex: 1,
+    flex: SIZES.FLEX,
     justifyContent: 'center',
     alignContent: 'center',
     alignItems: 'center',
-    paddingLeft: '3%',
+    paddingLeft: PADDING.SECONADARY_PADDING,
   },
   middleText: {
     color: COLOR.TEXT_COLOR,
-    fontSize: 20,
+    fontSize: SIZES.MEDIUM_TEXT,
     alignItems: 'center',
-    top: 10,
+    paddingTop: PADDING.SECONADARY_PADDING,
   },
 });

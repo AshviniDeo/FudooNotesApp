@@ -93,13 +93,10 @@ const CustomeDrawer = ({navigation, props}) => {
               }}>
               <View style={styles.editBar}>
                 <View
-                  style={
-                    ([styles.view],
-                    {
-                      justifyContent: 'space-between',
-                      flexDirection: 'row',
-                    })
-                  }>
+                  style={{
+                    justifyContent: 'space-between',
+                    flexDirection: 'row',
+                  }}>
                   <Text
                     style={{
                       color: COLOR.TEXT_COLOR,
@@ -114,7 +111,7 @@ const CustomeDrawer = ({navigation, props}) => {
                     <Text style={styles.editText}>Edits</Text>
                   </TouchableOpacity>
                 </View>
-                <View>
+                <View style={styles.editText}>
                   {labelData.map((item, index) => (
                     <TouchableOpacity
                       key={item.labelId}
@@ -124,7 +121,9 @@ const CustomeDrawer = ({navigation, props}) => {
                           editId: item.labelId,
                         });
                       }}>
-                      <Label {...item} />
+                      <View>
+                        <Label {...item} toggle={false} />
+                      </View>
                     </TouchableOpacity>
                   ))}
                 </View>
@@ -233,6 +232,10 @@ const styles = StyleSheet.create({
     borderTopColor: COLOR.SECONDARY,
     borderTopWidth: BORDER.LIGHT_BORDER,
     marginTop: MARGIN.PRIMARY_MARGIN,
+  },
+  listLabel: {
+    paddingLeft: PADDING.PRIMARY_PADDING,
+    justifyContent: 'flex-start',
   },
 });
 export default CustomeDrawer;

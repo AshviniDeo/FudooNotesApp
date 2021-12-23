@@ -34,7 +34,7 @@ const Remainder = ({navigation}) => {
       />
       {/* Header-End */}
       <View style={styles.container}>
-        <View style={styles.blank}>
+        <View style={styles.middle}>
           <FontAwesome
             name={'bell-o'}
             size={SIZES.EMPTY_ICON}
