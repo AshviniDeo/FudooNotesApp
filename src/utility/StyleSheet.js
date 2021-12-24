@@ -81,7 +81,7 @@ export const styles = StyleSheet.create({
     alignContent: 'center',
     width: WIDTH.HALF_WIDTH,
     paddingBottom: PADDING.SECONADARY_PADDING,
-    justifyContent: 'center',
+    padding: PADDING.SECONADARY_PADDING,
   },
   labelText: {
     color: COLOR.TEXT_COLOR,
