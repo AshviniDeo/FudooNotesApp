@@ -1,5 +1,11 @@
 import React, {useCallback, useEffect, useState} from 'react';
-import {View, Text, TouchableOpacity, FlatList} from 'react-native';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  FlatList,
+  ActivityIndicator,
+} from 'react-native';
 
 import Ionicon from 'react-native-vector-icons/Ionicons';
 import * as Animatable from 'react-native-animatable';
@@ -18,9 +24,12 @@ const HomeScreen = ({navigation}) => {
   const [noteData, setNoteData] = useState([]);
   const [pinData, setPinData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [searchData, setSearchData] = useState([]);
 
   const fetchData = useCallback(async () => {
     let data = await fetchNoteData();
+    setSearchData(data);
     const pin = [];
     const unpin = [];
     data.forEach(item => {
@@ -32,6 +41,7 @@ const HomeScreen = ({navigation}) => {
     });
     setNoteData(unpin);
     setPinData(pin);
+
     setIsLoading(false);
   }, [setIsLoading]);
 
@@ -41,7 +51,7 @@ const HomeScreen = ({navigation}) => {
     });
 
     return unsubscribe;
-  }, [navigation, fetchData]);
+  }, [navigation, fetchData, currentPage]);
 
   if (isLoading) {
     return (
@@ -55,6 +65,18 @@ const HomeScreen = ({navigation}) => {
   }
 
   const BottomList = () => {
+    const loadMoreItem = () => {
+      setCurrentPage(currentPage + 1);
+    };
+
+    const renderLoader = () => {
+      return (
+        <View style={styles.loaderStyle}>
+          <ActivityIndicator color={COLOR.ACTIVE_COLOR} size={'large'} />
+        </View>
+      );
+    };
+
     return (
       <View style={styles.window}>
         {noteData.find(item => item.Pinned === false) && (
@@ -77,6 +99,9 @@ const HomeScreen = ({navigation}) => {
           numColumns={active ? 1 : 2}
           key={active ? 3 : 4}
           keyExtractor={item => item.noteId}
+          ListFooterComponent={renderLoader}
+          onEndReached={loadMoreItem}
+          onEndReachedThreshold={0}
         />
       </View>
     );
@@ -132,17 +157,20 @@ const HomeScreen = ({navigation}) => {
                 key={active ? 1 : 2}
                 keyExtractor={item => item.noteId}
                 ListFooterComponent={<BottomList />}
+                refreshing={isLoading}
+                onRefresh={fetchData}
               />
             </View>
           )}
         </View>
       ) : (
-        <View style={styles.container}>
+        <View style={styles.window}>
           <FlatList
-            data={noteData}
+            data={searchData}
             renderItem={({item}) =>
               item.Title === search || item.Note === search ? (
                 <TouchableOpacity
+                  style={!active ? styles.grid : styles.list}
                   onPress={() => {
                     navigation.navigate('Notes', {
                       editData: item,

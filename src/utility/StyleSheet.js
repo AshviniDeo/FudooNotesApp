@@ -2,6 +2,12 @@ import {StyleSheet} from 'react-native';
 import {COLOR, PADDING, SIZES, WIDTH, MARGIN, BORDER, HEIGHT} from './Theme';
 
 export const styles = StyleSheet.create({
+  loaderStyle: {
+    marginVertical: MARGIN.PRIMARY_MARGIN,
+    alignItems: 'center',
+    justifyContent: 'space-around',
+    paddingBottom: PADDING.PRIMARY_PADDING,
+  },
   searchInput: {
     color: COLOR.TEXT_COLOR,
     paddingLeft: PADDING.NEGATIVE_PADDING,
