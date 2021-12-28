@@ -3,16 +3,15 @@ import {
   View,
   Text,
   ImageBackground,
-  Image,
   TouchableOpacity,
+  KeyboardAvoidingView,
 } from 'react-native';
 
-import MyButton from '../utility/MyButton';
+import MyButton from '../component/MyButton';
 import {styles} from '../utility/StyleSheet';
-import TextBox from '../utility/TextBox';
-import KeyboardAvoidingView from 'react-native/Libraries/Components/Keyboard/KeyboardAvoidingView';
+import TextBox from '../component/TextBox';
 import {AuthContext} from '../navigation/AuthProvider';
-import {PADDING, WIDTH} from '../utility/Theme';
+import {PADDING} from '../utility/Theme';
 
 export default function WelcomeScreen({navigation}) {
   const bg = require('../assets/bgimg.jpg');
@@ -93,7 +92,7 @@ export default function WelcomeScreen({navigation}) {
           </View>
           <TouchableOpacity onPress={forgetPassword}>
             <View>
-              <Text style={styles.passwordLink}>Forgot password.</Text>
+              <Text style={styles.passwordLink}>Forgot password ?</Text>
             </View>
           </TouchableOpacity>
 

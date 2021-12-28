@@ -10,9 +10,10 @@ import Ionicon from 'react-native-vector-icons/Ionicons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Feather from 'react-native-vector-icons/Feather';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import {createnote, updatenote} from '../navigation/NoteServices';
+import {createnote, updatenote} from '../services/NoteServices';
 import {styles} from '../utility/StyleSheet';
 import {COLOR, HEIGHT, PADDING, SIZES, WIDTH} from '../utility/Theme';
+import RBSheet from 'react-native-raw-bottom-sheet';
 
 const Notes = ({navigation, route}) => {
   const [pinned, setPinned] = useState(false);
@@ -50,7 +51,15 @@ const Notes = ({navigation, route}) => {
         toNavigateDashboard,
       );
     } else {
-      createnote(title, note, archive, pinned, reminder, toNavigateDashboard);
+      createnote(
+        title,
+        note,
+        archive,
+        pinned,
+        reminder,
+        trash,
+        toNavigateDashboard,
+      );
     }
   };
 
@@ -252,6 +261,12 @@ const custome = StyleSheet.create({
   titleText: {
     fontSize: SIZES.LARGE_TEXT,
     color: COLOR.TEXT_COLOR,
+  },
+  rawSheet: {
+    flex: SIZES.FLEX,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#000',
   },
 });
 export default Notes;

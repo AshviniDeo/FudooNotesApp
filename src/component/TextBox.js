@@ -1,11 +1,12 @@
 import React from 'react';
 import {TextInput, StyleSheet, Text, View} from 'react-native';
-import {BORDER, COLOR, HEIGHT, PADDING, SIZES, WIDTH} from './Theme';
+import {BORDER, COLOR, HEIGHT, PADDING, SIZES, WIDTH} from '../utility/Theme';
 
 export default function TextBox({
   placeHolder = '',
   onChangeText,
   value,
+  label,
   secureTextEntry = false,
   errorText = undefined,
 }) {
@@ -13,7 +14,7 @@ export default function TextBox({
     <View>
       <TextInput
         style={styles.box}
-        onChangeText={text => onChangeText(text)}
+        onChangeText={onChangeText}
         value={value}
         maxLength={40}
         editable

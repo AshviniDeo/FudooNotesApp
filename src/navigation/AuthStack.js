@@ -1,31 +1,32 @@
 import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
-import WelcomeScreen from '../screens/WelcomeScreen';
+import LogInScreen from '../screens/LogInScreen';
 import SignUpScreen from '../screens/SignUpScreen';
 import ForgotPasswordScreen from '../screens/ForgotPasswordScreen';
+import {COLOR} from '../utility/Theme';
 
 const AuthStack = () => {
   const Stack = createStackNavigator();
   return (
     <Stack.Navigator
       screenOptions={{
-        headerStyle: {backgroundColor: '#e6e6fa'},
+        headerStyle: {backgroundColor: COLOR.SECONDARY},
       }}>
       <Stack.Screen
-        name="WelcomeScreen"
-        component={WelcomeScreen}
+        name="LogIn"
+        component={LogInScreen}
         options={{headerShown: false}}
       />
 
       <Stack.Screen
         name="Sign Up"
         component={SignUpScreen}
-        options={{headerTintColor: 'rgba(0,0,0,0.8)'}}
+        options={{headerTintColor: COLOR.TEXT_COLOR}}
       />
       <Stack.Screen
         name="Forgot Password"
         component={ForgotPasswordScreen}
-        options={{headerTintColor: 'rgba(0,0,0,0.8)'}}
+        options={{headerTintColor: COLOR.TEXT_COLOR}}
       />
     </Stack.Navigator>
   );

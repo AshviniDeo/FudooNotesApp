@@ -4,8 +4,8 @@ import {styles} from '../utility/StyleSheet';
 import Ionicon from 'react-native-vector-icons/Ionicons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Entypo from 'react-native-vector-icons/Entypo';
-import {createLabel, fetchLabels} from '../navigation/LabelServices';
-import Label from '../utility/Label';
+import {createLabel, fetchLabels} from '../services/LabelServices';
+import Label from '../component/Label';
 import {COLOR, PADDING, SIZES} from '../utility/Theme';
 
 const CreateNewLabel = ({navigation, route}) => {
@@ -53,7 +53,7 @@ const CreateNewLabel = ({navigation, route}) => {
         </View>
       </View>
 
-      <View style={[styles.labelBar, {justifyContent: 'flex-start'}]}>
+      <View style={[styles.labelBar]}>
         {!active ? (
           <View>
             <TouchableOpacity

@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
 import {View, TouchableOpacity, TextInput, Text} from 'react-native';
-import {styles} from './StyleSheet';
+import {styles} from '../utility/StyleSheet';
 import Ionicon from 'react-native-vector-icons/Ionicons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import {COLOR, SIZES} from './Theme';
+import {COLOR, SIZES} from '../utility/Theme';
 
 const TopBar = ({
   menuPress,

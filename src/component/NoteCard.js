@@ -1,17 +1,19 @@
 import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
-import {BORDER, COLOR, PADDING, SIZES} from './Theme';
+import {Text, StyleSheet, TouchableOpacity} from 'react-native';
+import {BORDER, COLOR, PADDING, SIZES} from '../utility/Theme';
+import {styles} from '../utility/StyleSheet';
+import {View} from 'react-native-animatable';
 
 const NoteCard = props => {
   return (
-    <View style={styles.card}>
-      <Text style={styles.title}>{props.Title || ''}</Text>
-      <Text style={styles.note}>{props.Note || ''}</Text>
+    <View style={custom.card}>
+      <Text style={custom.title}>{props.Title || ''}</Text>
+      <Text style={custom.note}>{props.Note || ''}</Text>
     </View>
   );
 };
 
-const styles = StyleSheet.create({
+const custom = StyleSheet.create({
   card: {
     padding: PADDING.PRIMARY_PADDING,
     backgroundColor: COLOR.NOTE_CARD,

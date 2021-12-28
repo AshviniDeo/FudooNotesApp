@@ -1,39 +1,9 @@
 import React from 'react';
-import {createDrawerNavigator} from '@react-navigation/drawer';
 import {createStackNavigator} from '@react-navigation/stack';
-import CustomeDrawer from '../utility/CustomeDrawer';
 import Notes from '../screens/Notes';
-import HomeScreen from '../screens/HomeScreen';
-import CreateNewLabel from '../screens/CreateNewLabel';
-import SettingsScreen from '../screens/SettingsScreen';
-import Remainder from '../screens/Remainder';
-import Trash from '../screens/Trash';
-import ArchiveScreen from '../screens/ArchiveScreen';
-import Label from '../utility/Label';
+import Label from '../component/Label';
+import AppDrawer from './AppDrawer';
 
-function AppDrawer() {
-  const Drawer = createDrawerNavigator();
-
-  return (
-    <Drawer.Navigator
-      initialRouteName="Dashboard"
-      screenOptions={{
-        drawerStyle: {
-          backgroundColor: 'white',
-        },
-        headerShown: false,
-        drawerActiveBackgroundColor: '#e6e6fa',
-      }}
-      drawerContent={props => <CustomeDrawer {...props} />}>
-      <Drawer.Screen name="Dashboard" component={HomeScreen} />
-      <Drawer.Screen name="Remainder" component={Remainder} />
-      <Drawer.Screen name="Create new label" component={CreateNewLabel} />
-      <Drawer.Screen name="ArchiveScreen" component={ArchiveScreen} />
-      <Drawer.Screen name="Trash" component={Trash} />
-      <Drawer.Screen name="Settings" component={SettingsScreen} />
-    </Drawer.Navigator>
-  );
-}
 export const AppStack = () => {
   const Stack = createStackNavigator();
   return (

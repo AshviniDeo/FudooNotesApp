@@ -1,10 +1,10 @@
 import React, {useState} from 'react';
 import {View, TouchableOpacity, TextInput, Text} from 'react-native';
-import {styles} from './StyleSheet';
+import {styles} from '../utility/StyleSheet';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import {daleteLabel, updateLabel} from '../navigation/LabelServices';
+import {daleteLabel, updateLabel} from '../services/LabelServices';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import {COLOR, PADDING, SIZES} from './Theme';
+import {COLOR, PADDING, SIZES} from '../utility/Theme';
 
 const Label = props => {
   const [label, setlabel] = useState(props.Label);

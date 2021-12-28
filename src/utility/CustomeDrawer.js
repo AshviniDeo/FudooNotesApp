@@ -6,8 +6,8 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {AuthContext} from '../navigation/AuthProvider';
-import {fetchLabels} from '../navigation/LabelServices';
-import Label from './Label';
+import {fetchLabels} from '../services/LabelServices';
+import Label from '../component/Label';
 import {COLOR, SIZES, PADDING, MARGIN, BORDER, WIDTH} from './Theme';
 
 const CustomeDrawer = ({navigation, props}) => {
@@ -63,7 +63,7 @@ const CustomeDrawer = ({navigation, props}) => {
                 size={SIZES.ICON_SMALL}
                 color={COLOR.TEXT_COLOR}
               />
-              <Text style={styles.text}>Remainder</Text>
+              <Text style={styles.text}>Reminder</Text>
             </View>
           </TouchableOpacity>
         </View>

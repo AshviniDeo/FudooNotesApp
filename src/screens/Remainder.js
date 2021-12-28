@@ -1,13 +1,12 @@
 import React, {useState} from 'react';
 import {View, Text} from 'react-native';
 import {styles} from '../utility/StyleSheet';
-
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import TopBar from '../utility/TopBar';
-import BottomBar from '../utility/BottomBar';
+import TopBar from '../component/TopBar';
+import BottomBar from '../component/BottomBar';
 import {COLOR, SIZES} from '../utility/Theme';
 
-const Remainder = ({navigation}) => {
+const Reminder = ({navigation}) => {
   const [search, setSearch] = useState(false);
   const [active, setActive] = useState(true);
   const [value, setValue] = useState('');
@@ -55,4 +54,4 @@ const Remainder = ({navigation}) => {
   );
 };
 
-export default Remainder;
+export default Reminder;

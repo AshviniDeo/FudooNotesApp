@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
 import {View, ImageBackground} from 'react-native';
-import TextBox from '../utility/TextBox';
+import TextBox from '../component/TextBox';
 import {styles} from '../utility/StyleSheet';
-import MyButton from '../utility/MyButton';
+import MyButton from '../component/MyButton';
 export default function ForgotPasswordScreen() {
   const [email, setEmail] = useState('');
   const [error, setError] = useState({});

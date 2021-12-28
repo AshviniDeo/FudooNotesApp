@@ -1,10 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import firestore, {
-  query,
-  collection,
-  where,
-  getDocs,
-} from '@react-native-firebase/firestore';
+import firestore from '@react-native-firebase/firestore';
 
 const getUid = async () => {
   return await AsyncStorage.getItem('uid');
@@ -16,6 +11,7 @@ export const createnote = async (
   Archive,
   Pinned,
   Remainder,
+  Trash,
   callback,
 ) => {
   try {
@@ -25,6 +21,7 @@ export const createnote = async (
       Archive,
       Pinned,
       Remainder,
+      Trash,
     };
     const id = await getUid();
     await dbData.doc(id).collection('Notes').add(data);

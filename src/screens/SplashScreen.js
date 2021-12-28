@@ -1,10 +1,18 @@
 import React from 'react';
 import {Text, ImageBackground} from 'react-native';
+import {COLOR, SIZES} from '../utility/Theme';
 
 const SplashScreen = () => {
   return (
-    <ImageBackground style={{flex: 1}} source={require('../assets/Splash.jpg')}>
-      <Text style={{fontSize: 22, fontWeight: 'bold', color: 'white'}}>
+    <ImageBackground
+      style={{flex: SIZES.FLEX}}
+      source={require('../assets/Splash.jpg')}>
+      <Text
+        style={{
+          fontSize: SIZES.LARGE_TEXT,
+          fontWeight: 'bold',
+          color: COLOR.PRIMARY,
+        }}>
         Loading...
       </Text>
     </ImageBackground>

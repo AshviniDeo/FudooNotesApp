@@ -6,8 +6,8 @@ import {
   KeyboardAvoidingView,
 } from 'react-native';
 import {styles} from '../utility/StyleSheet';
-import TextBox from '../utility/TextBox';
-import MyButton from '../utility/MyButton';
+import TextBox from '../component/TextBox';
+import MyButton from '../component/MyButton';
 import {AuthContext} from '../navigation/AuthProvider';
 
 export default function SignUpScreen({navigation}) {

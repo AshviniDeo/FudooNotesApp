@@ -1,9 +1,9 @@
 import React from 'react';
 import {View, TouchableOpacity} from 'react-native';
-import {styles} from './StyleSheet';
+import {styles} from '../utility/StyleSheet';
 import Ionicon from 'react-native-vector-icons/Ionicons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import {COLOR, SIZES} from './Theme';
+import {COLOR, SIZES} from '../utility/Theme';
 
 const BottomBar = ({navigation, onPress}) => {
   return (

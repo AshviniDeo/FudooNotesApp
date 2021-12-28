@@ -3,8 +3,8 @@ import {View, Text, TouchableOpacity, FlatList} from 'react-native';
 import Ionicon from 'react-native-vector-icons/Ionicons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import {styles} from '../utility/StyleSheet';
-import {fetchTrashData} from '../navigation/NoteServices';
-import NoteCard from '../utility/NoteCard';
+import {fetchTrashData} from '../services/NoteServices';
+import NoteCard from '../component/NoteCard';
 import {COLOR, SIZES} from '../utility/Theme';
 
 const Trash = ({navigation}) => {

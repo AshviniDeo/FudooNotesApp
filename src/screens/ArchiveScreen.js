@@ -1,10 +1,10 @@
 import React, {useState, useEffect} from 'react';
 import {View, Text, TouchableOpacity, FlatList} from 'react-native';
-import NoteCard from '../utility/NoteCard';
+import NoteCard from '../component/NoteCard';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import {fetchArchiveData} from '../navigation/NoteServices';
+import {fetchArchiveData} from '../services/NoteServices';
 import {styles} from '../utility/StyleSheet';
-import TopBar from '../utility/TopBar';
+import TopBar from '../component/TopBar';
 import {COLOR, SIZES} from '../utility/Theme';
 
 const ArchiveScreen = ({navigation}) => {

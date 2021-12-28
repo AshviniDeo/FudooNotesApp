@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
-import {BORDER, COLOR, HEIGHT, MARGIN, PADDING, WIDTH} from './Theme';
+import {BORDER, COLOR, HEIGHT, MARGIN, PADDING, WIDTH} from '../utility/Theme';
 
 export default function MyButton({onPress, children}) {
   return (
