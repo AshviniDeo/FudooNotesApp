@@ -1,47 +1,37 @@
 import React from 'react';
-import {TextInput, StyleSheet, Text, View} from 'react-native';
-import {BORDER, COLOR, HEIGHT, PADDING, SIZES, WIDTH} from '../utility/Theme';
+import {StyleSheet, Text, View} from 'react-native';
+import {COLOR, MARGIN, PADDING} from '../utility/Theme';
+import {TextInput} from 'react-native-paper';
 
 export default function TextBox({
-  placeHolder = '',
   onChangeText,
   value,
   label,
-  secureTextEntry = false,
+  secureTextEntry,
   errorText = undefined,
 }) {
   return (
     <View>
       <TextInput
         style={styles.box}
-        onChangeText={onChangeText}
+        label={label}
         value={value}
-        maxLength={40}
-        editable
-        placeholder={placeHolder}
-        placeholderTextColor={COLOR.PLACE_HOLDER_COLOR}
         secureTextEntry={secureTextEntry}
+        onChangeText={onChangeText}
+        selectionColor={COLOR.AUTH_COLOR}
+        underlineColor={COLOR.AUTH_COLOR}
+        activeUnderlineColor={COLOR.AUTH_COLOR}
       />
+
       {errorText && <Text style={styles.errorText}>{errorText}</Text>}
     </View>
   );
 }
 const styles = StyleSheet.create({
   box: {
-    flexWrap: 'wrap',
+    margin: MARGIN.PRIMARY_MARGIN,
     backgroundColor: COLOR.TRANSPARENT,
-    width: WIDTH.FULL_WIDTH,
-    height: HEIGHT.BUTTON_HEIGHT,
-    borderBottomColor: COLOR.AUTH_COLOR,
-    borderBottomWidth: BORDER.MEDIUM_BORDER,
-    borderStyle: 'solid',
-    justifyContent: 'center',
-    alignContent: 'center',
-    alignItems: 'center',
-    fontWeight: 'bold',
-    color: COLOR.HEADING,
-    fontSize: SIZES.NOTE,
-    padding: PADDING.PRIMARY_PADDING,
+    marginLeft: MARGIN.SECONDARY_MARGIN,
   },
   errorText: {
     color: COLOR.ERROR_TEXT,

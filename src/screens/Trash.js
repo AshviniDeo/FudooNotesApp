@@ -1,18 +1,34 @@
 import React, {useEffect, useState} from 'react';
-import {View, Text, TouchableOpacity, FlatList} from 'react-native';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  ActivityIndicator,
+  ScrollView,
+} from 'react-native';
 import Ionicon from 'react-native-vector-icons/Ionicons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import {styles} from '../utility/StyleSheet';
-import {fetchTrashData} from '../services/NoteServices';
-import NoteCard from '../component/NoteCard';
+import {fetchNoteData} from '../services/NoteServices';
 import {COLOR, SIZES} from '../utility/Theme';
+import FlatListComponent from '../component/FlatListComponent';
+import {LogBox} from 'react-native';
+
+LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
 
 const Trash = ({navigation}) => {
   const [noteData, setNoteData] = useState([]);
 
   const fetchData = async () => {
-    let data = await fetchTrashData();
-    setNoteData(data);
+    let trash = [];
+    let data = await fetchNoteData();
+    console.log(data);
+    data.forEach(item => {
+      if (item.Trash) {
+        trash.push(item);
+      }
+    });
+    setNoteData(trash);
   };
 
   useEffect(() => {
@@ -21,6 +37,14 @@ const Trash = ({navigation}) => {
     });
     return unsubscribe;
   }, [navigation]);
+
+  const renderLoader = () => {
+    return (
+      <View style={styles.loaderStyle}>
+        <ActivityIndicator color={COLOR.ACTIVE_COLOR} size={'large'} />
+      </View>
+    );
+  };
   return (
     <View style={styles.background}>
       <View style={styles.trashBar}>
@@ -52,22 +76,15 @@ const Trash = ({navigation}) => {
           </View>
         ) : (
           <View style={styles.window}>
-            <FlatList
-              data={noteData}
-              renderItem={({item}) => (
-                <TouchableOpacity
-                  onPress={() => {
-                    navigation.navigate('Notes', {
-                      editData: item,
-                      editId: item.noteId,
-                    });
-                  }}>
-                  <NoteCard {...item} />
-                </TouchableOpacity>
-              )}
-              key={1}
-              keyExtractor={item => item.noteId}
-            />
+            <ScrollView>
+              <FlatListComponent
+                data={noteData}
+                active={true}
+                key={1}
+                keyExtractor={item => item.noteId}
+                ListFooterComponent={renderLoader}
+              />
+            </ScrollView>
           </View>
         )}
       </View>

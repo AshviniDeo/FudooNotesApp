@@ -17,8 +17,10 @@ import {styles} from '../utility/StyleSheet';
 import TopBar from '../component/TopBar';
 import {LogBox} from 'react-native';
 import {COLOR, SIZES} from '../utility/Theme';
+import FlatListComponent from '../component/FlatListComponent';
 
-LogBox.ignoreLogs(['Reanimated 2', ' VirtualizedLists should never be nested']);
+LogBox.ignoreLogs(['Reanimated 2', 'VirtualizedLists should never be nested']);
+
 const DashboardScreen = ({navigation}) => {
   const [search, setSearch] = useState('');
   const [active, setActive] = useState(true);
@@ -42,7 +44,6 @@ const DashboardScreen = ({navigation}) => {
     });
     setNoteData(unpin);
     setPinData(pin);
-
     setIsLoading(false);
   }, [setIsLoading]);
 
@@ -112,47 +113,23 @@ const DashboardScreen = ({navigation}) => {
                   {pinData.find(item => item.Pinned) && (
                     <Text style={styles.subtitles}>Pinned:</Text>
                   )}
-                  <FlatList
+                  <FlatListComponent
                     data={pinData}
-                    renderItem={({item}) => (
-                      <TouchableOpacity
-                        style={!active ? styles.grid : styles.list}
-                        onPress={() => {
-                          navigation.navigate('Notes', {
-                            editData: item,
-                            editId: item.noteId,
-                          });
-                        }}>
-                        <NoteCard {...item} />
-                      </TouchableOpacity>
-                    )}
-                    numColumns={active ? 1 : 2}
-                    key={active ? 1 : 2}
+                    navigation={navigation}
+                    active={active}
                     keyExtractor={item => item.noteId}
                     refreshing={isLoading}
                     onRefresh={fetchData}
                   />
                 </View>
                 <View style={styles.window}>
-                  {noteData.find(item => item.Pinned === false) && (
+                  {noteData.find(item => item.Pinned === true) && (
                     <Text style={styles.subtitles}>Others:</Text>
                   )}
-                  <FlatList
+                  <FlatListComponent
                     data={noteData}
-                    renderItem={({item}) => (
-                      <TouchableOpacity
-                        style={!active ? styles.grid : styles.list}
-                        onPress={() => {
-                          navigation.navigate('Notes', {
-                            editData: item,
-                            editId: item.noteId,
-                          });
-                        }}>
-                        <NoteCard {...item} />
-                      </TouchableOpacity>
-                    )}
-                    numColumns={active ? 1 : 2}
-                    key={active ? 3 : 4}
+                    active={active}
+                    navigation={navigation}
                     keyExtractor={item => item.noteId}
                     ListFooterComponent={renderLoader}
                     onEndReached={loadMoreItem}

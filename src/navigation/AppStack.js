@@ -2,6 +2,7 @@ import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import Notes from '../screens/Notes';
 import Label from '../component/Label';
+import InsertLabel from '../component/InsertLabel';
 import AppDrawer from './AppDrawer';
 
 export const AppStack = () => {
@@ -21,6 +22,11 @@ export const AppStack = () => {
       <Stack.Screen
         name="Label"
         component={Label}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="AddLabel"
+        component={InsertLabel}
         options={{headerShown: false}}
       />
     </Stack.Navigator>

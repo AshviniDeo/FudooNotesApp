@@ -1,19 +1,19 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import firestore from '@react-native-firebase/firestore';
+import {
+  addLabel,
+  getLabels,
+  removeLabel,
+  setLabel,
+} from './labelServiceManager';
 
 const getUid = async () => {
   return await AsyncStorage.getItem('uid');
 };
 
-const dbData = firestore().collection('PersonalDetails');
-
 export const createLabel = async Label => {
   try {
-    const data = {
-      Label,
-    };
     const id = await getUid();
-    await dbData.doc(id).collection('Labels').add(data);
+    await addLabel(id, Label);
   } catch (error) {
     console.log(error.code);
   }
@@ -21,11 +21,8 @@ export const createLabel = async Label => {
 
 export const updateLabel = async (Label, labelId) => {
   try {
-    const data = {
-      Label,
-    };
     const id = await getUid();
-    await dbData.doc(id).collection('Labels').doc(labelId).update(data);
+    await setLabel(id, labelId, Label);
   } catch (error) {
     console.log(error.code);
   }
@@ -34,27 +31,13 @@ export const updateLabel = async (Label, labelId) => {
 export const daleteLabel = async labelId => {
   try {
     const id = await getUid();
-    await dbData.doc(id).collection('Labels').doc(labelId).delete();
+    await removeLabel(id, labelId);
   } catch (error) {
     console.log(error.code);
   }
 };
 
 export const fetchLabels = async () => {
-  const arr = [];
-  const uid = await getUid();
-  return firestore()
-    .collection('PersonalDetails')
-    .doc(uid)
-    .collection('Labels')
-    .get()
-    .then(noteData => {
-      noteData.forEach(label => {
-        const docData = label.data();
-        docData.labelId = label.id;
-        arr.push(docData);
-      });
-
-      return arr;
-    });
+  const id = await getUid();
+  return await getLabels(id);
 };

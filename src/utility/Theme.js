@@ -1,10 +1,5 @@
 import {Dimensions} from 'react-native';
-
-const windowWidth = Dimensions.get('window').width;
-const windowHeight = Dimensions.get('window').height;
-
-console.log('Height : ', windowHeight);
-console.log('Width :', windowWidth);
+const width = Dimensions.get('window').width;
 
 export const COLOR = {
   TEXT_COLOR: 'rgba(0,0,0,0.8)',
@@ -41,15 +36,13 @@ export const PADDING = {
   NEGATIVE_PADDING: -15,
   BUTTON_PADDING: 50,
   BOTTOM_PADDING: 0,
+  RAW_SHEET_PADDING: 10,
 };
 
 export const MARGIN = {
   PRIMARY_MARGIN: 8,
   SECONDARY_MARGIN: 30,
-  BUTTON_MARGIN:
-    windowWidth === 411.42857142857144
-      ? Dimensions.get('window').width * 0.27
-      : Dimensions.get('window').width * 0.2,
+  BUTTON_MARGIN: width >= 411 ? 110 : 70,
   BOTTOM_MARGIN: '5%',
 };
 
@@ -78,4 +71,5 @@ export const HEIGHT = {
   LOGO_HEIGHT: '20%',
   BUTTON_HEIGHT: 100,
   SIGNBTN: 50,
+  FBSHEET: 240,
 };

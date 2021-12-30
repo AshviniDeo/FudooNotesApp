@@ -91,46 +91,50 @@ export default function SignUpScreen({navigation}) {
       source={require('../assets/signup.jpg')}
       style={styles.background}>
       <ScrollView>
-        <KeyboardAvoidingView style={styles.container} behaviour="padding">
-          <View style={styles.container}>
+        <KeyboardAvoidingView behaviour="padding">
+          <View style={styles.window}>
             <View>
               <TextBox
                 onChangeText={text => setUserName(text)}
                 value={userName}
-                placeHolder={'Enter Username'}
+                label={'Enter UserName'}
                 errorText={error.userName}
+                secureTextEntry={false}
               />
             </View>
             <View>
               <TextBox
                 onChangeText={text => setEmail(text)}
                 value={email}
-                placeHolder={'Enter Email ID'}
+                label={'Enter Email ID'}
                 errorText={error.email}
+                secureTextEntry={false}
               />
             </View>
             <View>
               <TextBox
                 onChangeText={text => setPhone(text)}
                 value={phone}
-                placeHolder={'Enter Phone Number'}
+                label={'Enter Phone Number'}
                 errorText={error.phone}
+                secureTextEntry={false}
               />
             </View>
             <View>
               <TextBox
                 onChangeText={text => setDateOfBirth(text)}
                 value={dateOfBirth}
-                placeHolder={'Enter Date-of-Birth(DD/MM/YYYY)'}
+                label={'Enter Date-of-Birth(DD/MM/YYYY)'}
                 errorText={error.dateOfBirth}
+                secureTextEntry={false}
               />
             </View>
             <View>
               <TextBox
                 onChangeText={text => setPassword(text)}
                 value={password}
-                secureTextEntry
-                placeHolder={'Enter Password'}
+                secureTextEntry={true}
+                label={'Enter Password'}
                 errorText={error.password}
               />
             </View>
@@ -138,8 +142,8 @@ export default function SignUpScreen({navigation}) {
               <TextBox
                 onChangeText={text => setConfirmPassword(text)}
                 value={confirmPassword}
-                secureTextEntry
-                placeHolder={'Enter Confirm Password'}
+                secureTextEntry={true}
+                label={'Enter Confirm Password'}
                 errorText={error.confirmPassword}
               />
             </View>

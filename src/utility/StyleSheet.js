@@ -9,7 +9,7 @@ export const styles = StyleSheet.create({
     paddingBottom: PADDING.PRIMARY_PADDING,
   },
   searchInput: {
-    color: COLOR.TEXT_COLOR,
+    color: COLOR.TRANSPARENT,
     paddingLeft: PADDING.NEGATIVE_PADDING,
     fontSize: SIZES.MEDIUM_TEXT,
   },
@@ -17,6 +17,10 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     width: WIDTH.SECONDARY_WIDTH,
     paddingTop: PADDING.PRIMARY_PADDING,
+    margin: MARGIN.SECONDARY_MARGIN,
+    alignItems: 'center',
+    alignContent: 'center',
+    justifyContent: 'space-around',
   },
   button: {
     color: COLOR.AUTH_COLOR,
@@ -99,7 +103,7 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     alignContent: 'center',
     width: WIDTH.FULL_WIDTH,
-    paddingTop: PADDING.PRIMARY_PADDING,
+    paddingTop: PADDING.SECONADARY_PADDING,
     paddingBottom: PADDING.SECONADARY_PADDING,
   },
   labelBar: {
@@ -128,6 +132,7 @@ export const styles = StyleSheet.create({
     alignContent: 'space-between',
     alignItems: 'center',
     paddingLeft: PADDING.PRIMARY_PADDING,
+    flex: 0.1,
   },
   trashBar: {
     backgroundColor: COLOR.SECONDARY,
@@ -202,7 +207,7 @@ export const styles = StyleSheet.create({
   },
 
   background: {
-    flex: SIZES.FLEX,
+    flex: 1,
     backgroundColor: COLOR.PRIMARY,
     alignContent: 'center',
     justifyContent: 'flex-start',

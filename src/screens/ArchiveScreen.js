@@ -1,11 +1,14 @@
 import React, {useState, useEffect} from 'react';
-import {View, Text, TouchableOpacity, FlatList} from 'react-native';
+import {View, Text, TouchableOpacity, FlatList, ScrollView} from 'react-native';
 import NoteCard from '../component/NoteCard';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import {fetchArchiveData} from '../services/NoteServices';
+import {fetchNoteData} from '../services/NoteServices';
 import {styles} from '../utility/StyleSheet';
 import TopBar from '../component/TopBar';
 import {COLOR, SIZES} from '../utility/Theme';
+import {LogBox} from 'react-native';
+
+LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
 
 const ArchiveScreen = ({navigation}) => {
   const [search, setSearch] = useState('');
@@ -13,8 +16,14 @@ const ArchiveScreen = ({navigation}) => {
   const [noteData, setNoteData] = useState([]);
 
   const fetchData = async () => {
-    let data = await fetchArchiveData();
-    setNoteData(data);
+    let data = await fetchNoteData();
+    const unpin = [];
+    data.forEach(item => {
+      if (item.Archive) {
+        unpin.push(item);
+      }
+    });
+    setNoteData(unpin);
   };
 
   useEffect(() => {
@@ -56,24 +65,26 @@ const ArchiveScreen = ({navigation}) => {
             </View>
           ) : (
             <View style={styles.window}>
-              <FlatList
-                data={noteData}
-                renderItem={({item}) => (
-                  <TouchableOpacity
-                    style={active ? styles.grid : styles.list}
-                    onPress={() => {
-                      navigation.navigate('Notes', {
-                        editData: item,
-                        editId: item.noteId,
-                      });
-                    }}>
-                    <NoteCard {...item} />
-                  </TouchableOpacity>
-                )}
-                numColumns={active ? 2 : 1}
-                key={active ? 2 : 1}
-                keyExtractor={item => item.noteId}
-              />
+              <ScrollView>
+                <FlatList
+                  data={noteData}
+                  renderItem={({item}) => (
+                    <TouchableOpacity
+                      style={active ? styles.grid : styles.list}
+                      onPress={() => {
+                        navigation.navigate('Notes', {
+                          editData: item,
+                          editId: item.noteId,
+                        });
+                      }}>
+                      <NoteCard {...item} />
+                    </TouchableOpacity>
+                  )}
+                  numColumns={active ? 2 : 1}
+                  key={active ? 2 : 1}
+                  keyExtractor={item => item.noteId}
+                />
+              </ScrollView>
             </View>
           )}
         </View>

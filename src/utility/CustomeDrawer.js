@@ -54,7 +54,7 @@ const CustomeDrawer = ({navigation, props}) => {
         <View>
           <TouchableOpacity
             onPress={() => {
-              navigation.navigate('Remainder');
+              navigation.navigate('Reminder');
               setActive(!active);
             }}>
             <View style={styles.view}>

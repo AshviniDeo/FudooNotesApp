@@ -1,10 +1,11 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import firestore from '@react-native-firebase/firestore';
+
+import {createNote, updateNote, fetchFirestoreData} from './noteServiceManger';
 
 const getUid = async () => {
   return await AsyncStorage.getItem('uid');
 };
-const dbData = firestore().collection('PersonalDetails');
+
 export const createnote = async (
   Title,
   Note,
@@ -24,7 +25,7 @@ export const createnote = async (
       Trash,
     };
     const id = await getUid();
-    await dbData.doc(id).collection('Notes').add(data);
+    await createNote(data, id);
     callback();
   } catch (error) {
     console.log(error.code);
@@ -51,7 +52,7 @@ export const updatenote = async (
       Trash,
     };
     const id = await getUid();
-    await dbData.doc(id).collection('Notes').doc(reciveId).update(data);
+    await updateNote(id, data, reciveId);
     callback();
   } catch (error) {
     console.log(error.code);
@@ -59,61 +60,6 @@ export const updatenote = async (
 };
 
 export const fetchNoteData = async () => {
-  const arr = [];
   const uid = await getUid();
-  return firestore()
-    .collection('PersonalDetails')
-    .doc(uid)
-    .collection('Notes')
-    .where('Archive', '!=', true)
-    .get()
-    .then(noteData => {
-      noteData.forEach(note => {
-        const docData = note.data();
-        docData.noteId = note.id;
-        arr.push(docData);
-      });
-
-      return arr;
-    });
-};
-
-export const fetchArchiveData = async () => {
-  const arr = [];
-  const uid = await getUid();
-  return firestore()
-    .collection('PersonalDetails')
-    .doc(uid)
-    .collection('Notes')
-    .where('Archive', '==', true)
-    .get()
-    .then(noteData => {
-      noteData.forEach(note => {
-        const docData = note.data();
-        docData.noteId = note.id;
-        arr.push(docData);
-      });
-
-      return arr;
-    });
-};
-
-export const fetchTrashData = async () => {
-  const arr = [];
-  const uid = await getUid();
-  return firestore()
-    .collection('PersonalDetails')
-    .doc(uid)
-    .collection('Notes')
-    .where('Trash', '==', true)
-    .get()
-    .then(noteData => {
-      noteData.forEach(note => {
-        const docData = note.data();
-        docData.noteId = note.id;
-        arr.push(docData);
-      });
-
-      return arr;
-    });
+  return await fetchFirestoreData(uid);
 };
