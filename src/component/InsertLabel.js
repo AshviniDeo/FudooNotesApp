@@ -1,18 +1,10 @@
 import React, {useState, useEffect} from 'react';
-import {TouchableOpacity, View, StyleSheet, FlatList} from 'react-native';
+import {TouchableOpacity, View, StyleSheet, SafeAreaView} from 'react-native';
 import {TextInput} from 'react-native-paper';
-import Ionicon from 'react-native-vector-icons/Ionicons';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import {createLabel, fetchLabels} from '../services/LabelServices';
-import Label from './Label';
-import {
-  BORDER,
-  COLOR,
-  HEIGHT,
-  MARGIN,
-  PADDING,
-  SIZES,
-  WIDTH,
-} from '../utility/Theme';
+import {BORDER, COLOR, HEIGHT, PADDING, SIZES, WIDTH} from '../utility/Theme';
+import AddLabel from './AddLabel';
 
 const InsertLabel = ({navigation}) => {
   const [active, setActive] = useState(false);
@@ -37,59 +29,60 @@ const InsertLabel = ({navigation}) => {
     });
     return unsubscribe;
   }, [navigation]);
+
   return (
-    <View style={styles.background}>
+    <SafeAreaView style={styles.background}>
       <View style={styles.labelBar}>
-        <TouchableOpacity
-          onPress={() => {
-            navigation.navigate('Notes');
-          }}>
-          <Ionicon
-            name={'arrow-back'}
-            size={SIZES.ICON_MEDIUM}
-            color={COLOR.TEXT_COLOR}
-          />
-        </TouchableOpacity>
-        <TextInput label={'Enter label name'} />
-      </View>
-      <View style={{flex: 0.9}}>
-        <View style={styles.window}>
-          <FlatList
-            data={labelData}
-            renderItem={({item}) =>
-              labelData.length !== 0 ? (
-                <TouchableOpacity
-                  onPress={() => {
-                    navigation.navigate('Create new label', {
-                      editData: item,
-                      editId: item.labelId,
-                    });
-                  }}>
-                  <View style={styles.editLabel}>
-                    <Label
-                      {...item}
-                      fetchData={fetchData}
-                      toggle={true}
-                      addLabel={true}
-                    />
-                  </View>
-                </TouchableOpacity>
-              ) : null
-            }
-            keyExtractor={item => item.labelId}
+        <View style={styles.arrow}>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate('Notes');
+            }}>
+            <Ionicons
+              name={'arrow-back'}
+              size={SIZES.ICON_MEDIUM}
+              color={COLOR.TEXT_COLOR}
+            />
+          </TouchableOpacity>
+        </View>
+        <View style={styles.arrow}>
+          <TextInput
+            style={styles.inputBox}
+            placeholder="Enter label name"
+            value={label}
+            onChangeText={text => {
+              setLabel(text);
+            }}
+            underlineColor={COLOR.TRANSPARENT}
+            activeUnderlineColor={COLOR.TRANSPARENT}
+            selectionColor={COLOR.ACTIVE_COLOR}
           />
         </View>
       </View>
-    </View>
+
+      <View style={styles.window}>
+        {labelData.map((item, index) => (
+          <TouchableOpacity key={item.labelId}>
+            <View style={styles.editLabel}>
+              <AddLabel {...item} />
+            </View>
+          </TouchableOpacity>
+        ))}
+      </View>
+    </SafeAreaView>
   );
 };
 const styles = StyleSheet.create({
+  window: {flex: 0.9, paddingTop: PADDING.SECONADARY_PADDING},
+  inputBox: {
+    width: WIDTH.FULL_WIDTH,
+    backgroundColor: COLOR.TRANSPARENT,
+    paddingLeft: PADDING.PRIMARY_PADDING,
+  },
   arrow: {
     alignContent: 'center',
     justifyContent: 'center',
-  },
-  inputbox: {
-    width: WIDTH.SECONDARY_WIDTH,
+    paddingLeft: PADDING.SECONADARY_PADDING,
   },
   background: {
     flex: SIZES.FLEX,

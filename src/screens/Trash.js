@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   ActivityIndicator,
   ScrollView,
+  SafeAreaView,
 } from 'react-native';
 import Ionicon from 'react-native-vector-icons/Ionicons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
@@ -46,7 +47,7 @@ const Trash = ({navigation}) => {
     );
   };
   return (
-    <View style={styles.background}>
+    <SafeAreaView style={styles.background}>
       <View style={styles.trashBar}>
         <View>
           <TouchableOpacity
@@ -88,7 +89,7 @@ const Trash = ({navigation}) => {
           </View>
         )}
       </View>
-    </View>
+    </SafeAreaView>
   );
 };
 

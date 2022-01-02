@@ -89,9 +89,10 @@ export const styles = StyleSheet.create({
   },
   grid: {
     alignContent: 'center',
-    width: WIDTH.HALF_WIDTH,
+    flex: 1,
     paddingBottom: PADDING.SECONADARY_PADDING,
     padding: PADDING.SECONADARY_PADDING,
+    height: 100,
   },
   labelText: {
     color: COLOR.TEXT_COLOR,

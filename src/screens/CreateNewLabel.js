@@ -1,5 +1,12 @@
 import React, {useState, useEffect} from 'react';
-import {View, Text, TouchableOpacity, TextInput, FlatList} from 'react-native';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  TextInput,
+  FlatList,
+  SafeAreaView,
+} from 'react-native';
 import {styles} from '../utility/StyleSheet';
 import Ionicon from 'react-native-vector-icons/Ionicons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -34,7 +41,7 @@ const CreateNewLabel = ({navigation, route}) => {
   }, [navigation]);
 
   return (
-    <View style={styles.background}>
+    <SafeAreaView style={styles.background}>
       <View style={[styles.labelBar, {justifyContent: 'flex-start'}]}>
         <View style={styles.icon}>
           <TouchableOpacity
@@ -126,7 +133,7 @@ const CreateNewLabel = ({navigation, route}) => {
           />
         </View>
       )}
-    </View>
+    </SafeAreaView>
   );
 };
 

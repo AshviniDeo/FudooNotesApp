@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   StyleSheet,
   ScrollView,
+  SafeAreaView,
 } from 'react-native';
 import Ionicon from 'react-native-vector-icons/Ionicons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -67,7 +68,7 @@ const Notes = ({navigation, route}) => {
   const refMore = useRef();
   const refReminder = useRef();
   return (
-    <View style={styles.background}>
+    <SafeAreaView style={styles.background}>
       {/* Header-Bar==>Start */}
       <View style={styles.noteBar}>
         <View style={custome.topBar}>
@@ -277,7 +278,7 @@ const Notes = ({navigation, route}) => {
       </View>
 
       {/* //Bottom-Bar ==>End */}
-    </View>
+    </SafeAreaView>
   );
 };
 const custome = StyleSheet.create({

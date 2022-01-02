@@ -1,5 +1,12 @@
 import React, {useState, useEffect} from 'react';
-import {View, Text, TouchableOpacity, FlatList, ScrollView} from 'react-native';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  FlatList,
+  ScrollView,
+  SafeAreaView,
+} from 'react-native';
 import NoteCard from '../component/NoteCard';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import {fetchNoteData} from '../services/NoteServices';
@@ -34,7 +41,7 @@ const ArchiveScreen = ({navigation}) => {
   }, [navigation]);
 
   return (
-    <View style={styles.background}>
+    <SafeAreaView style={styles.background}>
       <TopBar
         menuPress={() => {
           navigation.openDrawer();
@@ -111,7 +118,7 @@ const ArchiveScreen = ({navigation}) => {
           />
         </View>
       )}
-    </View>
+    </SafeAreaView>
   );
 };
 

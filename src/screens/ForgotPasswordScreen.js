@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, ImageBackground} from 'react-native';
+import {View, ImageBackground, SafeAreaView} from 'react-native';
 import TextBox from '../component/TextBox';
 import {styles} from '../utility/StyleSheet';
 import MyButton from '../component/MyButton';
@@ -18,7 +18,7 @@ export default function ForgotPasswordScreen() {
     <ImageBackground
       source={require('../assets/key.jpg')}
       style={[{opacity: 6}, styles.background]}>
-      <View style={styles.container}>
+      <SafeAreaView style={styles.container}>
         <View>
           <TextBox
             onChangeText={text => setEmail(text)}
@@ -31,7 +31,7 @@ export default function ForgotPasswordScreen() {
         <View style={{alignItems: 'center'}}>
           <MyButton onPress={getPassword}>Get Password</MyButton>
         </View>
-      </View>
+      </SafeAreaView>
     </ImageBackground>
   );
 }

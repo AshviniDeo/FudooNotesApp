@@ -9,7 +9,6 @@ import {COLOR, PADDING, SIZES} from '../utility/Theme';
 const Label = props => {
   const [label, setlabel] = useState(props.Label);
   const [edit, setEdit] = useState(true);
-  const [labelAdd, setLabelAdd] = useState(false);
   const handlePress = () => {
     setEdit(true);
     const labelData = label;
@@ -80,32 +79,16 @@ const Label = props => {
               </TouchableOpacity>
             ) : (
               <View>
-                {!props.addLable && (
-                  <TouchableOpacity
-                    onPress={() => {
-                      setEdit(false);
-                    }}>
-                    <Ionicons
-                      name="md-pencil-sharp"
-                      size={SIZES.ICON_MEDIUM}
-                      color={COLOR.TEXT_COLOR}
-                    />
-                  </TouchableOpacity>
-                )}
-                {props.addLable && (
-                  <TouchableOpacity
-                    onPress={() => {
-                      setLabelAdd(!labelAdd);
-                    }}>
-                    <MaterialCommunityIcons
-                      name={
-                        labelAdd ? 'checkbox-marked' : 'checkbox-blank-outline'
-                      }
-                      size={SIZES.ICON_MEDIUM}
-                      color={labelAdd ? COLOR.ACTIVE_COLOR : COLOR.TEXT_COLOR}
-                    />
-                  </TouchableOpacity>
-                )}
+                <TouchableOpacity
+                  onPress={() => {
+                    setEdit(false);
+                  }}>
+                  <Ionicons
+                    name="md-pencil-sharp"
+                    size={SIZES.ICON_MEDIUM}
+                    color={COLOR.TEXT_COLOR}
+                  />
+                </TouchableOpacity>
               </View>
             )}
           </View>

@@ -1,12 +1,12 @@
 import React from 'react';
-import {View, TouchableOpacity, Text} from 'react-native';
+import {View, TouchableOpacity, Text, SafeAreaView} from 'react-native';
 import {styles} from '../utility/StyleSheet';
 import Ionicon from 'react-native-vector-icons/Ionicons';
 import {COLOR, SIZES} from '../utility/Theme';
 
 const SettingsScreen = ({navigation}) => {
   return (
-    <View style={styles.background}>
+    <SafeAreaView style={styles.background}>
       <View style={styles.trashBar}>
         <View>
           <TouchableOpacity
@@ -22,7 +22,7 @@ const SettingsScreen = ({navigation}) => {
         </View>
         <Text style={styles.trashText}>Settings</Text>
       </View>
-    </View>
+    </SafeAreaView>
   );
 };
 

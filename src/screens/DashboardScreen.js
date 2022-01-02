@@ -6,6 +6,7 @@ import {
   FlatList,
   ActivityIndicator,
   ScrollView,
+  SafeAreaView,
 } from 'react-native';
 
 import Ionicon from 'react-native-vector-icons/Ionicons';
@@ -79,7 +80,7 @@ const DashboardScreen = ({navigation}) => {
   };
 
   return (
-    <View style={styles.background}>
+    <SafeAreaView style={styles.background}>
       <TopBar
         menuPress={() => {
           navigation.openDrawer();
@@ -170,7 +171,7 @@ const DashboardScreen = ({navigation}) => {
           navigation.navigate('Notes');
         }}
       />
-    </View>
+    </SafeAreaView>
   );
 };
 

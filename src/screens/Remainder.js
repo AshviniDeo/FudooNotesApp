@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, Text} from 'react-native';
+import {View, Text, SafeAreaView} from 'react-native';
 import {styles} from '../utility/StyleSheet';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import TopBar from '../component/TopBar';
@@ -12,7 +12,7 @@ const Reminder = ({navigation}) => {
   const [value, setValue] = useState('');
 
   return (
-    <View style={styles.background}>
+    <SafeAreaView style={styles.background}>
       <TopBar
         menuPress={() => {
           navigation.openDrawer();
@@ -50,7 +50,7 @@ const Reminder = ({navigation}) => {
           navigation.navigate('Notes');
         }}
       />
-    </View>
+    </SafeAreaView>
   );
 };
 
