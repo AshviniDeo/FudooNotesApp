@@ -13,9 +13,9 @@ const getUid = async () => {
 export const createLabel = async Label => {
   try {
     const id = await getUid();
-    await addLabel(id, Label);
+    await addLabel(Label, id);
   } catch (error) {
-    console.log(error.code);
+    console.log(error);
   }
 };
 

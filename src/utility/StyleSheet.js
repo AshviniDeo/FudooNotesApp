@@ -49,12 +49,13 @@ export const styles = StyleSheet.create({
     width: WIDTH.FULL_WIDTH,
   },
   labelBox: {
-    paddingLeft: PADDING.PRIMARY_PADDING,
+    paddingLeft: PADDING.SECONADARY_PADDING,
     fontSize: SIZES.MEDIUM_TEXT,
-    paddingBottom: PADDING.SECONADARY_PADDING,
     fontWeight: 'bold',
     color: COLOR.TEXT_COLOR,
-    width: WIDTH.HALF_WIDTH,
+    width: WIDTH.FULL_WIDTH,
+    paddingTop: PADDING.SECONADARY_PADDING,
+    paddingBottom: PADDING.SECONADARY_PADDING,
   },
   labelList: {
     alignContent: 'center',
@@ -111,18 +112,15 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     borderBottomWidth: BORDER.MEDIUM_BORDER,
     borderBottomColor: COLOR.TEXT_COLOR,
-    width: WIDTH.FULL_WIDTH,
-    paddingBottom: PADDING.SECONADARY_PADDING,
     justifyContent: 'flex-start',
     alignContent: 'center',
-    height: HEIGHT.BAR_HEIGHT,
-    paddingTop: PADDING.SECONADARY_PADDING,
+    flex: 0.1,
+    paddingBottom: PADDING.SECONADARY_PADDING,
   },
   label: {
     flexDirection: 'row',
     justifyContent: 'flex-start',
     alignContent: 'space-between',
-    paddingLeft: PADDING.PRIMARY_PADDING,
     paddingTop: PADDING.SECONADARY_PADDING,
   },
   noteBar: {
@@ -175,7 +173,8 @@ export const styles = StyleSheet.create({
   },
   icon: {
     paddingLeft: PADDING.PRIMARY_PADDING,
-    paddingTop: PADDING.SECONADARY_PADDING,
+    alignContent: 'center',
+    justifyContent: 'center',
   },
   bottomIcon: {
     flexDirection: 'row',

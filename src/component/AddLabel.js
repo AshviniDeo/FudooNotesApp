@@ -12,6 +12,7 @@ const AddLabel = props => {
   const handlePress = () => {
     setToggle(!toggle);
   };
+
   return (
     <View>
       <View style={styles.labelView}>

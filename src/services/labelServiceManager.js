@@ -1,12 +1,24 @@
 import firestore from '@react-native-firebase/firestore';
 const dbData = firestore().collection('PersonalDetails');
 
-export const addLabel = async (id, data) => {
-  await dbData.doc(id).collection('Labels').add(data);
+export const addLabel = async (data, id) => {
+  try {
+    const Label = {Label: data};
+
+    await dbData.doc(id).collection('Labels').add(Label);
+  } catch (e) {
+    console.log(e);
+  }
 };
 
 export const setLabel = async (id, labelId, data) => {
-  await dbData.doc(id).collection('Labels').doc(labelId).update(data);
+  try {
+    const Label = {Label: data};
+
+    await dbData.doc(id).collection('Labels').doc(labelId).update(Label);
+  } catch (e) {
+    console.log(e);
+  }
 };
 
 export const removeLabel = async (id, labelId) => {

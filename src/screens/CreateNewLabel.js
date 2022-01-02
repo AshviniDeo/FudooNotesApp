@@ -42,7 +42,7 @@ const CreateNewLabel = ({navigation, route}) => {
 
   return (
     <SafeAreaView style={styles.background}>
-      <View style={[styles.labelBar, {justifyContent: 'flex-start'}]}>
+      <View style={styles.labelBar}>
         <View style={styles.icon}>
           <TouchableOpacity
             onPress={() => {
@@ -55,14 +55,14 @@ const CreateNewLabel = ({navigation, route}) => {
             />
           </TouchableOpacity>
         </View>
-        <View style={styles.trashText}>
+        <View style={styles.icon}>
           <Text style={styles.labelText}>Edit Labels</Text>
         </View>
       </View>
 
-      <View style={[styles.labelBar]}>
+      <View style={styles.labelBar}>
         {!active ? (
-          <View>
+          <View style={styles.icon}>
             <TouchableOpacity
               style={styles.label}
               onPress={() => {
@@ -78,35 +78,41 @@ const CreateNewLabel = ({navigation, route}) => {
           </View>
         ) : (
           <View style={styles.editLabel}>
-            <TouchableOpacity
-              style={styles.label}
-              onPress={() => {
-                navigation.navigate('Dashboard');
-                setActive(!active);
-              }}>
-              <Entypo name={'cross'} size={25} color={COLOR} />
-            </TouchableOpacity>
-            <TextInput
-              style={styles.labelBox}
-              editable={true}
-              placeholder="Create new label"
-              placeholderTextColor={'gray'}
-              onChangeText={text => {
-                setLabel(text);
-              }}
-              value={label}
-            />
-            <TouchableOpacity
-              style={[styles.label, {paddingLeft: PADDING.BUTTON_PADDING}]}
-              onPress={() => {
-                handlePress();
-              }}>
-              <Ionicon
-                name={'checkmark'}
-                size={SIZES.ICON_MEDIUM}
-                color={COLOR.ACTIVE_COLOR}
+            <View style={styles.icon}>
+              <TouchableOpacity
+                style={styles.label}
+                onPress={() => {
+                  navigation.navigate('Dashboard');
+                  setActive(!active);
+                }}>
+                <Entypo name={'cross'} size={25} color={COLOR} />
+              </TouchableOpacity>
+            </View>
+            <View style={styles.icon}>
+              <TextInput
+                style={styles.labelBox}
+                editable={true}
+                placeholder="Create new label"
+                placeholderTextColor={'gray'}
+                onChangeText={text => {
+                  setLabel(text);
+                }}
+                value={label}
               />
-            </TouchableOpacity>
+            </View>
+            <View style={styles.icon}>
+              <TouchableOpacity
+                style={[styles.label, {paddingLeft: PADDING.BUTTON_PADDING}]}
+                onPress={() => {
+                  handlePress();
+                }}>
+                <Ionicon
+                  name={'checkmark'}
+                  size={SIZES.ICON_MEDIUM}
+                  color={COLOR.ACTIVE_COLOR}
+                />
+              </TouchableOpacity>
+            </View>
           </View>
         )}
       </View>

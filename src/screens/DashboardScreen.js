@@ -124,7 +124,7 @@ const DashboardScreen = ({navigation}) => {
                   />
                 </View>
                 <View style={styles.window}>
-                  {noteData.find(item => item.Pinned === true) && (
+                  {pinData.find(item => item.Pinned === true) && (
                     <Text style={styles.subtitles}>Others:</Text>
                   )}
                   <FlatListComponent
