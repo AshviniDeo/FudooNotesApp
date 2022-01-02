@@ -170,6 +170,9 @@ const DashboardScreen = ({navigation}) => {
         onPress={() => {
           navigation.navigate('Notes');
         }}
+        listPress={() => {
+          navigation.navigate('Notes', {List: true});
+        }}
       />
     </SafeAreaView>
   );

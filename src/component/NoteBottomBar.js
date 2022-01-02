@@ -8,7 +8,7 @@ import {styles} from '../utility/StyleSheet';
 import {COLOR, HEIGHT, MARGIN, PADDING, SIZES, WIDTH} from '../utility/Theme';
 import RBSheet from 'react-native-raw-bottom-sheet';
 
-const NoteBottomBar = ({trashPress, trash, onPress}) => {
+const NoteBottomBar = ({trashPress, trash, onPress, plusPress}) => {
   const [currentDate, setCurrentDate] = useState('');
   const refMore = useRef();
 
@@ -25,11 +25,13 @@ const NoteBottomBar = ({trashPress, trash, onPress}) => {
   return (
     <View style={custome.bottom}>
       <View style={styles.icon}>
-        <AntDesign
-          name={'plus'}
-          size={SIZES.ICON_MEDIUM}
-          color={COLOR.TEXT_COLOR}
-        />
+        <TouchableOpacity onPress={plusPress}>
+          <AntDesign
+            name={'plus'}
+            size={SIZES.ICON_MEDIUM}
+            color={COLOR.TEXT_COLOR}
+          />
+        </TouchableOpacity>
       </View>
       <View style={styles.icon}>
         <Ionicon

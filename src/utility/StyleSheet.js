@@ -2,6 +2,10 @@ import {StyleSheet} from 'react-native';
 import {COLOR, PADDING, SIZES, WIDTH, MARGIN, BORDER, HEIGHT} from './Theme';
 
 export const styles = StyleSheet.create({
+  editList: {
+    height: 20,
+    backgroundColor: COLOR.TRANSPARENT,
+  },
   loaderStyle: {
     marginVertical: MARGIN.PRIMARY_MARGIN,
     alignItems: 'center',

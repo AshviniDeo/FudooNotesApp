@@ -1,12 +1,21 @@
 import React, {useState} from 'react';
-import {View, StyleSheet, ScrollView, SafeAreaView} from 'react-native';
+import {
+  View,
+  StyleSheet,
+  ScrollView,
+  SafeAreaView,
+  TouchableOpacity,
+  Text,
+} from 'react-native';
 
 import {createnote, updatenote} from '../services/NoteServices';
 import {styles} from '../utility/StyleSheet';
-import {COLOR, MARGIN, SIZES, WIDTH} from '../utility/Theme';
+import {COLOR, MARGIN, PADDING, SIZES, WIDTH} from '../utility/Theme';
 import {TextInput} from 'react-native-paper';
 import NoteTopBar from '../component/NoteTopBar';
 import NoteBottomBar from '../component/NoteBottomBar';
+import AntDesign from 'react-native-vector-icons/AntDesign';
+import CreateList from '../component/CreateList';
 
 const Notes = ({navigation, route}) => {
   const [pinned, setPinned] = useState(false);
@@ -15,6 +24,9 @@ const Notes = ({navigation, route}) => {
   const [title, setTitle] = useState(route.params?.editData?.Title || '');
   const [note, setNote] = useState(route.params?.editData?.Note || '');
   const [trash, setTrash] = useState(false);
+  const [isList, setIsList] = useState(route.params?.List || false);
+  const [active, setActive] = useState(false);
+  const [list, setList] = useState(route.params?.editData?.List || []);
 
   const receiveId = route.params?.editId;
 
@@ -31,6 +43,7 @@ const Notes = ({navigation, route}) => {
         pinned,
         reminder,
         trash,
+        list,
         receiveId,
         toNavigateDashboard,
       );
@@ -42,6 +55,7 @@ const Notes = ({navigation, route}) => {
         pinned,
         reminder,
         trash,
+        list,
         toNavigateDashboard,
       );
     }
@@ -72,6 +86,11 @@ const Notes = ({navigation, route}) => {
     });
   };
 
+  const handleList = () => {
+    setIsList(prev => {
+      return !isList;
+    });
+  };
   return (
     <SafeAreaView style={styles.background}>
       {/* Header-Bar==>Start */}
@@ -101,21 +120,51 @@ const Notes = ({navigation, route}) => {
           underlineColor={COLOR.TRANSPARENT}
           activeUnderlineColor={COLOR.TRANSPARENT}
           selectionColor={COLOR.TEXT_COLOR}
+          right={isList && <TextInput.Icon name="table-column" />}
         />
         <ScrollView>
-          <TextInput
-            style={custome.note}
-            label={'Note'}
-            onChangeText={text => {
-              setNote(text);
-            }}
-            value={note}
-            editable
-            multiline
-            underlineColor={COLOR.TRANSPARENT}
-            activeUnderlineColor={COLOR.TEXT_COLOR}
-            selectionColor={COLOR.TEXT_COLOR}
-          />
+          {!isList ? (
+            <TextInput
+              style={custome.note}
+              label={'Note'}
+              onChangeText={text => {
+                setNote(text);
+              }}
+              value={note}
+              editable
+              multiline
+              underlineColor={COLOR.TRANSPARENT}
+              activeUnderlineColor={COLOR.TEXT_COLOR}
+              selectionColor={COLOR.TEXT_COLOR}
+            />
+          ) : (
+            <View>
+              {active && (
+                <CreateList
+                  onPress={() => {
+                    navigation.navigate('Notes');
+                  }}
+                  onChangeText={text => {
+                    setList(text);
+                  }}
+                  value={list}
+                />
+              )}
+
+              <TouchableOpacity
+                style={[styles.label, {paddingLeft: PADDING.PRIMARY_PADDING}]}
+                onPress={() => {
+                  setActive(!active);
+                }}>
+                <AntDesign
+                  name={'plus'}
+                  size={SIZES.ICON_MEDIUM}
+                  color={COLOR.TEXT_COLOR}
+                />
+                <Text style={styles.labelText}>Add item</Text>
+              </TouchableOpacity>
+            </View>
+          )}
         </ScrollView>
       </View>
 
@@ -124,6 +173,7 @@ const Notes = ({navigation, route}) => {
         trash={trash}
         trashPress={handleTrash}
         onPress={addLabel}
+        plusPress={handleList}
       />
 
       {/* //Bottom-Bar ==>End */}
@@ -148,6 +198,9 @@ const custome = StyleSheet.create({
     color: COLOR.TEXT_COLOR,
     margin: MARGIN.PRIMARY_MARGIN,
     backgroundColor: COLOR.TRANSPARENT,
+  },
+  noteCard: {
+    flex: 0.9,
   },
 });
 export default Notes;

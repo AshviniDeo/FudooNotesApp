@@ -13,6 +13,7 @@ export const createnote = async (
   Pinned,
   Remainder,
   Trash,
+  List,
   callback,
 ) => {
   try {
@@ -23,6 +24,7 @@ export const createnote = async (
       Pinned,
       Remainder,
       Trash,
+      List,
     };
     const id = await getUid();
     await createNote(data, id);
@@ -39,6 +41,7 @@ export const updatenote = async (
   Pinned,
   Remainder,
   Trash,
+  List,
   reciveId,
   callback,
 ) => {
@@ -50,6 +53,7 @@ export const updatenote = async (
       Pinned,
       Remainder,
       Trash,
+      List,
     };
     const id = await getUid();
     await updateNote(id, data, reciveId);

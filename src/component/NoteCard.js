@@ -1,14 +1,27 @@
 import React from 'react';
-import {Text, StyleSheet, TouchableOpacity} from 'react-native';
+import {Text, StyleSheet} from 'react-native';
 import {BORDER, COLOR, PADDING, SIZES} from '../utility/Theme';
 import {styles} from '../utility/StyleSheet';
 import {View} from 'react-native-animatable';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const NoteCard = props => {
   return (
     <View style={custom.card}>
       <Text style={custom.title}>{props.Title || ''}</Text>
       <Text style={custom.note}>{props.Note || ''}</Text>
+      {props.List && (
+        <View style={styles.label}>
+          <MaterialCommunityIcons
+            name="checkbox-blank-outline"
+            size={SIZES.ICON_MEDIUM}
+            color={COLOR.HEADING}
+          />
+          <Text style={[custom.note, {paddingTop: PADDING.NEGATIVE_PADDING}]}>
+            {props.List || ''}
+          </Text>
+        </View>
+      )}
     </View>
   );
 };

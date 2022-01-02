@@ -6,7 +6,7 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import {COLOR, SIZES} from '../utility/Theme';
 import ImageModal from './ImageModal';
 
-const BottomBar = ({navigation, onPress}) => {
+const BottomBar = ({navigation, onPress, listPress}) => {
   const [isVisible, setIsVisible] = useState(false);
   const toggelModal = () => {
     setIsVisible(!isVisible);
@@ -14,13 +14,14 @@ const BottomBar = ({navigation, onPress}) => {
   return (
     <View style={styles.bottomBar}>
       <View style={styles.bottomIcon}>
-        <Ionicon
-          style={styles.icon}
-          name={'checkbox-outline'}
-          color={COLOR.TEXT_COLOR}
-          size={SIZES.ICON_MEDIUM}
-        />
-
+        <TouchableOpacity onPress={listPress}>
+          <Ionicon
+            style={styles.icon}
+            name={'checkbox-outline'}
+            color={COLOR.TEXT_COLOR}
+            size={SIZES.ICON_MEDIUM}
+          />
+        </TouchableOpacity>
         <Ionicon
           style={styles.icon}
           name={'brush'}
