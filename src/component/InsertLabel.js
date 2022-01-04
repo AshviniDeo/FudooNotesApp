@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import {
   TouchableOpacity,
   View,
@@ -12,12 +12,16 @@ import {createLabel, fetchLabels} from '../services/LabelServices';
 import {BORDER, COLOR, HEIGHT, PADDING, SIZES, WIDTH} from '../utility/Theme';
 import AddLabel from './AddLabel';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import {LabelContext} from '../screens/Notes';
 
-const InsertLabel = ({navigation}) => {
-  const [active, setActive] = useState([]);
+const InsertLabel = ({navigation, route}) => {
   const [label, setLabel] = useState('');
   const [labelData, setLabelData] = useState([]);
+  const checkedArr = route.params?.checkedArr || [];
+  const setCheckedArr = route.params?.handleChecked;
 
+  const labelContext = useContext(LabelContext);
+  console.log(labelContext, 'Context');
   const handlePress = () => {
     createLabel(label).then(() => {
       fetchData();
@@ -29,7 +33,7 @@ const InsertLabel = ({navigation}) => {
     let data = await fetchLabels();
     setLabelData(data);
   };
-  console.log(active);
+
   useEffect(() => {
     const unsubscribe = navigation.addListener('focus', () => {
       fetchData();
@@ -94,7 +98,19 @@ const InsertLabel = ({navigation}) => {
                 item.Label === label && (
                   <TouchableOpacity key={item.labelId}>
                     <View style={styles.editLabel}>
-                      <AddLabel {...item} />
+                      <AddLabel
+                        {...item}
+                        checked={checkedArr.find(
+                          obj => obj.id === item.labelId,
+                        )}
+                        handleChecked={() => {
+                          console.log('abcd====>>');
+                          setCheckedArr?.({
+                            id: item.labelId,
+                            label: item.Label,
+                          });
+                        }}
+                      />
                     </View>
                   </TouchableOpacity>
                 ),

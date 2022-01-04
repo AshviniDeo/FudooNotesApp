@@ -37,6 +37,7 @@ export const PADDING = {
   BUTTON_PADDING: 50,
   BOTTOM_PADDING: 0,
   RAW_SHEET_PADDING: 10,
+  CROSS: '30%',
 };
 
 export const MARGIN = {

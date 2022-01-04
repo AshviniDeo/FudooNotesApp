@@ -14,6 +14,8 @@ export const createnote = async (
   Remainder,
   Trash,
   List,
+  IsList,
+  BackgroundColor,
   callback,
 ) => {
   try {
@@ -25,6 +27,8 @@ export const createnote = async (
       Remainder,
       Trash,
       List,
+      IsList,
+      BackgroundColor,
     };
     const id = await getUid();
     await createNote(data, id);
@@ -42,6 +46,8 @@ export const updatenote = async (
   Remainder,
   Trash,
   List,
+  IsList,
+  BackgroundColor,
   reciveId,
   callback,
 ) => {
@@ -54,6 +60,8 @@ export const updatenote = async (
       Remainder,
       Trash,
       List,
+      IsList,
+      BackgroundColor,
     };
     const id = await getUid();
     await updateNote(id, data, reciveId);

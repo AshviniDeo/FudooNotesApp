@@ -1,10 +1,29 @@
 import {StyleSheet} from 'react-native';
 import {COLOR, PADDING, SIZES, WIDTH, MARGIN, BORDER, HEIGHT} from './Theme';
 
+export const colors = [
+  '#ff6347',
+  '#ffa500',
+  '#ffff00',
+  '#00fa9a',
+  '#6495ed',
+  '#ffb6c1',
+  '#da70d6',
+  '#fafad2',
+  '#20b2aa',
+];
+
 export const styles = StyleSheet.create({
+  checkedList: {
+    fontSize: SIZES.NOTE,
+    paddingLeft: PADDING.PRIMARY_PADDING,
+  },
   editList: {
-    height: 20,
+    height: 22,
     backgroundColor: COLOR.TRANSPARENT,
+    width: 200,
+    fontSize: SIZES.NOTE,
+    paddingBottom: PADDING.SECONADARY_PADDING,
   },
   loaderStyle: {
     marginVertical: MARGIN.PRIMARY_MARGIN,
@@ -60,6 +79,8 @@ export const styles = StyleSheet.create({
     width: WIDTH.FULL_WIDTH,
     paddingTop: PADDING.SECONADARY_PADDING,
     paddingBottom: PADDING.SECONADARY_PADDING,
+    alignContent: 'center',
+    justifyContent: 'center',
   },
   labelList: {
     alignContent: 'center',
@@ -97,7 +118,6 @@ export const styles = StyleSheet.create({
     flex: 1,
     paddingBottom: PADDING.SECONADARY_PADDING,
     padding: PADDING.SECONADARY_PADDING,
-    height: 100,
   },
   labelText: {
     color: COLOR.TEXT_COLOR,
@@ -126,6 +146,7 @@ export const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     alignContent: 'space-between',
     paddingTop: PADDING.SECONADARY_PADDING,
+    width: WIDTH.FULL_WIDTH,
   },
   noteBar: {
     justifyContent: 'flex-start',
@@ -212,7 +233,6 @@ export const styles = StyleSheet.create({
 
   background: {
     flex: 1,
-    backgroundColor: COLOR.PRIMARY,
     alignContent: 'center',
     justifyContent: 'flex-start',
   },
@@ -284,5 +304,16 @@ export const styles = StyleSheet.create({
     fontSize: SIZES.MEDIUM_TEXT,
     alignItems: 'center',
     paddingTop: PADDING.SECONADARY_PADDING,
+  },
+  paletteView: {
+    width: 50,
+    height: 50,
+    borderRadius: 50,
+    margin: 5,
+    borderColor: '#d3d3d3',
+    borderWidth: 1,
+    shadowColor: 'grey',
+    shadowRadius: 20,
+    shadowOpacity: 1,
   },
 });

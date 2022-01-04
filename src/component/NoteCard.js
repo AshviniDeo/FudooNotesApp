@@ -7,19 +7,38 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 
 const NoteCard = props => {
   return (
-    <View style={custom.card}>
+    <View
+      style={[
+        custom.card,
+        {backgroundColor: props.BackgroundColor || COLOR.PRIMARY},
+      ]}>
       <Text style={custom.title}>{props.Title || ''}</Text>
-      <Text style={custom.note}>{props.Note || ''}</Text>
+      {!props.List && (
+        <View>
+          <Text style={custom.note}>{props.Note || ''}</Text>
+        </View>
+      )}
       {props.List && (
-        <View style={styles.label}>
-          <MaterialCommunityIcons
-            name="checkbox-blank-outline"
-            size={SIZES.ICON_MEDIUM}
-            color={COLOR.HEADING}
-          />
-          <Text style={[custom.note, {paddingTop: PADDING.NEGATIVE_PADDING}]}>
-            {props.List || ''}
-          </Text>
+        <View>
+          {Object.values(props.List).map((item, index) => (
+            <View key={index} style={styles.label}>
+              <MaterialCommunityIcons
+                name="checkbox-blank-outline"
+                size={SIZES.MEDIUM_TEXT}
+                color={COLOR.HEADING}
+              />
+              <Text
+                style={[
+                  custom.note,
+                  {
+                    paddingTop: PADDING.NEGATIVE_PADDING,
+                    paddingLeft: PADDING.SECONADARY_PADDING,
+                  },
+                ]}>
+                {item.name || ''}
+              </Text>
+            </View>
+          ))}
         </View>
       )}
     </View>
@@ -29,7 +48,6 @@ const NoteCard = props => {
 const custom = StyleSheet.create({
   card: {
     padding: PADDING.PRIMARY_PADDING,
-    backgroundColor: COLOR.NOTE_CARD,
     borderWidth: BORDER.LIGHT_BORDER,
     borderColor: COLOR.PLACE_HOLDER_COLOR,
     borderRadius: BORDER.CORNER,

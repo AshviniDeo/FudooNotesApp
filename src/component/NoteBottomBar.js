@@ -8,7 +8,13 @@ import {styles} from '../utility/StyleSheet';
 import {COLOR, HEIGHT, MARGIN, PADDING, SIZES, WIDTH} from '../utility/Theme';
 import RBSheet from 'react-native-raw-bottom-sheet';
 
-const NoteBottomBar = ({trashPress, trash, onPress, plusPress}) => {
+const NoteBottomBar = ({
+  trashPress,
+  trash,
+  onPress,
+  plusPress,
+  palettePress,
+}) => {
   const [currentDate, setCurrentDate] = useState('');
   const refMore = useRef();
 
@@ -34,11 +40,13 @@ const NoteBottomBar = ({trashPress, trash, onPress, plusPress}) => {
         </TouchableOpacity>
       </View>
       <View style={styles.icon}>
-        <Ionicon
-          name={'color-palette-outline'}
-          size={SIZES.ICON_MEDIUM}
-          color={COLOR.TEXT_COLOR}
-        />
+        <TouchableOpacity onPress={palettePress}>
+          <Ionicon
+            name={'color-palette-outline'}
+            size={SIZES.ICON_MEDIUM}
+            color={COLOR.TEXT_COLOR}
+          />
+        </TouchableOpacity>
       </View>
       <View style={custome.date}>
         <Text style={custome.dateText}>Edited {currentDate}</Text>

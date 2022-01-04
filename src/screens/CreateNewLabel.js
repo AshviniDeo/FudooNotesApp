@@ -14,11 +14,16 @@ import Entypo from 'react-native-vector-icons/Entypo';
 import {createLabel, fetchLabels} from '../services/LabelServices';
 import Label from '../component/Label';
 import {COLOR, PADDING, SIZES} from '../utility/Theme';
+import {useSelector, useDispatch} from 'react-redux';
+// import {setLabel} from '../redux/Actions';
 
 const CreateNewLabel = ({navigation, route}) => {
   const [active, setActive] = useState(false);
   const [label, setLabel] = useState('');
   const [labelData, setLabelData] = useState([]);
+
+  // const data = useSelector(state => state.userReaducer);
+  // console.log(data);
 
   const handlePress = () => {
     createLabel(label).then(() => {
@@ -97,6 +102,7 @@ const CreateNewLabel = ({navigation, route}) => {
                 onChangeText={text => {
                   setLabel(text);
                 }}
+                multiline={false}
                 value={label}
               />
             </View>

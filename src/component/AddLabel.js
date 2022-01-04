@@ -29,8 +29,8 @@ const AddLabel = props => {
           }}
           value={label}
         />
-        {!toggle ? (
-          <TouchableOpacity onPress={handlePress}>
+        {props.checked ? (
+          <TouchableOpacity onPress={props.handleChecked}>
             <MaterialCommunityIcons
               name="checkbox-blank-outline"
               size={SIZES.ICON_MEDIUM}
@@ -38,7 +38,7 @@ const AddLabel = props => {
             />
           </TouchableOpacity>
         ) : (
-          <TouchableOpacity onPress={handlePress}>
+          <TouchableOpacity onPress={props.handleChecked}>
             <Ionicons
               name="checkbox"
               size={SIZES.ICON_MEDIUM}

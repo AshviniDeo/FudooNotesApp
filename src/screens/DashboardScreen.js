@@ -19,6 +19,8 @@ import TopBar from '../component/TopBar';
 import {LogBox} from 'react-native';
 import {COLOR, SIZES} from '../utility/Theme';
 import FlatListComponent from '../component/FlatListComponent';
+// import {useSelector, useDispatch} from 'react-redux';
+// import {setNote} from '../redux/Actions';
 
 LogBox.ignoreLogs(['Reanimated 2', 'VirtualizedLists should never be nested']);
 
