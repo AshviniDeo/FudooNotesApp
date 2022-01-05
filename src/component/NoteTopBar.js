@@ -1,11 +1,9 @@
-import React, {useRef} from 'react';
-import {View, TouchableOpacity, StyleSheet, Text} from 'react-native';
+import React from 'react';
+import {View, TouchableOpacity, StyleSheet} from 'react-native';
 import {styles} from '../utility/StyleSheet';
-import {SIZES, COLOR, WIDTH, HEIGHT, PADDING} from '../utility/Theme';
+import {SIZES, COLOR, WIDTH, PADDING} from '../utility/Theme';
 import Ionicon from 'react-native-vector-icons/Ionicons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import RBSheet from 'react-native-raw-bottom-sheet';
 
 const NoteTopBar = ({
   handlePress,
@@ -16,7 +14,6 @@ const NoteTopBar = ({
   archive,
   archivePress,
 }) => {
-  const refReminder = useRef();
   return (
     <View style={styles.noteBar}>
       <View style={custome.topBar}>
@@ -37,10 +34,7 @@ const NoteTopBar = ({
             color={pinned ? COLOR.ACTIVE_COLOR : COLOR.TEXT_COLOR}
           />
         </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => {
-            reminderPress(refReminder.current.open());
-          }}>
+        <TouchableOpacity onPress={reminderPress}>
           <View style={styles.icon}>
             <MaterialCommunityIcons
               name={'bell-plus-outline'}
@@ -49,61 +43,7 @@ const NoteTopBar = ({
             />
           </View>
         </TouchableOpacity>
-        <RBSheet ref={refReminder} height={HEIGHT.FBSHEET}>
-          <TouchableOpacity>
-            <View style={custome.moreSheet}>
-              <MaterialCommunityIcons
-                name={'alarm'}
-                size={SIZES.ICON_MEDIUM}
-                color={COLOR.TEXT_COLOR}
-              />
-              <Text style={custome.moreText}>Tomorrow Morning</Text>
-              <Text style={custome.moreText}>8:00 AM</Text>
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity>
-            <View style={custome.moreSheet}>
-              <MaterialCommunityIcons
-                name={'alarm'}
-                size={SIZES.ICON_MEDIUM}
-                color={COLOR.TEXT_COLOR}
-              />
-              <Text style={custome.moreText}>Tomorrow Evening</Text>
-              <Text style={custome.moreText}>6:00 PM</Text>
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity>
-            <View style={custome.moreSheet}>
-              <MaterialCommunityIcons
-                name={'alarm'}
-                size={SIZES.ICON_MEDIUM}
-                color={COLOR.TEXT_COLOR}
-              />
-              <Text style={custome.moreText}>Thursday Morning</Text>
-              <Text style={custome.moreText}>Thu 8:00 AM</Text>
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity>
-            <View style={custome.moreSheet}>
-              <MaterialCommunityIcons
-                name={'alarm'}
-                size={SIZES.ICON_MEDIUM}
-                color={COLOR.TEXT_COLOR}
-              />
-              <Text style={custome.moreText}>Pick a date & time</Text>
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity>
-            <View style={custome.moreSheet}>
-              <MaterialIcons
-                name={'location-pin'}
-                size={SIZES.ICON_MEDIUM}
-                color={COLOR.TEXT_COLOR}
-              />
-              <Text style={custome.moreText}>Pick a place</Text>
-            </View>
-          </TouchableOpacity>
-        </RBSheet>
+
         <TouchableOpacity onPress={archivePress}>
           <View style={styles.icon}>
             <MaterialCommunityIcons

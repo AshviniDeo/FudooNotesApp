@@ -13,7 +13,7 @@ const NoteCard = props => {
         {backgroundColor: props.BackgroundColor || COLOR.PRIMARY},
       ]}>
       <Text style={custom.title}>{props.Title || ''}</Text>
-      {!props.List && (
+      {!props.Note !== '' && (
         <View>
           <Text style={custom.note}>{props.Note || ''}</Text>
         </View>

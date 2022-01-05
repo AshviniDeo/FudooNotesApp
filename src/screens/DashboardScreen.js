@@ -18,11 +18,12 @@ import {styles} from '../utility/StyleSheet';
 import TopBar from '../component/TopBar';
 import {LogBox} from 'react-native';
 import {COLOR, SIZES} from '../utility/Theme';
+import PushNotification from 'react-native-push-notification';
 import FlatListComponent from '../component/FlatListComponent';
 // import {useSelector, useDispatch} from 'react-redux';
 // import {setNote} from '../redux/Actions';
 
-LogBox.ignoreLogs(['Reanimated 2', 'VirtualizedLists should never be nested']);
+LogBox.ignoreLogs(['Reanimated 2', 'VirtualizedLists should never be nested ']);
 
 const DashboardScreen = ({navigation}) => {
   const [search, setSearch] = useState('');
@@ -32,6 +33,13 @@ const DashboardScreen = ({navigation}) => {
   const [isLoading, setIsLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const [searchData, setSearchData] = useState([]);
+
+  const createChannels = () => {
+    PushNotification.createChannel({
+      channelId: 'test-channel',
+      channelName: 'Test Channel',
+    });
+  };
 
   const fetchData = useCallback(async () => {
     let data = await fetchNoteData();
@@ -53,6 +61,7 @@ const DashboardScreen = ({navigation}) => {
   useEffect(() => {
     const unsubscribe = navigation.addListener('focus', () => {
       fetchData();
+      createChannels();
     });
 
     return unsubscribe;
@@ -111,7 +120,7 @@ const DashboardScreen = ({navigation}) => {
             </View>
           ) : (
             <View style={styles.window}>
-              <ScrollView>
+              <ScrollView nestedScrollEnabled={true}>
                 <View style={styles.window}>
                   {pinData.find(item => item.Pinned) && (
                     <Text style={styles.subtitles}>Pinned:</Text>

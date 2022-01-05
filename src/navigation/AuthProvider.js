@@ -2,6 +2,7 @@ import React, {createContext, useState} from 'react';
 import auth from '@react-native-firebase/auth';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import firestore from '@react-native-firebase/firestore';
+import {GoogleSignin} from '@react-native-google-signin/google-signin';
 
 export const AuthContext = createContext();
 
@@ -60,6 +61,18 @@ export const AuthProvider = ({children}) => {
             setSignIn(false);
           } catch (e) {
             console.log(e);
+          }
+        },
+        googlelogin: async () => {
+          try {
+            const {idToken} = await GoogleSignin.signIn();
+            const googleCredential =
+              auth.GoogleAuthProvider.credential(idToken);
+            await auth().signInWithCredential(googleCredential);
+            await AsyncStorage.setItem('uid', idToken);
+            setSignIn(true);
+          } catch (error) {
+            console.log(error);
           }
         },
       }}>

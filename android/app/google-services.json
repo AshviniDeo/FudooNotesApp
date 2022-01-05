@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "668023202159-tan6ggs5d6ipbtjh6ajdc9cdhrpnrpjq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.fudoonotesapp",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
           "client_id": "668023202159-mbtr2hsom3jk4hht8or1c2l0ngqm3klt.apps.googleusercontent.com",
           "client_type": 3
         }

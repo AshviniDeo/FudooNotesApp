@@ -6,13 +6,13 @@ import {
   TouchableOpacity,
   KeyboardAvoidingView,
   ScrollView,
+  Platform,
 } from 'react-native';
 
 import MyButton from '../component/MyButton';
 import {styles} from '../utility/StyleSheet';
 import TextBox from '../component/TextBox';
 import {AuthContext} from '../navigation/AuthProvider';
-import {WIDTH} from '../utility/Theme';
 
 export default function WelcomeScreen({navigation}) {
   const bg = require('../assets/bgimg.jpg');
@@ -20,7 +20,7 @@ export default function WelcomeScreen({navigation}) {
   const [password, setPassword] = useState('');
   const [error, setError] = useState({});
 
-  const {login} = useContext(AuthContext);
+  const {login, googlelogin} = useContext(AuthContext);
   const validation = () => {
     let valid = true;
     const temp = {};
@@ -67,7 +67,7 @@ export default function WelcomeScreen({navigation}) {
     <ImageBackground source={bg} style={styles.background}>
       <KeyboardAvoidingView>
         <ScrollView>
-          <View style={[styles.window, {marginTop: WIDTH.SECONDARY_WIDTH}]}>
+          <View style={[styles.window]}>
             <View>
               <TextBox
                 onChangeText={text => setUserName(text)}
@@ -100,6 +100,30 @@ export default function WelcomeScreen({navigation}) {
                 <Text style={styles.button}>Sign Up</Text>
               </MyButton>
             </View>
+            {Platform.OS === 'android' && (
+              <View style={styles.blank}>
+                <Text style={styles.blankText}>Or</Text>
+
+                <View style={styles.googlebtn}>
+                  <TouchableOpacity
+                    onPress={() => {
+                      googlelogin().then(() =>
+                        console.log('Signed in with Google!'),
+                      );
+                    }}>
+                    <Text style={styles.googleTxt}>Sign in with Google </Text>
+                  </TouchableOpacity>
+                </View>
+
+                <View style={styles.facebookbtn}>
+                  <TouchableOpacity>
+                    <Text style={styles.facebookTxt}>
+                      Sign in with Facebook
+                    </Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
+            )}
           </View>
         </ScrollView>
       </KeyboardAvoidingView>
