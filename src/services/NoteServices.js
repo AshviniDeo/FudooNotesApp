@@ -1,6 +1,10 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import {createNote, updateNote, fetchFirestoreData} from './noteServiceManger';
+import {
+  createNote,
+  updateNote,
+  fetchFirestoreData,
+} from './NotesFirebaseService';
 
 const getUid = async () => {
   return await AsyncStorage.getItem('uid');
@@ -24,7 +28,7 @@ export const createnote = async (
       Note,
       Archive,
       Pinned,
-      Remainder,
+      Remainder: JSON.stringify(Remainder),
       Trash,
       List,
       IsList,
@@ -57,7 +61,7 @@ export const updatenote = async (
       Note,
       Archive,
       Pinned,
-      Remainder,
+      Remainder: JSON.stringify(Remainder),
       Trash,
       List,
       IsList,

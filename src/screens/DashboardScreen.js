@@ -43,6 +43,7 @@ const DashboardScreen = ({navigation}) => {
 
   const fetchData = useCallback(async () => {
     let data = await fetchNoteData();
+    console.log(data.filter(item => item.Remainder));
     setSearchData(data);
     const pin = [];
     const unpin = [];

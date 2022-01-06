@@ -31,6 +31,8 @@ import CreateList from '../component/CreateList';
 import RBSheet from 'react-native-raw-bottom-sheet';
 import {colors} from '../utility/StyleSheet';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
+import PushNotification from 'react-native-push-notification';
+import moment from 'moment';
 
 export const LabelContext = createContext(null);
 const Notes = ({navigation, route}) => {
@@ -50,6 +52,8 @@ const Notes = ({navigation, route}) => {
   const [bgColor, setBgColor] = useState(
     route.params?.editData?.BackgroundColor || '',
   );
+  const labelsData = route.params?.labels || [];
+  console.log(labelsData);
   //Modal
   const [isVisible, setIsVisible] = useState(false);
   const toggelModal = () => {
@@ -114,7 +118,9 @@ const Notes = ({navigation, route}) => {
   };
   const handleConfirm = date => {
     console.warn('A date has been picked: ', date);
+    // date = JSON.stringify(date);
     setReminder(date);
+
     hideDatePicker();
   };
   const showTimePicker = () => {
@@ -126,6 +132,7 @@ const Notes = ({navigation, route}) => {
   };
   const handleTimeConfirm = time => {
     console.warn('A time has been picked: ', time);
+    // time = JSON.stringify(time);
     setReminder(time);
     hideDatePicker();
   };
@@ -163,11 +170,12 @@ const Notes = ({navigation, route}) => {
         bgColor,
         toNavigateDashboard,
       );
+      handleNotification();
     }
   };
 
   const addLabel = () => {
-    navigation.navigate('AddLabel', {handleChecked, checkedArr});
+    navigation.navigate('AddLabel');
   };
   const handlePinned = () => {
     setPinned(prev => {
@@ -190,6 +198,28 @@ const Notes = ({navigation, route}) => {
   const handleList = () => {
     setIsList(prev => {
       return !isList;
+    });
+  };
+
+  const handleNotification = (item, id) => {
+    // PushNotification.localNotification({
+    //   channelId: 'test-channel',
+    //   title: 'Testing notification',
+    //   message: item.Note,
+    //   id: id,
+    // });
+
+    let data = reminder;
+
+    // console.log('data=>>', moment(data));
+
+    // data = data.map(time =>time);
+    PushNotification.localNotificationSchedule({
+      channelId: 'test-channel',
+      title: 'Testing notification',
+      message: title,
+      date: data,
+      allowWhileIdle: true,
     });
   };
   return (

@@ -16,7 +16,7 @@ import {fetchNoteData} from '../services/NoteServices';
 import NoteCard from '../component/NoteCard';
 import * as Animatable from 'react-native-animatable';
 import {LogBox} from 'react-native';
-import PushNotification from 'react-native-push-notification';
+
 LogBox.ignoreAllLogs(['VirtualList']);
 
 const Reminder = ({navigation}) => {
@@ -52,26 +52,6 @@ const Reminder = ({navigation}) => {
       />
     );
   }
-
-  const handleNotification = (item, id) => {
-    PushNotification.localNotification({
-      channelId: 'test-channel',
-      title: 'Testing notification',
-      message: item.Note,
-      id: id,
-    });
-
-    let data = Object.values(item.Remainder);
-    console.log(JSON.stringify(item.Remainder));
-    // data = data.map(time =>time);
-    PushNotification.localNotificationSchedule({
-      channelId: 'test-channel',
-      title: 'Testing notification',
-      message: item.Note,
-      date: new Date(Date.now + data),
-      allowWhileIdle: true,
-    });
-  };
 
   return (
     <SafeAreaView style={styles.background}>
@@ -119,7 +99,6 @@ const Reminder = ({navigation}) => {
                         editData: item,
                         editId: item.noteId,
                       });
-                      handleNotification(item, item.noteId);
                     }}>
                     <NoteCard {...item} />
                   </TouchableOpacity>

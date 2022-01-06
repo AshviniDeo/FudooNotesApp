@@ -7,11 +7,6 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 
 const AddLabel = props => {
   const [label, setlabel] = useState(props.Label);
-  const [toggle, setToggle] = useState(false);
-
-  const handlePress = () => {
-    setToggle(!toggle);
-  };
 
   return (
     <View>
@@ -29,8 +24,8 @@ const AddLabel = props => {
           }}
           value={label}
         />
-        {props.checked ? (
-          <TouchableOpacity onPress={props.handleChecked}>
+        {props.toggle ? (
+          <TouchableOpacity onPress={props.handleToggle}>
             <MaterialCommunityIcons
               name="checkbox-blank-outline"
               size={SIZES.ICON_MEDIUM}
@@ -38,7 +33,7 @@ const AddLabel = props => {
             />
           </TouchableOpacity>
         ) : (
-          <TouchableOpacity onPress={props.handleChecked}>
+          <TouchableOpacity onPress={props.handleToggle}>
             <Ionicons
               name="checkbox"
               size={SIZES.ICON_MEDIUM}
