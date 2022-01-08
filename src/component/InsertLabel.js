@@ -13,6 +13,7 @@ import {BORDER, COLOR, HEIGHT, PADDING, SIZES, WIDTH} from '../utility/Theme';
 import AddLabel from './AddLabel';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {LabelContext} from '../screens/Notes';
+import useLocalisation from '../localisation/useLocalisation';
 
 const InsertLabel = ({navigation, route}) => {
   const [label, setLabel] = useState('');
@@ -20,6 +21,7 @@ const InsertLabel = ({navigation, route}) => {
   const checkedArr = route.params?.checkedArr || [];
   const setCheckedArr = route.params?.handleChecked;
 
+  const dictonary = useLocalisation('EN');
   const labelContext = useContext(LabelContext);
   console.log(labelContext, 'Context');
   const handlePress = () => {
@@ -59,7 +61,7 @@ const InsertLabel = ({navigation, route}) => {
         <View style={styles.arrow}>
           <TextInput
             style={styles.inputBox}
-            placeholder="Enter label name"
+            placeholder={dictonary.ENTER_LABEL_NAME_TEXT}
             value={label}
             onChangeText={text => {
               setLabel(text);
@@ -90,7 +92,9 @@ const InsertLabel = ({navigation, route}) => {
                 color={COLOR.ACTIVE_COLOR}
               />
             </TouchableOpacity>
-            <Text style={styles.labelText}>Create "{label}"</Text>
+            <Text style={styles.labelText}>
+              {dictonary.CREATE_TEXT} "{label}"
+            </Text>
           </View>
           <View>
             {labelData.map(

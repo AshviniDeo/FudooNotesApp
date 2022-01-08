@@ -2,8 +2,6 @@ import React, {useCallback, useEffect, useState} from 'react';
 import {
   View,
   Text,
-  TouchableOpacity,
-  FlatList,
   ActivityIndicator,
   ScrollView,
   SafeAreaView,
@@ -12,7 +10,6 @@ import {
 import Ionicon from 'react-native-vector-icons/Ionicons';
 import * as Animatable from 'react-native-animatable';
 import {fetchNoteData} from '../services/NoteServices';
-import NoteCard from '../component/NoteCard';
 import BottomBar from '../component/BottomBar';
 import {styles} from '../utility/StyleSheet';
 import TopBar from '../component/TopBar';
@@ -20,10 +17,14 @@ import {LogBox} from 'react-native';
 import {COLOR, SIZES} from '../utility/Theme';
 import PushNotification from 'react-native-push-notification';
 import FlatListComponent from '../component/FlatListComponent';
+import SearchNote from '../utility/SearchNote';
+
+import useLocalisation from '../localisation/useLocalisation';
 // import {useSelector, useDispatch} from 'react-redux';
 // import {setNote} from '../redux/Actions';
 
-LogBox.ignoreLogs(['Reanimated 2', 'VirtualizedLists should never be nested ']);
+LogBox.ignoreLogs(['Reanimated 2']);
+LogBox.ignoreAllLogs(true);
 
 const DashboardScreen = ({navigation}) => {
   const [search, setSearch] = useState('');
@@ -41,9 +42,10 @@ const DashboardScreen = ({navigation}) => {
     });
   };
 
+  const dictonary = useLocalisation('EN');
+
   const fetchData = useCallback(async () => {
     let data = await fetchNoteData();
-    console.log(data.filter(item => item.Remainder));
     setSearchData(data);
     const pin = [];
     const unpin = [];
@@ -63,6 +65,7 @@ const DashboardScreen = ({navigation}) => {
     const unsubscribe = navigation.addListener('focus', () => {
       fetchData();
       createChannels();
+      LogBox.ignoreAllLogs(true);
     });
 
     return unsubscribe;
@@ -93,38 +96,42 @@ const DashboardScreen = ({navigation}) => {
 
   return (
     <SafeAreaView style={styles.background}>
-      <TopBar
-        menuPress={() => {
-          navigation.openDrawer();
-        }}
-        searchIcon={true}
-        onSearch={text => {
-          setSearch(text);
-        }}
-        value={search}
-        onPress={() => {
-          setActive(!active);
-        }}
-        icon={active}
-      />
+      <ScrollView nestedScrollEnabled={true}>
+        <TopBar
+          menuPress={() => {
+            navigation.openDrawer();
+          }}
+          searchIcon={true}
+          onSearch={text => {
+            setSearch(text);
+          }}
+          value={search}
+          onPress={() => {
+            setActive(!active);
+          }}
+          icon={active}
+        />
 
-      {search.length === 0 ? (
-        <View style={styles.container}>
-          {noteData.length === 0 ? (
-            <View style={styles.middle}>
-              <Ionicon
-                name={'bulb-outline'}
-                size={SIZES.EMPTY_ICON}
-                color={COLOR.EMPTY_FIELD_ICON}
-              />
-              <Text style={styles.middleText}>Notes you added appear here</Text>
-            </View>
-          ) : (
-            <View style={styles.window}>
-              <ScrollView nestedScrollEnabled={true}>
+        {search.length === 0 ? (
+          <View style={styles.container}>
+            {noteData.length === 0 ? (
+              <View style={styles.middle}>
+                <Ionicon
+                  name={'bulb-outline'}
+                  size={SIZES.EMPTY_ICON}
+                  color={COLOR.EMPTY_FIELD_ICON}
+                />
+                <Text style={styles.middleText}>
+                  {dictonary.DASHBOARD_EMPTY_TEXT}
+                </Text>
+              </View>
+            ) : (
+              <View style={styles.window}>
                 <View style={styles.window}>
                   {pinData.find(item => item.Pinned) && (
-                    <Text style={styles.subtitles}>Pinned:</Text>
+                    <Text style={styles.subtitles}>
+                      {dictonary.PINNED_TEXT}
+                    </Text>
                   )}
                   <FlatListComponent
                     data={pinData}
@@ -137,7 +144,7 @@ const DashboardScreen = ({navigation}) => {
                 </View>
                 <View style={styles.window}>
                   {pinData.find(item => item.Pinned === true) && (
-                    <Text style={styles.subtitles}>Others:</Text>
+                    <Text style={styles.subtitles}>{dictonary.OTHER_TEXT}</Text>
                   )}
                   <FlatListComponent
                     data={noteData}
@@ -149,35 +156,20 @@ const DashboardScreen = ({navigation}) => {
                     onEndReachedThreshold={0}
                   />
                 </View>
-              </ScrollView>
-            </View>
-          )}
-        </View>
-      ) : (
-        <View style={styles.window}>
-          <FlatList
-            data={searchData}
-            renderItem={({item}) =>
-              item.Title === search || item.Note === search ? (
-                <TouchableOpacity
-                  style={!active ? styles.grid : styles.list}
-                  onPress={() => {
-                    navigation.navigate('Notes', {
-                      editData: item,
-                      editId: item.noteId,
-                    });
-                  }}>
-                  <NoteCard {...item} />
-                </TouchableOpacity>
-              ) : null
-            }
-            numColumns={!active ? 2 : 1}
-            key={!active ? 5 : 6}
-            keyExtractor={item => item.noteId}
-          />
-        </View>
-      )}
-
+              </View>
+            )}
+          </View>
+        ) : (
+          <View style={styles.window}>
+            <SearchNote
+              search={search}
+              navigation={navigation}
+              active={active}
+              searchData={searchData}
+            />
+          </View>
+        )}
+      </ScrollView>
       <BottomBar
         onPress={() => {
           navigation.navigate('Notes');

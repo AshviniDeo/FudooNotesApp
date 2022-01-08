@@ -9,26 +9,27 @@ import {Store} from '../redux/Store';
 
 export const AppStack = () => {
   const Stack = createStackNavigator();
+
   return (
     <Provider store={Store}>
-      <Stack.Navigator initialRouteName="AppDrawer">
+      <Stack.Navigator initialRouteName={'AppDrawer'}>
         <Stack.Screen
-          name="AppDrawer"
+          name={'AppDrawer'}
           component={AppDrawer}
           options={{headerShown: false}}
         />
         <Stack.Screen
-          name="Notes"
+          name={'Notes'}
           component={Notes}
           options={{headerShown: false}}
         />
         <Stack.Screen
-          name="Label"
+          name={'Labels'}
           component={Label}
           options={{headerShown: false}}
         />
         <Stack.Screen
-          name="AddLabel"
+          name={'AddLabel'}
           component={InsertLabel}
           options={{headerShown: false}}
         />

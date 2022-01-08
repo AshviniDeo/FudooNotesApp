@@ -1,28 +1,23 @@
 import React, {useState, useCallback, useEffect} from 'react';
-import {
-  View,
-  Text,
-  SafeAreaView,
-  ScrollView,
-  TouchableOpacity,
-  FlatList,
-} from 'react-native';
+import {View, Text, SafeAreaView, ScrollView} from 'react-native';
 import {styles} from '../utility/StyleSheet';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import TopBar from '../component/TopBar';
 import BottomBar from '../component/BottomBar';
 import {COLOR, SIZES} from '../utility/Theme';
 import {fetchNoteData} from '../services/NoteServices';
-import NoteCard from '../component/NoteCard';
 import * as Animatable from 'react-native-animatable';
 import {LogBox} from 'react-native';
+import FlatListComponent from '../component/FlatListComponent';
+import SearchNote from '../utility/SearchNote';
+
+import useLocalisation from '../localisation/useLocalisation';
 
 LogBox.ignoreAllLogs(['VirtualList']);
 
 const Reminder = ({navigation}) => {
-  const [search, setSearch] = useState(false);
+  const [search, setSearch] = useState('');
   const [active, setActive] = useState(false);
-  const [value, setValue] = useState('');
   const [noteData, setNoteData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -34,6 +29,7 @@ const Reminder = ({navigation}) => {
     setIsLoading(false);
   }, [setIsLoading]);
 
+  const dictonary = useLocalisation('EN');
   useEffect(() => {
     const unsubscribe = navigation.addListener('focus', () => {
       fetchData();
@@ -55,63 +51,61 @@ const Reminder = ({navigation}) => {
 
   return (
     <SafeAreaView style={styles.background}>
-      <TopBar
-        menuPress={() => {
-          navigation.openDrawer();
-        }}
-        text={<Text>Reminder</Text>}
-        serachIcon={() => {
-          setSearch(!search);
-        }}
-        onSearch={text => {
-          setValue(text);
-        }}
-        value={value}
-        searchIcon={false}
-        onPress={() => {
-          setActive(!active);
-        }}
-        icon={active}
-      />
-      {/* Header-End */}
-      <View style={styles.container}>
-        {noteData.length === 0 ? (
-          <View style={styles.middle}>
-            <FontAwesome
-              name={'bell-o'}
-              size={SIZES.EMPTY_ICON}
-              color={COLOR.EMPTY_FIELD_ICON}
-            />
-            <Text style={styles.blankText}>
-              Notes with upcoming remainders appear here
-            </Text>
+      <ScrollView>
+        <TopBar
+          menuPress={() => {
+            navigation.openDrawer();
+          }}
+          text={<Text>{dictonary.REMINDER_TEXT}</Text>}
+          onSearch={text => {
+            setSearch(text);
+          }}
+          value={search}
+          onPress={() => {
+            setActive(!active);
+          }}
+          icon={active}
+          searchIcon={false}
+        />
+
+        {/* Header-End */}
+        {search.length === 0 ? (
+          <View style={styles.container}>
+            {noteData.length === 0 ? (
+              <View style={styles.middle}>
+                <FontAwesome
+                  name={'bell-o'}
+                  size={SIZES.EMPTY_ICON}
+                  color={COLOR.EMPTY_FIELD_ICON}
+                />
+                <Text style={styles.blankText}>
+                  {dictonary.REMINDER_EMPTY_TEXT}
+                </Text>
+              </View>
+            ) : (
+              <View style={styles.window}>
+                <FlatListComponent
+                  data={noteData}
+                  navigation={navigation}
+                  active={active}
+                  keyExtractor={item => item.noteId}
+                  refreshing={isLoading}
+                  onRefresh={fetchData}
+                />
+              </View>
+            )}
           </View>
         ) : (
           <View style={styles.window}>
-            <ScrollView>
-              <FlatList
-                data={noteData}
-                renderItem={({item}) => (
-                  <TouchableOpacity
-                    style={active ? styles.grid : styles.list}
-                    onPress={() => {
-                      navigation.navigate('Notes', {
-                        editData: item,
-                        editId: item.noteId,
-                      });
-                    }}>
-                    <NoteCard {...item} />
-                  </TouchableOpacity>
-                )}
-                numColumns={active ? 2 : 1}
-                key={active ? 2 : 1}
-                keyExtractor={item => item.noteId}
-              />
-            </ScrollView>
+            <SearchNote
+              search={search}
+              navigation={navigation}
+              active={active}
+              searchData={noteData}
+            />
           </View>
         )}
-      </View>
-
+      </ScrollView>
       <BottomBar
         onPress={() => {
           navigation.navigate('Notes');

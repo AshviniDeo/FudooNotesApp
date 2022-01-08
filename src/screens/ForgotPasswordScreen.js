@@ -3,17 +3,19 @@ import {View, ImageBackground, SafeAreaView} from 'react-native';
 import TextBox from '../component/TextBox';
 import {styles} from '../utility/StyleSheet';
 import MyButton from '../component/MyButton';
+import useLocalisation from '../localisation/useLocalisation';
+
 export default function ForgotPasswordScreen() {
   const [email, setEmail] = useState('');
   const [error, setError] = useState({});
   const getPassword = () => {
     const temp = {};
     if (!email) {
-      temp.email = 'Enter Valid Email Id';
+      temp.email = dictonary.VALID_EMAIL_ERROR_TEXT;
       setError(temp);
     }
   };
-
+  const dictonary = useLocalisation('EN');
   return (
     <ImageBackground
       source={require('../assets/key.jpg')}
@@ -24,12 +26,14 @@ export default function ForgotPasswordScreen() {
             onChangeText={text => setEmail(text)}
             value={email}
             errorText={error.email}
-            placeHolder={'Enter email Id'}
+            placeHolder={dictonary.ENTER_EMAIL_TEXT}
           />
         </View>
 
         <View style={{alignItems: 'center'}}>
-          <MyButton onPress={getPassword}>Get Password</MyButton>
+          <MyButton onPress={getPassword}>
+            {dictonary.GET_PASSWORD_TEXT}
+          </MyButton>
         </View>
       </SafeAreaView>
     </ImageBackground>

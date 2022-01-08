@@ -14,16 +14,17 @@ import {fetchNoteData} from '../services/NoteServices';
 import {COLOR, SIZES} from '../utility/Theme';
 import FlatListComponent from '../component/FlatListComponent';
 import {LogBox} from 'react-native';
+import useLocalisation from '../localisation/useLocalisation';
 
 LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
 
 const Trash = ({navigation}) => {
   const [noteData, setNoteData] = useState([]);
 
+  const dictonary = useLocalisation('EN');
   const fetchData = async () => {
     let trash = [];
     let data = await fetchNoteData();
-    console.log(data);
     data.forEach(item => {
       if (item.Trash) {
         trash.push(item);
@@ -48,36 +49,38 @@ const Trash = ({navigation}) => {
   };
   return (
     <SafeAreaView style={styles.background}>
-      <View style={styles.trashBar}>
-        <View>
-          <TouchableOpacity
-            onPress={() => {
-              navigation.openDrawer();
-            }}>
-            <Ionicon
-              name={'menu'}
-              size={SIZES.ICON_MEDIUM}
-              color={COLOR.TEXT_COLOR}
-            />
-          </TouchableOpacity>
-        </View>
-        <View>
-          <Text style={styles.trashText}>Trash</Text>
-        </View>
-      </View>
-      <View style={styles.window}>
-        {noteData.length === 0 ? (
-          <View style={styles.middle}>
-            <FontAwesome
-              name={'trash'}
-              size={SIZES.EMPTY_ICON}
-              color={COLOR.EMPTY_FIELD_ICON}
-            />
-            <Text style={styles.middleText}>No notes in Trash</Text>
+      <ScrollView>
+        <View style={styles.trashBar}>
+          <View>
+            <TouchableOpacity
+              onPress={() => {
+                navigation.openDrawer();
+              }}>
+              <Ionicon
+                name={'menu'}
+                size={SIZES.ICON_MEDIUM}
+                color={COLOR.TEXT_COLOR}
+              />
+            </TouchableOpacity>
           </View>
-        ) : (
-          <View style={styles.window}>
-            <ScrollView>
+          <View>
+            <Text style={styles.trashText}>{dictonary.TRASH_TEXT}</Text>
+          </View>
+        </View>
+        <View style={styles.window}>
+          {noteData.length === 0 ? (
+            <View style={styles.blank}>
+              <FontAwesome
+                name={'trash'}
+                size={SIZES.EMPTY_ICON}
+                color={COLOR.EMPTY_FIELD_ICON}
+              />
+              <Text style={styles.middleText}>
+                {dictonary.TRASH_EMPTY_TEXT}
+              </Text>
+            </View>
+          ) : (
+            <View>
               <FlatListComponent
                 data={noteData}
                 active={true}
@@ -85,10 +88,10 @@ const Trash = ({navigation}) => {
                 keyExtractor={item => item.noteId}
                 ListFooterComponent={renderLoader}
               />
-            </ScrollView>
-          </View>
-        )}
-      </View>
+            </View>
+          )}
+        </View>
+      </ScrollView>
     </SafeAreaView>
   );
 };

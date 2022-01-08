@@ -1,4 +1,4 @@
-import React, {useState, useCallback} from 'react';
+import React from 'react';
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import Modal from 'react-native-modal';
 import {COLOR, PADDING, BORDER, SIZES} from '../utility/Theme';

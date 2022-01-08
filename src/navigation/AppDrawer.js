@@ -8,7 +8,8 @@ import SettingsScreen from '../screens/SettingsScreen';
 import Reminder from '../screens/Remainder';
 import Trash from '../screens/Trash';
 import ArchiveScreen from '../screens/ArchiveScreen';
-
+import {LogBox} from 'react-native';
+LogBox.ignoreAllLogs(true);
 const AppDrawer = () => {
   const Drawer = createDrawerNavigator();
 
@@ -17,18 +18,18 @@ const AppDrawer = () => {
       initialRouteName={'Dashboard'}
       screenOptions={{
         drawerStyle: {
-          backgroundColor: 'white',
+          backgroundColor: COLOR.PRIMARY,
         },
         headerShown: false,
         drawerActiveBackgroundColor: COLOR.SECONDARY,
       }}
       drawerContent={props => <CustomeDrawer {...props} />}>
-      <Drawer.Screen name="Dashboard" component={DashboardScreen} />
-      <Drawer.Screen name="Reminder" component={Reminder} />
-      <Drawer.Screen name="Create new label" component={CreateNewLabel} />
-      <Drawer.Screen name="ArchiveScreen" component={ArchiveScreen} />
-      <Drawer.Screen name="Trash" component={Trash} />
-      <Drawer.Screen name="Settings" component={SettingsScreen} />
+      <Drawer.Screen name={'Dashboard'} component={DashboardScreen} />
+      <Drawer.Screen name={'Reminder'} component={Reminder} />
+      <Drawer.Screen name={'Create new label'} component={CreateNewLabel} />
+      <Drawer.Screen name={'Archive'} component={ArchiveScreen} />
+      <Drawer.Screen name={'Trash'} component={Trash} />
+      <Drawer.Screen name={'Settings'} component={SettingsScreen} />
     </Drawer.Navigator>
   );
 };

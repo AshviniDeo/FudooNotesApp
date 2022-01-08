@@ -10,6 +10,8 @@ import TextBox from '../component/TextBox';
 import MyButton from '../component/MyButton';
 import {AuthContext} from '../navigation/AuthProvider';
 
+import useLocalisation from '../localisation/useLocalisation';
+
 export default function SignUpScreen({navigation}) {
   const [userName, setUserName] = useState('');
   const [email, setEmail] = useState('');
@@ -19,6 +21,7 @@ export default function SignUpScreen({navigation}) {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState({});
 
+  const dictonary = useLocalisation('EN');
   const {register} = useContext(AuthContext);
   const validation = () => {
     const emailRegx = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
@@ -64,7 +67,7 @@ export default function SignUpScreen({navigation}) {
   };
 
   const toNavigateHome = () => {
-    navigation.navigate('WelcomeScreen');
+    navigation.navigate('Sign In');
   };
   const setCatchError = code => {
     const temp = {};
@@ -97,7 +100,7 @@ export default function SignUpScreen({navigation}) {
               <TextBox
                 onChangeText={text => setUserName(text)}
                 value={userName}
-                label={'Enter UserName'}
+                label={dictonary.ENTER_USERNAME_TEXT}
                 errorText={error.userName}
                 secureTextEntry={false}
               />
@@ -106,7 +109,7 @@ export default function SignUpScreen({navigation}) {
               <TextBox
                 onChangeText={text => setEmail(text)}
                 value={email}
-                label={'Enter Email ID'}
+                label={dictonary.ENTER_EMAIL_TEXT}
                 errorText={error.email}
                 secureTextEntry={false}
               />
@@ -115,7 +118,7 @@ export default function SignUpScreen({navigation}) {
               <TextBox
                 onChangeText={text => setPhone(text)}
                 value={phone}
-                label={'Enter Phone Number'}
+                label={dictonary.ENTER_PHONE_NUMBER_TEXT}
                 errorText={error.phone}
                 secureTextEntry={false}
               />
@@ -124,7 +127,7 @@ export default function SignUpScreen({navigation}) {
               <TextBox
                 onChangeText={text => setDateOfBirth(text)}
                 value={dateOfBirth}
-                label={'Enter Date-of-Birth(DD/MM/YYYY)'}
+                label={dictonary.ENTER_DOB_TEXT}
                 errorText={error.dateOfBirth}
                 secureTextEntry={false}
               />
@@ -134,7 +137,7 @@ export default function SignUpScreen({navigation}) {
                 onChangeText={text => setPassword(text)}
                 value={password}
                 secureTextEntry={true}
-                label={'Enter Password'}
+                label={dictonary.ENTER_PASSWORD_TEXT}
                 errorText={error.password}
               />
             </View>
@@ -143,7 +146,7 @@ export default function SignUpScreen({navigation}) {
                 onChangeText={text => setConfirmPassword(text)}
                 value={confirmPassword}
                 secureTextEntry={true}
-                label={'Enter Confirm Password'}
+                label={dictonary.ENTER_CONFIRM_PASSWORD_TEXT}
                 errorText={error.confirmPassword}
               />
             </View>

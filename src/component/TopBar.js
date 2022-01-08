@@ -5,6 +5,7 @@ import Ionicon from 'react-native-vector-icons/Ionicons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import {COLOR, SIZES} from '../utility/Theme';
 import ModalScreen from '../component/Modal';
+import useLocalisation from '../localisation/useLocalisation';
 
 const TopBar = ({
   menuPress,
@@ -20,6 +21,8 @@ const TopBar = ({
   const toggelModal = () => {
     setIsVisible(!isVisible);
   };
+
+  const dictonary = useLocalisation('EN');
   return (
     <View style={styles.topBar}>
       <View>
@@ -36,11 +39,11 @@ const TopBar = ({
           <Text style={styles.title}>{text}</Text>
         </View>
       )}
-      <View style={{left: 10}}>
+      <View>
         {toggle ? (
           <TextInput
             style={styles.searchInput}
-            placeholder={'Search your notes'}
+            placeholder={dictonary.SEARCH_BAR_TEXT}
             placeholderTextColor={COLOR.PLACE_HOLDER_COLOR}
             onChangeText={onSearch}
             value={value}
@@ -58,7 +61,7 @@ const TopBar = ({
           </TouchableOpacity>
         )}
       </View>
-      <View style={{left: 10}}>
+      <View>
         <TouchableOpacity onPress={onPress}>
           {icon ? (
             <FontAwesome

@@ -7,6 +7,7 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {styles} from '../utility/StyleSheet';
 import {COLOR, HEIGHT, MARGIN, PADDING, SIZES, WIDTH} from '../utility/Theme';
 import RBSheet from 'react-native-raw-bottom-sheet';
+import useLocalisation from '../localisation/useLocalisation';
 
 const NoteBottomBar = ({
   trashPress,
@@ -17,6 +18,7 @@ const NoteBottomBar = ({
 }) => {
   const [currentDate, setCurrentDate] = useState('');
   const refMore = useRef();
+  const dictonary = useLocalisation('EN');
 
   useEffect(() => {
     var date = new Date().getDate(); //Current Date
@@ -49,7 +51,9 @@ const NoteBottomBar = ({
         </TouchableOpacity>
       </View>
       <View style={custome.date}>
-        <Text style={custome.dateText}>Edited {currentDate}</Text>
+        <Text style={custome.dateText}>
+          {dictonary.EDITED_TEXT} {currentDate}
+        </Text>
       </View>
       <View style={custome.more}>
         <TouchableOpacity
@@ -70,7 +74,7 @@ const NoteBottomBar = ({
                 size={SIZES.ICON_MEDIUM}
                 color={trash ? COLOR.ACTIVE_COLOR : COLOR.TEXT_COLOR}
               />
-              <Text style={custome.moreText}>Delete</Text>
+              <Text style={custome.moreText}>{dictonary.DELETE_TEXT}</Text>
             </View>
           </TouchableOpacity>
           <TouchableOpacity onPress={onPress}>
@@ -80,7 +84,7 @@ const NoteBottomBar = ({
                 size={SIZES.ICON_MEDIUM}
                 color={COLOR.TEXT_COLOR}
               />
-              <Text style={custome.moreText}>Labels</Text>
+              <Text style={custome.moreText}>{dictonary.LABELS_TEXT}</Text>
             </View>
           </TouchableOpacity>
         </RBSheet>

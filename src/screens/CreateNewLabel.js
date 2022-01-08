@@ -6,6 +6,7 @@ import {
   TextInput,
   FlatList,
   SafeAreaView,
+  ScrollView,
 } from 'react-native';
 import {styles} from '../utility/StyleSheet';
 import Ionicon from 'react-native-vector-icons/Ionicons';
@@ -15,20 +16,28 @@ import {createLabel, fetchLabels} from '../services/LabelServices';
 import Label from '../component/Label';
 import {COLOR, PADDING, SIZES} from '../utility/Theme';
 import {useSelector, useDispatch} from 'react-redux';
+import {LogBox} from 'react-native';
+import useLocalisation from '../localisation/useLocalisation';
 // import {setLabel} from '../redux/Actions';
-
+LogBox.ignoreAllLogs(true);
 const CreateNewLabel = ({navigation, route}) => {
   const [active, setActive] = useState(false);
   const [label, setLabel] = useState('');
   const [labelData, setLabelData] = useState([]);
 
+  const dictonary = useLocalisation('EN');
+
   // const data = useSelector(state => state.userReaducer);
   // console.log(data);
 
   const handlePress = () => {
-    createLabel(label).then(() => {
-      fetchData();
-    });
+    createLabel(label)
+      .then(() => {
+        fetchData();
+      })
+      .catch(error => {
+        return error;
+      });
     setLabel('');
     setActive(!active);
   };
@@ -42,6 +51,7 @@ const CreateNewLabel = ({navigation, route}) => {
     const unsubscribe = navigation.addListener('focus', () => {
       fetchData();
     });
+
     return unsubscribe;
   }, [navigation]);
 
@@ -61,90 +71,93 @@ const CreateNewLabel = ({navigation, route}) => {
           </TouchableOpacity>
         </View>
         <View style={styles.icon}>
-          <Text style={styles.labelText}>Edit Labels</Text>
+          <Text style={styles.labelText}>{dictonary.EDIT_LABELS_TEXT}</Text>
         </View>
       </View>
-
-      <View style={styles.labelBar}>
-        {!active ? (
-          <View style={styles.icon}>
-            <TouchableOpacity
-              style={styles.label}
-              onPress={() => {
-                setActive(!active);
-              }}>
-              <AntDesign
-                name={'plus'}
-                size={SIZES.ICON_MEDIUM}
-                color={COLOR.TEXT_COLOR}
-              />
-              <Text style={styles.labelText}>Create new label</Text>
-            </TouchableOpacity>
-          </View>
-        ) : (
-          <View style={styles.editLabel}>
+      <View style={styles.window}>
+        <View style={[styles.labelBar]}>
+          {!active ? (
             <View style={styles.icon}>
               <TouchableOpacity
                 style={styles.label}
                 onPress={() => {
-                  navigation.navigate('Dashboard');
                   setActive(!active);
                 }}>
-                <Entypo name={'cross'} size={25} color={COLOR} />
-              </TouchableOpacity>
-            </View>
-            <View style={styles.icon}>
-              <TextInput
-                style={styles.labelBox}
-                editable={true}
-                placeholder="Create new label"
-                placeholderTextColor={'gray'}
-                onChangeText={text => {
-                  setLabel(text);
-                }}
-                multiline={false}
-                value={label}
-              />
-            </View>
-            <View style={styles.icon}>
-              <TouchableOpacity
-                style={[styles.label, {paddingLeft: PADDING.BUTTON_PADDING}]}
-                onPress={() => {
-                  handlePress();
-                }}>
-                <Ionicon
-                  name={'checkmark'}
+                <AntDesign
+                  name={'plus'}
                   size={SIZES.ICON_MEDIUM}
-                  color={COLOR.ACTIVE_COLOR}
+                  color={COLOR.TEXT_COLOR}
                 />
+                <Text style={styles.labelText}>
+                  {dictonary.CREATE_NEW_LABEL_TEXT}
+                </Text>
               </TouchableOpacity>
             </View>
-          </View>
+          ) : (
+            <View style={styles.editLabel}>
+              <View style={styles.icon}>
+                <TouchableOpacity
+                  style={styles.label}
+                  onPress={() => {
+                    navigation.navigate('Dashboard');
+                    setActive(!active);
+                  }}>
+                  <Entypo name={'cross'} size={25} color={COLOR} />
+                </TouchableOpacity>
+              </View>
+              <View style={styles.icon}>
+                <TextInput
+                  style={styles.labelBox}
+                  editable={true}
+                  placeholder={dictonary.CREATE_NEW_LABEL_TEXT}
+                  placeholderTextColor={'gray'}
+                  onChangeText={text => {
+                    setLabel(text);
+                  }}
+                  multiline={false}
+                  value={label}
+                />
+              </View>
+              <View style={styles.icon}>
+                <TouchableOpacity
+                  style={[styles.label, {paddingLeft: PADDING.BUTTON_PADDING}]}
+                  onPress={() => {
+                    handlePress();
+                  }}>
+                  <Ionicon
+                    name={'checkmark'}
+                    size={SIZES.ICON_MEDIUM}
+                    color={COLOR.ACTIVE_COLOR}
+                  />
+                </TouchableOpacity>
+              </View>
+            </View>
+          )}
+        </View>
+        {labelData.length === 0 ? null : (
+          <ScrollView>
+            <FlatList
+              data={labelData}
+              renderItem={({item}) =>
+                labelData.length !== 0 ? (
+                  <TouchableOpacity
+                    onPress={() => {
+                      navigation.navigate('Create new label', {
+                        editData: item,
+                        editId: item.labelId,
+                      });
+                    }}>
+                    <View style={styles.editLabel}>
+                      <Label {...item} fetchData={fetchData} toggle={true} />
+                    </View>
+                  </TouchableOpacity>
+                ) : null
+              }
+              keyExtractor={item => item.labelId}
+            />
+          </ScrollView>
         )}
       </View>
-      {labelData.length === 0 ? null : (
-        <View style={styles.window}>
-          <FlatList
-            data={labelData}
-            renderItem={({item}) =>
-              labelData.length !== 0 ? (
-                <TouchableOpacity
-                  onPress={() => {
-                    navigation.navigate('Create new label', {
-                      editData: item,
-                      editId: item.labelId,
-                    });
-                  }}>
-                  <View style={styles.editLabel}>
-                    <Label {...item} fetchData={fetchData} toggle={true} />
-                  </View>
-                </TouchableOpacity>
-              ) : null
-            }
-            keyExtractor={item => item.labelId}
-          />
-        </View>
-      )}
     </SafeAreaView>
   );
 };

@@ -32,9 +32,10 @@ export const styles = StyleSheet.create({
     paddingBottom: PADDING.PRIMARY_PADDING,
   },
   searchInput: {
-    color: COLOR.TRANSPARENT,
+    color: COLOR.TEXT_COLOR,
     paddingLeft: PADDING.NEGATIVE_PADDING,
     fontSize: SIZES.MEDIUM_TEXT,
+    paddingVertical: PADDING.NEGATIVE_PADDING,
   },
   buttonLogIn: {
     flexDirection: 'row',
@@ -166,6 +167,7 @@ export const styles = StyleSheet.create({
     width: WIDTH.FULL_WIDTH,
     paddingTop: PADDING.SECONADARY_PADDING,
     paddingBottom: PADDING.SECONADARY_PADDING,
+    flex: 0.9,
   },
   labelBar: {
     flexDirection: 'row',
@@ -195,12 +197,15 @@ export const styles = StyleSheet.create({
   },
   trashBar: {
     backgroundColor: COLOR.SECONDARY,
-    height: HEIGHT.BAR_HEIGHT,
     alignContent: 'center',
     justifyContent: 'flex-start',
     alignItems: 'center',
     paddingLeft: PADDING.PRIMARY_PADDING,
     flexDirection: 'row',
+    flex: 0.1,
+    paddingVertical: PADDING.SECONADARY_PADDING,
+    margin: MARGIN.PRIMARY_MARGIN,
+    borderRadius: BORDER.ROUND_CORNER,
   },
   subtitles: {
     color: COLOR.TEXT_COLOR,
@@ -259,11 +264,13 @@ export const styles = StyleSheet.create({
     justifyContent: 'space-around',
     backgroundColor: COLOR.SECONDARY,
     height: HEIGHT.BAR_HEIGHT,
-    width: WIDTH.FULL_WIDTH,
     borderRadius: BORDER.ROUND_CORNER,
     flexDirection: 'row',
     alignContent: 'center',
     alignItems: 'center',
+    flex: 0.1,
+    paddingVertical: PADDING.SECONADARY_PADDING,
+    margin: MARGIN.PRIMARY_MARGIN,
   },
 
   background: {
@@ -272,10 +279,10 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   container: {
-    flex: SIZES.FLEX,
-    justifyContent: 'flex-start',
+    justifyContent: 'center',
     alignContent: 'center',
     alignItems: 'center',
+    flex: 0.8,
   },
   logo: {
     paddingTop: PADDING.BUTTON_PADDING,
@@ -316,6 +323,7 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     paddingLeft: PADDING.SECONADARY_PADDING,
     paddingTop: PADDING.SECONADARY_PADDING,
+    flex: 0.9,
   },
   blankText: {
     color: COLOR.AUTH_COLOR,

@@ -2,7 +2,9 @@ import React from 'react';
 import {FlatList, TouchableOpacity} from 'react-native';
 import NoteCard from './NoteCard';
 import {styles} from '../utility/StyleSheet';
+import {LogBox} from 'react-native';
 
+LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
 const FlatListComponent = ({
   active,
   navigation,

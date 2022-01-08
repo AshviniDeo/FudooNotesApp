@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   Text,
 } from 'react-native';
-
+import useLocalisation from '../localisation/useLocalisation';
 import {createnote, updatenote} from '../services/NoteServices';
 import {styles} from '../utility/StyleSheet';
 import {
@@ -67,7 +67,7 @@ const Notes = ({navigation, route}) => {
 
   const refPalette = useRef();
   const refReminder = useRef();
-
+  const dictonary = useLocalisation('EN');
   const handleChecked = obj => {
     const index = checkedArr.findIndex(item => item === obj.id);
     if (index === -1) {
@@ -252,7 +252,9 @@ const Notes = ({navigation, route}) => {
               size={SIZES.ICON_MEDIUM}
               color={COLOR.TEXT_COLOR}
             />
-            <Text style={custome.moreText}>Tomorrow Morning</Text>
+            <Text style={custome.moreText}>
+              {dictonary.TOMORROW_MORNING_TEXT}
+            </Text>
             <Text style={custome.moreText}>8:00 AM</Text>
           </View>
         </TouchableOpacity>
@@ -263,7 +265,10 @@ const Notes = ({navigation, route}) => {
               size={SIZES.ICON_MEDIUM}
               color={COLOR.TEXT_COLOR}
             />
-            <Text style={custome.moreText}>Tomorrow Afternoon</Text>
+            <Text style={custome.moreText}>
+              {' '}
+              {dictonary.TOMORROW_AFTERNOON_TEXT}
+            </Text>
             <Text style={custome.moreText}>3:00 PM</Text>
           </View>
         </TouchableOpacity>
@@ -274,7 +279,9 @@ const Notes = ({navigation, route}) => {
               size={SIZES.ICON_MEDIUM}
               color={COLOR.TEXT_COLOR}
             />
-            <Text style={custome.moreText}>Tomorrow Evening</Text>
+            <Text style={custome.moreText}>
+              {dictonary.TOMORROW_EVENING_TEXT}
+            </Text>
             <Text style={custome.moreText}>Thu 6:00 PM</Text>
           </View>
         </TouchableOpacity>
@@ -285,7 +292,9 @@ const Notes = ({navigation, route}) => {
               size={SIZES.ICON_MEDIUM}
               color={COLOR.TEXT_COLOR}
             />
-            <Text style={custome.moreText}>Pick a date & time</Text>
+            <Text style={custome.moreText}>
+              {dictonary.PICK_A_DATE_AND_TIME_TEXT}
+            </Text>
           </View>
         </TouchableOpacity>
       </RBSheet>
@@ -303,13 +312,13 @@ const Notes = ({navigation, route}) => {
                 paddingLeft: PADDING.SECONADARY_PADDING,
                 color: COLOR.HEADING,
               }}>
-              Add reminder
+              {dictonary.ADD_REMINDER_TEXT}
             </Text>
             <View>
               <TouchableOpacity
                 style={custome.dateStyle}
                 onPress={showDatePicker}>
-                <Text style={custome.dateText}>Pick a Date</Text>
+                <Text style={custome.dateText}>{Date.now()}</Text>
                 <FontAwesome name="calendar" size={SIZES.ICON_SMALL} />
               </TouchableOpacity>
             </View>

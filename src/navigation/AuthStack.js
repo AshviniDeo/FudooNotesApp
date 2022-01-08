@@ -20,18 +20,18 @@ const AuthStack = () => {
         headerStyle: {backgroundColor: COLOR.SECONDARY},
       }}>
       <Stack.Screen
-        name="LogIn"
+        name={'Sign In'}
         component={LogInScreen}
         options={{headerShown: false}}
       />
 
       <Stack.Screen
-        name="Sign Up"
+        name={'Sign Up'}
         component={SignUpScreen}
         options={{headerTintColor: COLOR.TEXT_COLOR}}
       />
       <Stack.Screen
-        name="Forgot Password"
+        name={'Forgot Password'}
         component={ForgotPasswordScreen}
         options={{headerTintColor: COLOR.TEXT_COLOR}}
       />

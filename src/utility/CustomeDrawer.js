@@ -10,6 +10,8 @@ import {fetchLabels} from '../services/LabelServices';
 import Label from '../component/Label';
 import {COLOR, SIZES, PADDING, MARGIN, BORDER, WIDTH} from './Theme';
 
+import useLocalisation from '../localisation/useLocalisation';
+
 const CustomeDrawer = ({navigation, props}) => {
   const {signout} = useContext(AuthContext);
   const [labelData, setLabelData] = useState([]);
@@ -25,7 +27,7 @@ const CustomeDrawer = ({navigation, props}) => {
     });
     return unsubscribe;
   }, [navigation]);
-
+  const dictonary = useLocalisation('EN');
   return (
     <DrawerContentScrollView
       {...props}
@@ -47,7 +49,7 @@ const CustomeDrawer = ({navigation, props}) => {
                 size={SIZES.ICON_SMALL}
                 color={COLOR.TEXT_COLOR}
               />
-              <Text style={styles.text}>Notes</Text>
+              <Text style={styles.text}>{dictonary.NOTES_TEXT}</Text>
             </View>
           </TouchableOpacity>
         </View>
@@ -63,7 +65,7 @@ const CustomeDrawer = ({navigation, props}) => {
                 size={SIZES.ICON_SMALL}
                 color={COLOR.TEXT_COLOR}
               />
-              <Text style={styles.text}>Reminder</Text>
+              <Text style={styles.text}>{dictonary.REMINDER_TEXT}</Text>
             </View>
           </TouchableOpacity>
         </View>
@@ -80,7 +82,7 @@ const CustomeDrawer = ({navigation, props}) => {
                 size={SIZES.ICON_SMALL}
                 color={COLOR.TEXT_COLOR}
               />
-              <Text style={styles.text}>Create new label</Text>
+              <Text style={styles.text}>{dictonary.CREATE_NEW_LABEL_TEXT}</Text>
             </View>
           </TouchableOpacity>
         </View>
@@ -136,7 +138,7 @@ const CustomeDrawer = ({navigation, props}) => {
         <View>
           <TouchableOpacity
             onPress={() => {
-              navigation.navigate('ArchiveScreen');
+              navigation.navigate('Archive');
               setActive(!active);
             }}>
             <View style={[styles.view, {paddingTop: PADDING.PRIMARY_PADDING}]}>
@@ -145,7 +147,7 @@ const CustomeDrawer = ({navigation, props}) => {
                 size={SIZES.ICON_SMALL}
                 color={COLOR.TEXT_COLOR}
               />
-              <Text style={styles.text}>Archive</Text>
+              <Text style={styles.text}>{dictonary.ARCHIVE_TEXT}</Text>
             </View>
           </TouchableOpacity>
         </View>
@@ -161,7 +163,7 @@ const CustomeDrawer = ({navigation, props}) => {
                 size={SIZES.ICON_SMALL}
                 color={COLOR.TEXT_COLOR}
               />
-              <Text style={styles.text}>Trash</Text>
+              <Text style={styles.text}>{dictonary.TRASH_TEXT}</Text>
             </View>
           </TouchableOpacity>
         </View>
@@ -177,7 +179,7 @@ const CustomeDrawer = ({navigation, props}) => {
                 size={SIZES.ICON_SMALL}
                 color={COLOR.TEXT_COLOR}
               />
-              <Text style={styles.text}>Settings</Text>
+              <Text style={styles.text}>{dictonary.SETTING_TEXT}</Text>
             </View>
           </TouchableOpacity>
         </View>

@@ -8,11 +8,10 @@ import SplashScreen from '../screens/SplashScreen';
 
 const Routes = () => {
   const {signIn, setSignIn} = useContext(AuthContext);
-  const [id, setId] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const getUid = useCallback(async () => {
     const val = await AsyncStorage.getItem('uid');
-    setId(val);
+
     if (val) {
       setSignIn(true);
     }

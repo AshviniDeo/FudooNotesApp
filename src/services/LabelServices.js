@@ -15,7 +15,7 @@ export const createLabel = async Label => {
     const id = await getUid();
     await addLabel(Label, id);
   } catch (error) {
-    console.log(error);
+    return error;
   }
 };
 
@@ -24,7 +24,7 @@ export const updateLabel = async (Label, labelId) => {
     const id = await getUid();
     await setLabel(id, labelId, Label);
   } catch (error) {
-    console.log(error.code);
+    return error;
   }
 };
 
@@ -33,7 +33,7 @@ export const daleteLabel = async labelId => {
     const id = await getUid();
     await removeLabel(id, labelId);
   } catch (error) {
-    console.log(error.code);
+    return error;
   }
 };
 
