@@ -83,6 +83,7 @@ const Trash = ({navigation}) => {
             <View>
               <FlatListComponent
                 data={noteData}
+                setData={({data}) => setNoteData(data)}
                 active={true}
                 key={1}
                 keyExtractor={item => item.noteId}

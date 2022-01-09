@@ -5,10 +5,10 @@ import {
   ActivityIndicator,
   ScrollView,
   SafeAreaView,
+  Image,
 } from 'react-native';
 
 import Ionicon from 'react-native-vector-icons/Ionicons';
-import * as Animatable from 'react-native-animatable';
 import {fetchNoteData} from '../services/NoteServices';
 import BottomBar from '../component/BottomBar';
 import {styles} from '../utility/StyleSheet';
@@ -65,7 +65,7 @@ const DashboardScreen = ({navigation}) => {
     const unsubscribe = navigation.addListener('focus', () => {
       fetchData();
       createChannels();
-      LogBox.ignoreAllLogs(true);
+      LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
     });
 
     return unsubscribe;
@@ -73,7 +73,7 @@ const DashboardScreen = ({navigation}) => {
 
   if (isLoading) {
     return (
-      <Animatable.Image
+      <Image
         animation="pulse"
         resizeMode="contain"
         style={styles.loader}
@@ -110,6 +110,7 @@ const DashboardScreen = ({navigation}) => {
             setActive(!active);
           }}
           icon={active}
+          navigation={navigation}
         />
 
         {search.length === 0 ? (
@@ -135,6 +136,7 @@ const DashboardScreen = ({navigation}) => {
                   )}
                   <FlatListComponent
                     data={pinData}
+                    setData={({data}) => setPinData(data)}
                     navigation={navigation}
                     active={active}
                     keyExtractor={item => item.noteId}
@@ -148,6 +150,7 @@ const DashboardScreen = ({navigation}) => {
                   )}
                   <FlatListComponent
                     data={noteData}
+                    setData={({data}) => setNoteData(data)}
                     active={active}
                     navigation={navigation}
                     keyExtractor={item => item.noteId}

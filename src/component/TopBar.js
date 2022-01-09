@@ -15,13 +15,14 @@ const TopBar = ({
   onPress,
   icon,
   searchIcon,
+  navigation,
 }) => {
   const [toggle, setToggle] = useState(searchIcon);
   const [isVisible, setIsVisible] = useState(false);
+
   const toggelModal = () => {
     setIsVisible(!isVisible);
   };
-
   const dictonary = useLocalisation('EN');
   return (
     <View style={styles.topBar}>
@@ -85,7 +86,12 @@ const TopBar = ({
             size={SIZES.ICON_MEDIUM}
             color={COLOR.TEXT_COLOR}
           />
-          <ModalScreen visible={isVisible} onBackdropPress={toggelModal} />
+          <ModalScreen
+            visible={isVisible}
+            onBackdropPress={toggelModal}
+            toggleModal={toggelModal}
+            navigation={navigation}
+          />
         </TouchableOpacity>
       </View>
     </View>

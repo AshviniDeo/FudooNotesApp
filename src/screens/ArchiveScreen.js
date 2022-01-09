@@ -86,6 +86,7 @@ const ArchiveScreen = ({navigation}) => {
               <View style={styles.window}>
                 <FlatListComponent
                   data={noteData}
+                  setData={({data}) => setNoteData(data)}
                   navigation={navigation}
                   active={active}
                   keyExtractor={item => item.noteId}

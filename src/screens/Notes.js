@@ -94,7 +94,7 @@ const Notes = ({navigation, route}) => {
 
   const removeItem = id => {
     let temp = [...list];
-    temp = temp.filter(item => item.id === id);
+    temp = temp.filter(item => item.id !== id);
     setList(temp);
   };
 

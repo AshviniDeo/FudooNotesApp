@@ -1,5 +1,5 @@
 export const SET_NOTE = 'SET_NOTE';
-export const SET_LABEL = 'SET_LABEL';
+export const SET_LABEL_DATA = 'SET_LABEL_DATA';
 
 export const setNote = note => dispatch => {
   dispatch({
@@ -8,9 +8,9 @@ export const setNote = note => dispatch => {
   });
 };
 
-export const setLabel = label => dispatch => {
+export const setLabelData = labelData => dispatch => {
   dispatch({
-    type: SET_LABEL,
-    payload: label,
+    type: SET_LABEL_DATA,
+    payload: labelData,
   });
 };

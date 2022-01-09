@@ -28,6 +28,7 @@ export const SIZES = {
   LARGE_TEXT: 22,
   TITLE: 20,
   NOTE: 16,
+  AVTAR: 120,
 };
 
 export const PADDING = {
