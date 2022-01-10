@@ -43,10 +43,8 @@ const Notes = ({navigation, route}) => {
   );
   const [title, setTitle] = useState(route.params?.editData?.Title || '');
   const [note, setNote] = useState(route.params?.editData?.Note || '');
-  const [trash, setTrash] = useState(false);
-  const [isList, setIsList] = useState(
-    route.params?.editData?.IsList || false || route.params?.IsList,
-  );
+  const [trash, setTrash] = useState(route.params?.editData?.Trash || false);
+  const [isList, setIsList] = useState(route.params?.IsList || false);
   const [list, setList] = useState(route.params?.editData?.List || []);
   const [checkedArr, setCheckedArr] = useState([]);
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
@@ -55,7 +53,7 @@ const Notes = ({navigation, route}) => {
     route.params?.editData?.BackgroundColor || '',
   );
   const labelsData = route.params?.labels || [];
-  console.log(labelsData);
+
   //Modal
   const [isVisible, setIsVisible] = useState(false);
   const toggelModal = () => {
@@ -138,7 +136,7 @@ const Notes = ({navigation, route}) => {
     setReminder(time);
     hideDatePicker();
   };
-  console.log(reminder, '===>');
+
   //---+++--
   const toNavigateDashboard = () => {
     navigation.navigate('Dashboard');
@@ -205,18 +203,8 @@ const Notes = ({navigation, route}) => {
   };
 
   const handleNotification = (item, id) => {
-    // PushNotification.localNotification({
-    //   channelId: 'test-channel',
-    //   title: 'Testing notification',
-    //   message: item.Note,
-    //   id: id,
-    // });
-
     let data = reminder;
 
-    // console.log('data=>>', moment(data));
-
-    // data = data.map(time =>time);
     PushNotification.localNotificationSchedule({
       channelId: 'test-channel',
       title: 'Testing notification',
@@ -269,7 +257,6 @@ const Notes = ({navigation, route}) => {
               color={COLOR.TEXT_COLOR}
             />
             <Text style={custome.moreText}>
-              {' '}
               {dictonary.TOMORROW_AFTERNOON_TEXT}
             </Text>
             <Text style={custome.moreText}>3:00 PM</Text>
@@ -321,7 +308,7 @@ const Notes = ({navigation, route}) => {
               <TouchableOpacity
                 style={custome.dateStyle}
                 onPress={showDatePicker}>
-                <Text style={custome.dateText}>{Date.now()}</Text>
+                <Text style={custome.dateText}>Pick a date</Text>
                 <FontAwesome name="calendar" size={SIZES.ICON_SMALL} />
               </TouchableOpacity>
             </View>

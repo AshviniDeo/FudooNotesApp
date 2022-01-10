@@ -25,6 +25,7 @@ const FlatListComponent = ({
         navigation.navigate('Notes', {
           editData: item,
           editId: item.noteId,
+          IsList: item.IsList,
         });
       }}>
       <NoteCard {...item} />

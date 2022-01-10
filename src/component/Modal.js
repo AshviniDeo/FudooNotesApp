@@ -5,9 +5,8 @@ import {BORDER, COLOR, MARGIN, PADDING, SIZES, WIDTH} from '../utility/Theme';
 import Entypo from 'react-native-vector-icons/Entypo';
 import {Avatar} from 'react-native-paper';
 import ImagePicker from 'react-native-image-crop-picker';
-import {fetchProfile, updateProfile} from '../services/NoteServices';
 
-const ModalScreen = ({visible, onBackdropPress, toggleModal, navigation}) => {
+const ModalScreen = ({visible, onBackdropPress, toggleModal}) => {
   const [displayPicture, setDisplayPicture] = useState([]);
   const [profileData, setProfileData] = useState([]);
 
@@ -18,8 +17,6 @@ const ModalScreen = ({visible, onBackdropPress, toggleModal, navigation}) => {
       cropping: true,
     }).then(image => {
       console.log(image);
-      setDisplayPicture(image);
-      updateProfile(displayPicture);
     });
   };
 
@@ -30,11 +27,9 @@ const ModalScreen = ({visible, onBackdropPress, toggleModal, navigation}) => {
       cropping: true,
     }).then(image => {
       console.log(image);
-      setDisplayPicture(image);
-      updateProfile(displayPicture);
     });
   };
-  console.log('Image copies====>', displayPicture);
+
   return (
     <View>
       <Modal

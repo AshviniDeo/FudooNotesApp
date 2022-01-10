@@ -28,7 +28,7 @@ export const createnote = async (
       Note,
       Archive,
       Pinned,
-      Remainder: JSON.stringify(Remainder),
+      Remainder,
       Trash,
       List,
       IsList,
@@ -38,7 +38,7 @@ export const createnote = async (
     await createNote(data, id);
     callback();
   } catch (error) {
-    console.log(error.code);
+    console.log(error);
   }
 };
 
@@ -61,7 +61,7 @@ export const updatenote = async (
       Note,
       Archive,
       Pinned,
-      Remainder: JSON.stringify(Remainder),
+      Remainder,
       Trash,
       List,
       IsList,

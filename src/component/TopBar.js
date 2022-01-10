@@ -88,7 +88,6 @@ const TopBar = ({
           visible={isVisible}
           onBackdropPress={toggelModal}
           toggleModal={toggelModal}
-          navigation={navigation}
         />
       </View>
     </View>
