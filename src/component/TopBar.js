@@ -6,6 +6,7 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import {COLOR, SIZES} from '../utility/Theme';
 import ModalScreen from '../component/Modal';
 import useLocalisation from '../localisation/useLocalisation';
+import {Avatar} from 'react-native-paper';
 
 const TopBar = ({
   menuPress,
@@ -72,7 +73,7 @@ const TopBar = ({
             />
           ) : (
             <Ionicon
-              name={'grid'}
+              name={'ios-grid-outline'}
               size={SIZES.ICON_MEDIUM}
               color={COLOR.TEXT_COLOR}
             />
@@ -81,18 +82,14 @@ const TopBar = ({
       </View>
       <View>
         <TouchableOpacity onPress={toggelModal}>
-          <FontAwesome
-            name={'user-circle'}
-            size={SIZES.ICON_MEDIUM}
-            color={COLOR.TEXT_COLOR}
-          />
-          <ModalScreen
-            visible={isVisible}
-            onBackdropPress={toggelModal}
-            toggleModal={toggelModal}
-            navigation={navigation}
-          />
+          <Avatar.Image size={SIZES.TOPBAR_ICON} />
         </TouchableOpacity>
+        <ModalScreen
+          visible={isVisible}
+          onBackdropPress={toggelModal}
+          toggleModal={toggelModal}
+          navigation={navigation}
+        />
       </View>
     </View>
   );

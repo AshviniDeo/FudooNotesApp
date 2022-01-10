@@ -106,7 +106,7 @@ export default function WelcomeScreen({navigation}) {
               </MyButton>
             </View>
             {Platform.OS === 'android' && (
-              <View style={styles.blank}>
+              <View style={styles.middle}>
                 <Text style={styles.blankText}>Or</Text>
 
                 <View style={styles.googlebtn}>

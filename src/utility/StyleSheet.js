@@ -322,7 +322,7 @@ export const styles = StyleSheet.create({
     alignContent: 'center',
     alignItems: 'center',
     paddingLeft: PADDING.SECONADARY_PADDING,
-    paddingTop: PADDING.SECONADARY_PADDING,
+    paddingTop: WIDTH.HALF_WIDTH,
     flex: 0.9,
   },
   blankText: {

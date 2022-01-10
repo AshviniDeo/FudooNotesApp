@@ -72,7 +72,7 @@ const ArchiveScreen = ({navigation}) => {
         {search.length === 0 ? (
           <View style={styles.container}>
             {noteData.length === 0 ? (
-              <View style={styles.middle}>
+              <View style={styles.blank}>
                 <FontAwesome
                   name={'archive'}
                   size={SIZES.EMPTY_ICON}

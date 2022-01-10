@@ -5,6 +5,7 @@ import {AuthContext} from './AuthProvider';
 import {AppStack} from './AppStack';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import SplashScreen from '../screens/SplashScreen';
+import {LogBox} from 'react-native';
 
 const Routes = () => {
   const {signIn, setSignIn} = useContext(AuthContext);
@@ -20,6 +21,7 @@ const Routes = () => {
 
   useEffect(() => {
     getUid();
+    LogBox.ignoreAllLogs(true);
   }, [getUid]);
 
   if (isLoading) {

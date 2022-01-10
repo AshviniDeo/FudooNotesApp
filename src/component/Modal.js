@@ -1,16 +1,15 @@
-import React, {useState, useContext, useCallback, useEffect} from 'react';
+import React, {useState} from 'react';
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import Modal from 'react-native-modal';
 import {BORDER, COLOR, MARGIN, PADDING, SIZES, WIDTH} from '../utility/Theme';
 import Entypo from 'react-native-vector-icons/Entypo';
 import {Avatar} from 'react-native-paper';
 import ImagePicker from 'react-native-image-crop-picker';
-import {AuthContext} from '../navigation/AuthProvider';
+import {fetchProfile, updateProfile} from '../services/NoteServices';
 
 const ModalScreen = ({visible, onBackdropPress, toggleModal, navigation}) => {
-  const [displayPicture, setDisplayPicture] = useState('');
+  const [displayPicture, setDisplayPicture] = useState([]);
   const [profileData, setProfileData] = useState([]);
-  const {register} = useContext(AuthContext);
 
   const takePhoto = () => {
     ImagePicker.openCamera({
@@ -20,8 +19,8 @@ const ModalScreen = ({visible, onBackdropPress, toggleModal, navigation}) => {
     }).then(image => {
       console.log(image);
       setDisplayPicture(image);
+      updateProfile(displayPicture);
     });
-    register(displayPicture);
   };
 
   const choosePhoto = () => {
@@ -32,9 +31,10 @@ const ModalScreen = ({visible, onBackdropPress, toggleModal, navigation}) => {
     }).then(image => {
       console.log(image);
       setDisplayPicture(image);
+      updateProfile(displayPicture);
     });
-    register(displayPicture);
   };
+  console.log('Image copies====>', displayPicture);
   return (
     <View>
       <Modal
@@ -43,6 +43,7 @@ const ModalScreen = ({visible, onBackdropPress, toggleModal, navigation}) => {
         animationOut={'bounceOut'}
         onBackdropPress={onBackdropPress}>
         <View style={styles.modal}>
+          {/* {Object.values(profileData).map((item, index) => { */}
           <View>
             <TouchableOpacity onPress={toggleModal}>
               <Entypo name={'cross'} size={SIZES.ICON_MEDIUM} color={COLOR} />
@@ -58,18 +59,11 @@ const ModalScreen = ({visible, onBackdropPress, toggleModal, navigation}) => {
             </View>
 
             <View style={styles.avtar}>
-              <Avatar.Image
-                size={SIZES.AVTAR}
-                source={profileData.Profile || ''}
-              />
+              <Avatar.Image size={SIZES.AVTAR} />
             </View>
             <View style={styles.avtar}>
-              <Text style={styles.username}>
-                {profileData.UserName || 'Username'}
-              </Text>
-              <Text style={{color: COLOR.ACTIVE_COLOR}}>
-                {profileData.Email || 'email'}
-              </Text>
+              <Text style={styles.username}>Username</Text>
+              <Text style={{color: COLOR.ACTIVE_COLOR}}>email</Text>
             </View>
             <View style={styles.avtar}>
               <View style={styles.button}>
@@ -84,6 +78,7 @@ const ModalScreen = ({visible, onBackdropPress, toggleModal, navigation}) => {
               </View>
             </View>
           </View>
+          {/* })} */}
         </View>
       </Modal>
     </View>

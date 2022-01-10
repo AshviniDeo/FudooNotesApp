@@ -44,7 +44,9 @@ const Notes = ({navigation, route}) => {
   const [title, setTitle] = useState(route.params?.editData?.Title || '');
   const [note, setNote] = useState(route.params?.editData?.Note || '');
   const [trash, setTrash] = useState(false);
-  const [isList, setIsList] = useState(route.params?.editData?.IsList || false);
+  const [isList, setIsList] = useState(
+    route.params?.editData?.IsList || false || route.params?.IsList,
+  );
   const [list, setList] = useState(route.params?.editData?.List || []);
   const [checkedArr, setCheckedArr] = useState([]);
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
@@ -170,7 +172,8 @@ const Notes = ({navigation, route}) => {
         bgColor,
         toNavigateDashboard,
       );
-      handleNotification();
+
+      if (reminder) handleNotification();
     }
   };
 

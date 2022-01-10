@@ -28,7 +28,7 @@ LogBox.ignoreAllLogs(true);
 
 const DashboardScreen = ({navigation}) => {
   const [search, setSearch] = useState('');
-  const [active, setActive] = useState(true);
+  const [active, setActive] = useState(false);
   const [noteData, setNoteData] = useState([]);
   const [pinData, setPinData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -116,7 +116,7 @@ const DashboardScreen = ({navigation}) => {
         {search.length === 0 ? (
           <View style={styles.container}>
             {noteData.length === 0 ? (
-              <View style={styles.middle}>
+              <View style={styles.blank}>
                 <Ionicon
                   name={'bulb-outline'}
                   size={SIZES.EMPTY_ICON}

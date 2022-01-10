@@ -10,10 +10,6 @@ export const AuthProvider = ({children}) => {
   const [signIn, setSignIn] = useState(false);
   const db = firestore();
 
-  const getUid = async () => {
-    return await AsyncStorage.getItem('uid');
-  };
-
   return (
     <AuthContext.Provider
       value={{
@@ -77,27 +73,6 @@ export const AuthProvider = ({children}) => {
             await auth().signInWithCredential(googleCredential);
             await AsyncStorage.setItem('uid', idToken);
             setSignIn(true);
-          } catch (error) {
-            console.log(error);
-          }
-        },
-        fetchprofile: async () => {
-          try {
-            const uid = await getUid();
-            console.log(uid);
-            let arr = [];
-            return db
-              .collection('PersonalDetails')
-              .doc(uid)
-              .get()
-              .then(profile => {
-                profile.forEach(element => {
-                  const profileData = element.data();
-                  profileData.userId = element.id;
-                  arr.push(profileData);
-                });
-                return arr;
-              });
           } catch (error) {
             console.log(error);
           }
