@@ -11,29 +11,29 @@ export const AppStack = () => {
   const Stack = createStackNavigator();
 
   return (
-    <Provider store={Store}>
-      <Stack.Navigator initialRouteName={'AppDrawer'}>
-        <Stack.Screen
-          name={'AppDrawer'}
-          component={AppDrawer}
-          options={{headerShown: false}}
-        />
-        <Stack.Screen
-          name={'Notes'}
-          component={Notes}
-          options={{headerShown: false}}
-        />
-        <Stack.Screen
-          name={'Labels'}
-          component={Label}
-          options={{headerShown: false}}
-        />
-        <Stack.Screen
-          name={'AddLabel'}
-          component={InsertLabel}
-          options={{headerShown: false}}
-        />
-      </Stack.Navigator>
-    </Provider>
+    // <Provider store={Store}>
+    <Stack.Navigator initialRouteName={'AppDrawer'}>
+      <Stack.Screen
+        name={'AppDrawer'}
+        component={AppDrawer}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name={'Notes'}
+        component={Notes}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name={'Labels'}
+        component={Label}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name={'AddLabel'}
+        component={InsertLabel}
+        options={{headerShown: false}}
+      />
+    </Stack.Navigator>
+    // </Provider>
   );
 };

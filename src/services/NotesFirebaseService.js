@@ -1,28 +1,43 @@
 import firestore from '@react-native-firebase/firestore';
 
 const dbData = firestore().collection('PersonalDetails');
-export const createNote = async (data, id) => {
-  await dbData.doc(id).collection('Notes').add(data);
+
+export const createNote = async (noteId, noteData, uid, callback) => {
+  try {
+    await dbData.doc(uid).collection('Notes').doc(noteId).set(noteData);
+    callback();
+  } catch (error) {
+    console.log(error);
+  }
 };
 
-export const updateNote = async (id, data, noteId) => {
-  await dbData.doc(id).collection('Notes').doc(noteId).update(data);
+export const updateNote = async (id, noteData, noteId, callback) => {
+  try {
+    await dbData.doc(id).collection('Notes').doc(noteId).update(noteData);
+    callback();
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 export const fetchFirestoreData = async uid => {
-  let arr = [];
-  return firestore()
-    .collection('PersonalDetails')
-    .doc(uid)
-    .collection('Notes')
-    .get()
-    .then(noteData => {
-      noteData.forEach(note => {
-        const docData = note.data();
-        docData.noteId = note.id;
-        arr.push(docData);
-      });
+  try {
+    let arr = [];
+    return firestore()
+      .collection('PersonalDetails')
+      .doc(uid)
+      .collection('Notes')
+      .get()
+      .then(noteData => {
+        noteData.forEach(note => {
+          const docData = note.data();
+          docData.noteId = note.id;
+          arr.push(docData);
+        });
 
-      return arr;
-    });
+        return arr;
+      });
+  } catch (error) {
+    console.log(error);
+  }
 };

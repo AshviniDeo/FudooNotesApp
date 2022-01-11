@@ -13,7 +13,7 @@ const SearchNote = ({search, active, navigation, searchData}) => {
           item.Title.toLowerCase().includes(search.toLowerCase()) ||
           item.Note.toLowerCase().includes(search.toLowerCase()) ? (
             <TouchableOpacity
-              style={!active ? styles.grid : styles.list}
+              style={active ? styles.list : styles.grid}
               onPress={() => {
                 navigation.navigate('Notes', {
                   editData: item,
@@ -24,7 +24,7 @@ const SearchNote = ({search, active, navigation, searchData}) => {
             </TouchableOpacity>
           ) : null
         }
-        numColumns={!active ? 2 : 1}
+        numColumns={active ? 1 : 2}
         key={!active ? 5 : 6}
         keyExtractor={item => item.noteId}
       />

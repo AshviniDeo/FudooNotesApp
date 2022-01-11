@@ -3,28 +3,8 @@ import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import Modal from 'react-native-modal';
 import {COLOR, PADDING, BORDER, SIZES} from '../utility/Theme';
 import Ionicon from 'react-native-vector-icons/Ionicons';
-import ImagePicker from 'react-native-image-crop-picker';
 
-const ImageModal = ({visible, onBackdropPress, navigation}) => {
-  const takePhoto = () => {
-    ImagePicker.openCamera({
-      width: 300,
-      height: 400,
-      cropping: true,
-    }).then(image => {
-      console.log(image);
-    });
-  };
-
-  const choosePhoto = () => {
-    ImagePicker.openPicker({
-      width: 300,
-      height: 400,
-      cropping: true,
-    }).then(image => {
-      console.log(image);
-    });
-  };
+const ImageModal = ({visible, onBackdropPress, takePhoto, choosePhoto}) => {
   return (
     <View>
       <Modal
@@ -34,10 +14,7 @@ const ImageModal = ({visible, onBackdropPress, navigation}) => {
         onBackdropPress={onBackdropPress}>
         <View style={styles.modal}>
           <Text style={styles.heading}>Add image</Text>
-          <TouchableOpacity
-            onPress={() => {
-              takePhoto;
-            }}>
+          <TouchableOpacity onPress={takePhoto}>
             <View style={styles.moreSheet}>
               <Ionicon
                 name={'md-camera-sharp'}
@@ -47,10 +24,7 @@ const ImageModal = ({visible, onBackdropPress, navigation}) => {
               <Text style={styles.moreText}>Take Photo</Text>
             </View>
           </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => {
-              choosePhoto;
-            }}>
+          <TouchableOpacity onPress={choosePhoto}>
             <View style={styles.moreSheet}>
               <Ionicon
                 name={'md-images'}

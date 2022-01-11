@@ -139,7 +139,7 @@ export const styles = StyleSheet.create({
   },
   trashText: {
     color: COLOR.TEXT_COLOR.TEXT_COLOR,
-    fontSize: SIZES.LARGE_TEXT,
+    fontSize: SIZES.MEDIUM_TEXT,
     paddingLeft: PADDING.PRIMARY_PADDING,
     fontWeight: 'bold',
     alignContent: 'center',
@@ -231,7 +231,6 @@ export const styles = StyleSheet.create({
     width: WIDTH.BUTTON_WIDTH,
     borderWidth: BORDER.THICK_BORDER,
     borderColor: COLOR.PRIMARY,
-    borderBottomColor: COLOR.PRIMARY,
     alignContent: 'center',
     justifyContent: 'center',
     alignItems: 'center',

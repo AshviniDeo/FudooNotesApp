@@ -119,14 +119,6 @@ export default function WelcomeScreen({navigation}) {
                     </Text>
                   </TouchableOpacity>
                 </View>
-
-                <View style={styles.facebookbtn}>
-                  <TouchableOpacity>
-                    <Text style={styles.facebookTxt}>
-                      {dictonary.FACEBOOK_SIGN_TEXT}
-                    </Text>
-                  </TouchableOpacity>
-                </View>
               </View>
             )}
           </View>

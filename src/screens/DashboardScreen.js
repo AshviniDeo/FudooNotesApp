@@ -20,6 +20,7 @@ import FlatListComponent from '../component/FlatListComponent';
 import SearchNote from '../utility/SearchNote';
 
 import useLocalisation from '../localisation/useLocalisation';
+import {createTable} from '../services/NotesSqliteService';
 // import {useSelector, useDispatch} from 'react-redux';
 // import {setNote} from '../redux/Actions';
 
@@ -32,7 +33,6 @@ const DashboardScreen = ({navigation}) => {
   const [noteData, setNoteData] = useState([]);
   const [pinData, setPinData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [currentPage, setCurrentPage] = useState(1);
   const [searchData, setSearchData] = useState([]);
 
   const createChannels = () => {
@@ -65,11 +65,12 @@ const DashboardScreen = ({navigation}) => {
     const unsubscribe = navigation.addListener('focus', () => {
       fetchData();
       createChannels();
+      createTable();
       LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
     });
 
     return unsubscribe;
-  }, [navigation, fetchData, currentPage]);
+  }, [navigation, fetchData]);
 
   if (isLoading) {
     return (
@@ -81,10 +82,6 @@ const DashboardScreen = ({navigation}) => {
       />
     );
   }
-
-  const loadMoreItem = () => {
-    setCurrentPage(currentPage + 1);
-  };
 
   const renderLoader = () => {
     return (
@@ -155,8 +152,8 @@ const DashboardScreen = ({navigation}) => {
                     navigation={navigation}
                     keyExtractor={item => item.noteId}
                     ListFooterComponent={renderLoader}
-                    onEndReached={loadMoreItem}
-                    onEndReachedThreshold={0}
+                    refreshing={isLoading}
+                    onRefresh={fetchData}
                   />
                 </View>
               </View>

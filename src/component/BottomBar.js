@@ -5,11 +5,31 @@ import Ionicon from 'react-native-vector-icons/Ionicons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {COLOR, SIZES} from '../utility/Theme';
 import ImageModal from './ImageModal';
+import ImagePicker from 'react-native-image-crop-picker';
 
-const BottomBar = ({navigation, onPress, listPress}) => {
+const BottomBar = ({navigation, onPress, listPress, setImage}) => {
   const [isVisible, setIsVisible] = useState(false);
   const toggelModal = () => {
     setIsVisible(!isVisible);
+  };
+  const takePhoto = () => {
+    ImagePicker.openCamera({
+      width: 300,
+      height: 400,
+      cropping: true,
+    }).then(image => {
+      console.log(image);
+    });
+  };
+
+  const choosePhoto = () => {
+    ImagePicker.openPicker({
+      width: 300,
+      height: 400,
+      cropping: true,
+    }).then(image => {
+      console.log(image);
+    });
   };
   return (
     <View style={styles.bottomBar}>
@@ -45,7 +65,12 @@ const BottomBar = ({navigation, onPress, listPress}) => {
           />
         </TouchableOpacity>
 
-        <ImageModal visible={isVisible} onBackdropPress={toggelModal} />
+        <ImageModal
+          visible={isVisible}
+          onBackdropPress={toggelModal}
+          takePhoto={takePhoto}
+          choosePhoto={choosePhoto}
+        />
 
         <TouchableOpacity style={styles.barButton} onPress={onPress}>
           <View style={styles.plus}>

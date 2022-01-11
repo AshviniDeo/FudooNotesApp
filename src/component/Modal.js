@@ -1,14 +1,35 @@
-import React, {useState} from 'react';
+import React, {useCallback, useContext, useEffect, useState} from 'react';
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import Modal from 'react-native-modal';
 import {BORDER, COLOR, MARGIN, PADDING, SIZES, WIDTH} from '../utility/Theme';
 import Entypo from 'react-native-vector-icons/Entypo';
 import {Avatar} from 'react-native-paper';
 import ImagePicker from 'react-native-image-crop-picker';
+import {AuthContext} from '../navigation/AuthProvider';
 
-const ModalScreen = ({visible, onBackdropPress, toggleModal}) => {
-  const [displayPicture, setDisplayPicture] = useState([]);
+const ModalScreen = ({
+  visible,
+  onBackdropPress,
+  toggleModal,
+  displayPicture,
+  setDisplayPicture,
+  navigation,
+}) => {
   const [profileData, setProfileData] = useState([]);
+  const {fetch, update} = useContext(AuthContext);
+
+  const fetchProfile = useCallback(async () => {
+    const data = await fetch();
+    console.log(data);
+    setProfileData(data);
+  }, [fetch]);
+
+  useEffect(() => {
+    const unsubscribe = navigation.addListener('focus', () => {
+      fetchProfile();
+    });
+    return unsubscribe;
+  }, [navigation, fetchProfile]);
 
   const takePhoto = () => {
     ImagePicker.openCamera({
@@ -17,6 +38,7 @@ const ModalScreen = ({visible, onBackdropPress, toggleModal}) => {
       cropping: true,
     }).then(image => {
       console.log(image);
+      update(image.path);
     });
   };
 
@@ -27,6 +49,8 @@ const ModalScreen = ({visible, onBackdropPress, toggleModal}) => {
       cropping: true,
     }).then(image => {
       console.log(image);
+      setDisplayPicture(image.path);
+      update(image.path);
     });
   };
 
@@ -54,7 +78,7 @@ const ModalScreen = ({visible, onBackdropPress, toggleModal}) => {
             </View>
 
             <View style={styles.avtar}>
-              <Avatar.Image size={SIZES.AVTAR} />
+              <Avatar.Image size={SIZES.AVTAR} source={{uri: displayPicture}} />
             </View>
             <View style={styles.avtar}>
               <Text style={styles.username}>Username</Text>

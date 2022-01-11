@@ -7,12 +7,12 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 
 const NoteTopBar = ({
   handlePress,
-  pinned,
-  pinnedPress,
-  reminder,
-  reminderPress,
-  archive,
-  archivePress,
+  Pinned,
+  PinnedPress,
+  Reminder,
+  ReminderPress,
+  Archive,
+  ArchivePress,
 }) => {
   return (
     <View style={styles.noteBar}>
@@ -27,14 +27,14 @@ const NoteTopBar = ({
       </View>
       <View style={{width: WIDTH.HALF_WIDTH}} />
       <View style={custome.view}>
-        <TouchableOpacity onPress={pinnedPress}>
+        <TouchableOpacity onPress={PinnedPress}>
           <MaterialCommunityIcons
             name={'pin-outline'}
             size={SIZES.ICON_MEDIUM}
-            color={pinned ? COLOR.ACTIVE_COLOR : COLOR.TEXT_COLOR}
+            color={Pinned ? COLOR.ACTIVE_COLOR : COLOR.TEXT_COLOR}
           />
         </TouchableOpacity>
-        <TouchableOpacity onPress={reminderPress}>
+        <TouchableOpacity onPress={ReminderPress}>
           <View style={styles.icon}>
             <MaterialCommunityIcons
               name={'bell-plus-outline'}
@@ -44,12 +44,12 @@ const NoteTopBar = ({
           </View>
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={archivePress}>
+        <TouchableOpacity onPress={ArchivePress}>
           <View style={styles.icon}>
             <MaterialCommunityIcons
               name={'archive-arrow-down-outline'}
               size={SIZES.ICON_MEDIUM}
-              color={archive ? COLOR.ACTIVE_COLOR : COLOR.TEXT_COLOR}
+              color={Archive ? COLOR.ACTIVE_COLOR : COLOR.TEXT_COLOR}
             />
           </View>
         </TouchableOpacity>

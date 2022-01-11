@@ -107,7 +107,7 @@ const CreateNewLabel = ({navigation, route}) => {
                     }}>
                     <Entypo
                       name={'cross'}
-                      size={SIZES.MEDIUM_TEXT}
+                      size={SIZES.ICON_MEDIUM}
                       color={COLOR}
                     />
                   </TouchableOpacity>

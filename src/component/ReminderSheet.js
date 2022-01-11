@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import RBSheet from 'react-native-raw-bottom-sheet';
@@ -10,27 +10,23 @@ import Modal from 'react-native-modal';
 
 import useLocalisation from '../localisation/useLocalisation';
 
-const ReminderSheet = ({
-  toggelModal,
-  isVisible,
-  showDatePicker,
-  showTimePicker,
-  isDatePickerVisible,
-  setReminder,
-  isTimePickerVisible,
-  hideTimePicker,
-  refReminder,
-}) => {
+const ReminderSheet = ({setReminder, refReminder}) => {
+  const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
+  const [isTimePickerVisible, setTimePickerVisibility] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
+
   const dictonary = useLocalisation('EN');
-  const handleTimeConfirm = time => {
-    console.warn('A time has been picked: ', time);
-    // time = JSON.stringify(time);
-    setReminder(time);
-    hideDatePicker();
+
+  const toggelModal = () => {
+    setIsVisible(!isVisible);
+  };
+
+  const showDatePicker = () => {
+    setDatePickerVisibility(true);
   };
 
   const hideDatePicker = () => {
-    //  setDatePickerVisibility(false);
+    setDatePickerVisibility(false);
   };
   const handleConfirm = date => {
     console.warn('A date has been picked: ', date);
@@ -39,6 +35,20 @@ const ReminderSheet = ({
 
     hideDatePicker();
   };
+  const showTimePicker = () => {
+    setTimePickerVisibility(true);
+  };
+
+  const hideTimePicker = () => {
+    setTimePickerVisibility(false);
+  };
+  const handleTimeConfirm = time => {
+    console.warn('A time has been picked: ', time);
+
+    setReminder(time);
+    hideDatePicker();
+  };
+
   return (
     <View>
       <RBSheet ref={refReminder} height={HEIGHT.FBSHEET}>
@@ -114,7 +124,7 @@ const ReminderSheet = ({
               <TouchableOpacity
                 style={custome.dateStyle}
                 onPress={showDatePicker}>
-                <Text style={custome.dateText}>{Date.now()}</Text>
+                <Text style={custome.dateText}>Pick a Date</Text>
                 <FontAwesome name="calendar" size={SIZES.ICON_SMALL} />
               </TouchableOpacity>
             </View>

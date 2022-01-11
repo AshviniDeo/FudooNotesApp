@@ -33,7 +33,7 @@ export default {
   SETTING_TEXT: 'Settings',
   APP_DRAWER_TEXT: 'AppDrawer',
   ADD_LABEL_TEXT: 'AddLabel',
-  ARCIVE_EMPTY_TEXT: ' Your achived notes appear here',
+  ARCHIVE_EMPTY_TEXT: ' Your achived notes appear here',
   TRASH_EMPTY_TEXT: 'No notes in Trash',
   DASHBOARD_EMPTY_TEXT: 'Notes you added appear here',
   GET_PASSWORD_TEXT: 'Get Password',

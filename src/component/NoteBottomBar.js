@@ -10,8 +10,8 @@ import RBSheet from 'react-native-raw-bottom-sheet';
 import useLocalisation from '../localisation/useLocalisation';
 
 const NoteBottomBar = ({
-  trashPress,
-  trash,
+  TrashPress,
+  Trash,
   onPress,
   plusPress,
   palettePress,
@@ -67,12 +67,12 @@ const NoteBottomBar = ({
           />
         </TouchableOpacity>
         <RBSheet ref={refMore} height={HEIGHT.BUTTON_HEIGHT}>
-          <TouchableOpacity onPress={trashPress}>
+          <TouchableOpacity onPress={TrashPress}>
             <View style={custome.moreSheet}>
               <Ionicon
                 name={'trash-outline'}
                 size={SIZES.ICON_MEDIUM}
-                color={trash ? COLOR.ACTIVE_COLOR : COLOR.TEXT_COLOR}
+                color={Trash ? COLOR.ACTIVE_COLOR : COLOR.TEXT_COLOR}
               />
               <Text style={custome.moreText}>{dictonary.DELETE_TEXT}</Text>
             </View>

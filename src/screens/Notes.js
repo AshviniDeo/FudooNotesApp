@@ -7,67 +7,47 @@ import {
   TouchableOpacity,
   Text,
 } from 'react-native';
-import useLocalisation from '../localisation/useLocalisation';
+
 import {createnote, updatenote} from '../services/NoteServices';
 import {styles} from '../utility/StyleSheet';
-import {
-  COLOR,
-  MARGIN,
-  PADDING,
-  SIZES,
-  WIDTH,
-  HEIGHT,
-  BORDER,
-} from '../utility/Theme';
+import {COLOR, MARGIN, PADDING, SIZES, WIDTH} from '../utility/Theme';
 import {TextInput} from 'react-native-paper';
-import Modal from 'react-native-modal';
 import NoteTopBar from '../component/NoteTopBar';
 import NoteBottomBar from '../component/NoteBottomBar';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import CreateList from '../component/CreateList';
-import RBSheet from 'react-native-raw-bottom-sheet';
-import {colors} from '../utility/StyleSheet';
-import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import PushNotification from 'react-native-push-notification';
-import moment from 'moment';
+import 'react-native-get-random-values';
+import {v4 as uuidv4} from 'uuid';
+import ColorPalette from '../component/ColorPalette';
+import ReminderSheet from '../component/ReminderSheet';
 
 export const LabelContext = createContext(null);
 const Notes = ({navigation, route}) => {
-  const [pinned, setPinned] = useState(route.params?.editData?.Pinned || false);
-  const [reminder, setReminder] = useState('');
-  const [archive, setArchive] = useState(
+  const [Pinned, setPinned] = useState(route.params?.editData?.Pinned || false);
+  const [Reminder, setReminder] = useState('');
+  const [Archive, setArchive] = useState(
     route.params?.editData?.Archive || false,
   );
-  const [title, setTitle] = useState(route.params?.editData?.Title || '');
-  const [note, setNote] = useState(route.params?.editData?.Note || '');
-  const [trash, setTrash] = useState(route.params?.editData?.Trash || false);
-  const [isList, setIsList] = useState(route.params?.IsList || false);
-  const [list, setList] = useState(route.params?.editData?.List || []);
+  const [Title, setTitle] = useState(route.params?.editData?.Title || '');
+  const [Note, setNote] = useState(route.params?.editData?.Note || '');
+  const [Trash, setTrash] = useState(route.params?.editData?.Trash || false);
+  const [IsList, setIsList] = useState(route.params?.IsList || false);
+  const [List, setList] = useState(route.params?.editData?.List || []);
   const [checkedArr, setCheckedArr] = useState([]);
-  const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
-  const [isTimePickerVisible, setTimePickerVisibility] = useState(false);
-  const [bgColor, setBgColor] = useState(
+  const [BackgroundColor, setBackgroundColor] = useState(
     route.params?.editData?.BackgroundColor || '',
   );
-  const labelsData = route.params?.labels || [];
+  // const labelsData = route.params?.labels || [];
 
-  //Modal
-  const [isVisible, setIsVisible] = useState(false);
-  const toggelModal = () => {
-    setIsVisible(!isVisible);
-  };
-  //--+++--
-  const tempArr = [...list];
+  const tempArr = [...List];
 
   const checked = tempArr.filter(item => item.toggleCheckBox);
   const unChecked = tempArr.filter(item => !item.toggleCheckBox);
 
   const refPalette = useRef();
   const refReminder = useRef();
-  const dictonary = useLocalisation('EN');
+
   const handleChecked = obj => {
     const index = checkedArr.findIndex(item => item === obj.id);
     if (index === -1) {
@@ -79,11 +59,11 @@ const Notes = ({navigation, route}) => {
     }
   };
 
-  const newColor = bgColor;
+  const newColor = BackgroundColor;
   const receiveId = route.params?.editId;
 
   const handleToggle = id => {
-    let temp = [...list];
+    let temp = [...List];
     temp.forEach(item => {
       if (item.id === id) {
         item.toggleCheckBox = !item.toggleCheckBox;
@@ -93,13 +73,13 @@ const Notes = ({navigation, route}) => {
   };
 
   const removeItem = id => {
-    let temp = [...list];
+    let temp = [...List];
     temp = temp.filter(item => item.id !== id);
     setList(temp);
   };
 
   const handleText = (text, id) => {
-    let temp = [...list];
+    let temp = [...List];
     temp.forEach(item => {
       if (item.id === id) {
         item.name = text;
@@ -107,71 +87,34 @@ const Notes = ({navigation, route}) => {
     });
     setList(temp);
   };
-  //date-Picker
 
-  const showDatePicker = () => {
-    setDatePickerVisibility(true);
-  };
-
-  const hideDatePicker = () => {
-    setDatePickerVisibility(false);
-  };
-  const handleConfirm = date => {
-    console.warn('A date has been picked: ', date);
-    // date = JSON.stringify(date);
-    setReminder(date);
-
-    hideDatePicker();
-  };
-  const showTimePicker = () => {
-    setTimePickerVisibility(true);
-  };
-
-  const hideTimePicker = () => {
-    setTimePickerVisibility(false);
-  };
-  const handleTimeConfirm = time => {
-    console.warn('A time has been picked: ', time);
-    // time = JSON.stringify(time);
-    setReminder(time);
-    hideDatePicker();
-  };
-
-  //---+++--
   const toNavigateDashboard = () => {
     navigation.navigate('Dashboard');
   };
+  const getId = () => uuidv4();
+  const id = getId();
 
-  const handlePress = () => {
+  const handlePress = (changeData = {}) => {
+    const noteId = receiveId || getId();
+    const noteData = {
+      Title,
+      Note,
+      Archive,
+      Pinned,
+      Reminder: JSON.stringify(Reminder),
+      Trash,
+      List,
+      IsList,
+      BackgroundColor,
+      ...changeData,
+    };
     if (receiveId) {
-      updatenote(
-        title,
-        note,
-        archive,
-        pinned,
-        reminder,
-        trash,
-        list,
-        isList,
-        bgColor,
-        receiveId,
-        toNavigateDashboard,
-      );
+      updatenote(noteData, noteId, toNavigateDashboard);
     } else {
-      createnote(
-        title,
-        note,
-        archive,
-        pinned,
-        reminder,
-        trash,
-        list,
-        isList,
-        bgColor,
-        toNavigateDashboard,
-      );
-
-      if (reminder) handleNotification();
+      createnote(noteId, noteData, toNavigateDashboard);
+      if (Reminder) {
+        handleNotification();
+      }
     }
   };
 
@@ -180,35 +123,35 @@ const Notes = ({navigation, route}) => {
   };
   const handlePinned = () => {
     setPinned(prev => {
-      return !pinned;
+      return !Pinned;
     });
   };
 
   const handleArchive = () => {
     setArchive(prev => {
-      return !archive;
+      return !Archive;
     });
   };
 
   const handleTrash = () => {
     setTrash(prev => {
-      return !trash;
+      return !Trash;
     });
   };
 
   const handleList = () => {
     setIsList(prev => {
-      return !isList;
+      return !IsList;
     });
   };
 
   const handleNotification = (item, id) => {
-    let data = reminder;
+    let data = Reminder;
 
     PushNotification.localNotificationSchedule({
       channelId: 'test-channel',
-      title: 'Testing notification',
-      message: title,
+      Title: 'Testing notification',
+      message: Title,
       date: data,
       allowWhileIdle: true,
     });
@@ -226,155 +169,43 @@ const Notes = ({navigation, route}) => {
         handlePress={() => {
           handlePress();
         }}
-        pinned={pinned}
-        pinnedPress={handlePinned}
-        reminderPress={() => {
+        Pinned={Pinned}
+        PinnedPress={handlePinned}
+        ReminderPress={() => {
           refReminder.current.open();
         }}
-        archive={archive}
-        archivePress={handleArchive}
+        Archive={Archive}
+        ArchivePress={handleArchive}
       />
 
-      <RBSheet ref={refReminder} height={HEIGHT.FBSHEET}>
-        <TouchableOpacity>
-          <View style={[custome.moreSheet, {marginTop: MARGIN.PRIMARY_MARGIN}]}>
-            <MaterialCommunityIcons
-              name={'alarm'}
-              size={SIZES.ICON_MEDIUM}
-              color={COLOR.TEXT_COLOR}
-            />
-            <Text style={custome.moreText}>
-              {dictonary.TOMORROW_MORNING_TEXT}
-            </Text>
-            <Text style={custome.moreText}>8:00 AM</Text>
-          </View>
-        </TouchableOpacity>
-        <TouchableOpacity>
-          <View style={custome.moreSheet}>
-            <MaterialCommunityIcons
-              name={'alarm'}
-              size={SIZES.ICON_MEDIUM}
-              color={COLOR.TEXT_COLOR}
-            />
-            <Text style={custome.moreText}>
-              {dictonary.TOMORROW_AFTERNOON_TEXT}
-            </Text>
-            <Text style={custome.moreText}>3:00 PM</Text>
-          </View>
-        </TouchableOpacity>
-        <TouchableOpacity>
-          <View style={custome.moreSheet}>
-            <MaterialCommunityIcons
-              name={'alarm'}
-              size={SIZES.ICON_MEDIUM}
-              color={COLOR.TEXT_COLOR}
-            />
-            <Text style={custome.moreText}>
-              {dictonary.TOMORROW_EVENING_TEXT}
-            </Text>
-            <Text style={custome.moreText}>Thu 6:00 PM</Text>
-          </View>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={toggelModal}>
-          <View style={custome.moreSheet}>
-            <MaterialCommunityIcons
-              name={'alarm'}
-              size={SIZES.ICON_MEDIUM}
-              color={COLOR.TEXT_COLOR}
-            />
-            <Text style={custome.moreText}>
-              {dictonary.PICK_A_DATE_AND_TIME_TEXT}
-            </Text>
-          </View>
-        </TouchableOpacity>
-      </RBSheet>
+      <ReminderSheet setReminder={setReminder} refReminder={refReminder} />
 
-      <View>
-        <Modal
-          isVisible={isVisible}
-          animationIn={'bounceIn'}
-          animationOut={'bounceOut'}
-          onBackdropPress={toggelModal}>
-          <View style={custome.modal}>
-            <Text
-              style={{
-                fontSize: SIZES.LARGE_TEXT,
-                paddingLeft: PADDING.SECONADARY_PADDING,
-                color: COLOR.HEADING,
-              }}>
-              {dictonary.ADD_REMINDER_TEXT}
-            </Text>
-            <View>
-              <TouchableOpacity
-                style={custome.dateStyle}
-                onPress={showDatePicker}>
-                <Text style={custome.dateText}>Pick a date</Text>
-                <FontAwesome name="calendar" size={SIZES.ICON_SMALL} />
-              </TouchableOpacity>
-            </View>
-            <View>
-              <TouchableOpacity
-                style={custome.dateStyle}
-                onPress={showTimePicker}>
-                <Text style={custome.dateText}>Pick a Time</Text>
-                <MaterialIcons name="more-time" size={SIZES.ICON_SMALL} />
-              </TouchableOpacity>
-            </View>
-            <View style={custome.btnView}>
-              <TouchableOpacity>
-                <Text style={custome.cancleBtn} onPress={toggelModal}>
-                  Cancel
-                </Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-        </Modal>
-      </View>
-      <View>
-        <DateTimePickerModal
-          isVisible={isDatePickerVisible}
-          mode="datetime"
-          onConfirm={handleConfirm}
-          onCancel={hideDatePicker}
-          themeVariant="light"
-        />
-      </View>
-      <View>
-        <DateTimePickerModal
-          isVisible={isTimePickerVisible}
-          mode="time"
-          onConfirm={handleTimeConfirm}
-          onCancel={hideTimePicker}
-          themeVariant="light"
-          timePickerModeAndroid="spinner"
-        />
-      </View>
       {/* //Header-Bar ===>End */}
 
-      <View style={custome.noteCard}>
+      <View style={custome.NoteCard}>
         <TextInput
-          style={custome.titleText}
+          style={custome.TitleText}
           label={'Title'}
           onChangeText={text => {
             setTitle(text);
           }}
-          value={title}
+          value={Title}
           editable
           maxLength={40}
           underlineColor={COLOR.TRANSPARENT}
           activeUnderlineColor={COLOR.TRANSPARENT}
           selectionColor={COLOR.TEXT_COLOR}
-          right={isList && <TextInput.Icon name="table-column" />}
+          right={IsList && <TextInput.Icon name="table-column" />}
         />
         <ScrollView>
-          {!isList ? (
+          {!IsList ? (
             <TextInput
-              style={custome.note}
+              style={custome.Note}
               label={'Note'}
               onChangeText={text => {
                 setNote(text);
               }}
-              value={note}
+              value={Note}
               editable
               multiline
               underlineColor={COLOR.TRANSPARENT}
@@ -404,8 +235,8 @@ const Notes = ({navigation, route}) => {
                 style={[styles.label, {paddingLeft: PADDING.PRIMARY_PADDING}]}
                 onPress={() =>
                   setList([
-                    ...list,
-                    {name: '', id: list.length + 1, toggleCheckBox: false},
+                    ...List,
+                    {name: '', id: List.length + 1, toggleCheckBox: false},
                   ])
                 }>
                 <AntDesign
@@ -453,95 +284,44 @@ const Notes = ({navigation, route}) => {
       {/* //Bottom-Bar ==> Start */}
       <LabelContext.Provider value={{checkedArr, handleChecked}}>
         <NoteBottomBar
-          trash={trash}
-          trashPress={handleTrash}
+          Trash={Trash}
+          TrashPress={handleTrash}
           onPress={addLabel}
           plusPress={handleList}
           palettePress={() => {
             refPalette.current.open();
           }}
         />
-        <RBSheet ref={refPalette} height={HEIGHT.BUTTON_HEIGHT}>
-          <ScrollView horizontal>
-            {colors.map((color, index) => (
-              <TouchableOpacity
-                key={index}
-                onPress={() => setBgColor(color)}
-                style={[styles.paletteView, {backgroundColor: color}]}
-              />
-            ))}
-          </ScrollView>
-        </RBSheet>
+        <ColorPalette
+          refPalette={refPalette}
+          setBackgroundColor={setBackgroundColor}
+        />
       </LabelContext.Provider>
       {/* //Bottom-Bar ==>End */}
     </SafeAreaView>
   );
 };
 const custome = StyleSheet.create({
-  dateStyle: {
-    alignContent: 'center',
-    justifyContent: 'space-between',
-    paddingTop: PADDING.PRIMARY_PADDING,
-    paddingLeft: PADDING.SECONADARY_PADDING,
-    borderBottomWidth: BORDER.LIGHT_BORDER,
-    flexDirection: 'row',
-  },
-  dateText: {
-    fontSize: SIZES.NOTE,
-    paddingBottom: PADDING.SECONADARY_PADDING,
-    justifyContent: 'flex-start',
-  },
-  moreText: {
-    fontSize: SIZES.MEDIUM_TEXT,
-    paddingHorizontal: PADDING.PRIMARY_PADDING,
-    color: COLOR.TEXT_COLOR,
-  },
-  moreSheet: {
-    padding: PADDING.RAW_SHEET_PADDING,
-    flexDirection: 'row',
-    alignContent: 'center',
-    alignItems: 'center',
-  },
-  titleInput: {
+  TitleInput: {
     alignContent: 'center',
     flexWrap: 'wrap',
     width: WIDTH.FULL_WIDTH,
   },
 
-  note: {
+  Note: {
     fontSize: SIZES.MEDIUM_TEXT,
     color: COLOR.TEXT_COLOR,
     margin: MARGIN.PRIMARY_MARGIN,
     backgroundColor: COLOR.TRANSPARENT,
   },
-  titleText: {
+  TitleText: {
     fontSize: SIZES.LARGE_TEXT,
     color: COLOR.TEXT_COLOR,
     margin: MARGIN.PRIMARY_MARGIN,
     backgroundColor: COLOR.TRANSPARENT,
   },
-  noteCard: {
+  NoteCard: {
     flex: 0.9,
-  },
-  cancleBtn: {
-    fontSize: SIZES.NOTE,
-    fontWeight: 'bold',
-    color: COLOR.ACTIVE_COLOR,
-    marginTop: MARGIN.PRIMARY_MARGIN,
-  },
-  btnView: {
-    flexDirection: 'row',
-    paddingTop: PADDING.SECONADARY_PADDING,
-    justifyContent: 'space-around',
-  },
-
-  modal: {
-    flex: 0.3,
-    alignContent: 'center',
-    justifyContent: 'flex-start',
-    backgroundColor: COLOR.PRIMARY,
-    padding: PADDING.PRIMARY_PADDING,
-    borderRadius: BORDER.ROUND_CORNER,
   },
 });
 export default Notes;

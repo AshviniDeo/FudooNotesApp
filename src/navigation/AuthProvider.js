@@ -48,7 +48,6 @@ export const AuthProvider = ({children}) => {
               DateOfBirth: dateOfBirth,
               UserName: userName,
               Email: email,
-              Profile: displayPicture,
             });
             callback();
           } catch (e) {
@@ -73,6 +72,32 @@ export const AuthProvider = ({children}) => {
             await auth().signInWithCredential(googleCredential);
             await AsyncStorage.setItem('uid', idToken);
             setSignIn(true);
+          } catch (error) {
+            console.log(error);
+          }
+        },
+        update: async profileImage => {
+          try {
+            const data = {profileImage};
+            const uid = await AsyncStorage.getItem('uid');
+            await db.collection('PersonalDetails').doc(uid).update(data);
+          } catch (error) {
+            console.log(error);
+          }
+        },
+        fetch: async profileImage => {
+          try {
+            const arr = [];
+            const uid = await AsyncStorage.getItem('uid');
+            await db
+              .collection('PersonalDetails')
+              .doc(uid)
+              .get()
+              .then(data => {
+                const profileDetail = data.data();
+                arr.push(profileDetail);
+              });
+            return arr;
           } catch (error) {
             console.log(error);
           }

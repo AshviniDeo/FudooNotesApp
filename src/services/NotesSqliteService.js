@@ -15,8 +15,8 @@ export const createTable = () => {
   DB.transaction(txn => {
     txn.executeSql(
       'CREATE TABLE IF NOT EXISTS ' +
-        'KeepNotes' +
-        '(ID INTEGER PRIMARY KEY ,Title TEXT,Note TEXT,Archive INTEGER,Pinned INTEGER,Remainder TEXT,Trash INTEGER,BackgroundColor TEXT,IsList INTEGER,List TEXT);',
+        'FundooNotes' +
+        '(ID TEXTPRIMARY KEY,noteId TEXT ,Title TEXT,Note TEXT,Archive INTEGER,Pinned INTEGER,Remainder TEXT,Trash INTEGER,BackgroundColor TEXT,IsList INTEGER,List TEXT,Flag TEXT);',
       [],
       (tx, results) => {
         console.log('table created successfully', results);
@@ -28,41 +28,33 @@ export const createTable = () => {
   });
 };
 
-export const createnoteinDB = async (
-  id,
-  Title,
-  Note,
-  Archive,
-  Pinned,
-  Remainder,
-  Trash,
-  BackgroundColor,
-  IsList,
-  List,
-  callback,
-) => {
+export const addNote = async (noteId, noteData, uid, callback) => {
   try {
     await DB.transaction(async txn => {
-      Pinned = Pinned ? 1 : 0;
-      Archive = Archive ? 1 : 0;
-      Trash = Trash ? 1 : 0;
-      IsList = IsList ? 1 : 0;
+      noteData.Pinned = noteData.Pinned ? 1 : 0;
+      noteData.Archive = noteData.Archive ? 1 : 0;
+      noteData.Trash = noteData.Trash ? 1 : 0;
+      noteData.IsList = noteData.IsList ? 1 : 0;
       await txn.executeSql(
-        'INSERT INTO Notes (ID,Title ,Note ,Archive ,Pinned ,Remainder,Trash,BackgroundColor,IsList,List) VALUES (?,?,?,?,?,?,?,?,?,?)',
+        'INSERT INTO FundooNotes (ID,noteId,Title ,Note ,Archive ,Pinned ,Remainder,Trash,BackgroundColor,IsList,List) VALUES (?,?,?,?,?,?,?,?,?,?,?)',
         [
-          Title,
-          Note,
-          Archive,
-          Pinned,
-          Remainder,
-          Trash,
-          BackgroundColor,
-          IsList,
-          List,
+          uid,
+          noteId,
+          noteData.Title,
+          noteData.Note,
+          noteData.Archive,
+          noteData.Pinned,
+          noteData.Remainder,
+          noteData.Trash,
+          noteData.BackgroundColor,
+          noteData.IsList,
+          JSON.stringify(noteData.List),
         ],
-        () => {},
+        () => {
+          console.log('Inserted');
+        },
         error => {
-          console.log(error.code);
+          console.log('Sqlite', error);
         },
       );
     });
@@ -72,40 +64,31 @@ export const createnoteinDB = async (
   }
 };
 
-export const updatenoteinDB = async (
-  Title,
-  Note,
-  Archive,
-  Pinned,
-  Remainder,
-  Trash,
-  reciveId,
-  BackgroundColor,
-  IsList,
-  List,
-  callback,
-) => {
+export const setNote = async (uid, noteData, noteId, callback) => {
   try {
-    Pinned = Pinned ? 1 : 0;
-    Archive = Archive ? 1 : 0;
-    Trash = Trash ? 1 : 0;
-    IsList = IsList ? 1 : 0;
+    noteData.Pinned = noteData.Pinned ? 1 : 0;
+    noteData.Archive = noteData.Archive ? 1 : 0;
+    noteData.Trash = noteData.Trash ? 1 : 0;
+    noteData.IsList = noteData.IsList ? 1 : 0;
     await DB.transaction(async txn => {
       await txn.executeSql(
-        'UPDATE Notes SET Title=?,Note=?,Archive=?,Pinned=?,Remainder=?,Trash=?,BackgroundColor = ? WHERE ID = ?',
+        'UPDATE Notes SET Title=?,Note=?,Archive=?,Pinned=?,Remainder=?,Trash=?,BackgroundColor = ? WHERE noteId = ?',
         [
-          Title,
-          Note,
-          Archive,
-          Pinned,
-          Remainder,
-          Trash,
-          BackgroundColor,
-          IsList,
-          List,
-          reciveId,
+          uid,
+          noteId,
+          noteData.Title,
+          noteData.Note,
+          noteData.Archive,
+          noteData.Pinned,
+          noteData.Remainder,
+          noteData.Trash,
+          noteData.BackgroundColor,
+          noteData.IsList,
+          noteData.List,
         ],
-        () => {},
+        () => {
+          console.log('Updated');
+        },
         error => {
           console.log(error.code);
         },
@@ -133,7 +116,7 @@ const ExecuteQuery = (sql, params = []) =>
     });
   });
 const SELECT_DATA = 'SELECT * FROM KeepNotes;';
-export const fetchNoteDatafromDB = async () => {
+export const getNotes = async () => {
   try {
     const result = await ExecuteQuery(SELECT_DATA);
     var rows = result.rows;
@@ -142,7 +125,7 @@ export const fetchNoteDatafromDB = async () => {
     for (let i = 0; i < rows.length; i++) {
       var item = rows.item(i);
       console.log(item);
-
+      item.List = JSON.parse(item.List);
       item.Pinned = Boolean(item.Pinned);
       item.Archive = Boolean(item.Archive);
       item.Trash = Boolean(item.Trash);

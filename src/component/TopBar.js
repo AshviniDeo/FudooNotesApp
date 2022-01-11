@@ -20,6 +20,7 @@ const TopBar = ({
 }) => {
   const [toggle, setToggle] = useState(searchIcon);
   const [isVisible, setIsVisible] = useState(false);
+  const [displayPicture, setDisplayPicture] = useState('');
 
   const toggelModal = () => {
     setIsVisible(!isVisible);
@@ -82,12 +83,18 @@ const TopBar = ({
       </View>
       <View>
         <TouchableOpacity onPress={toggelModal}>
-          <Avatar.Image size={SIZES.TOPBAR_ICON} />
+          <Avatar.Image
+            size={SIZES.TOPBAR_ICON}
+            source={{uri: displayPicture}}
+          />
         </TouchableOpacity>
         <ModalScreen
           visible={isVisible}
           onBackdropPress={toggelModal}
           toggleModal={toggelModal}
+          setDisplayPicture={setDisplayPicture}
+          displayPicture={displayPicture}
+          navigation={navigation}
         />
       </View>
     </View>

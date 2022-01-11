@@ -67,7 +67,7 @@ export default function SignUpScreen({navigation}) {
   };
 
   const toNavigateHome = () => {
-    navigation.navigate('Dashboard');
+    navigation.navigate('Sign In');
   };
   const setCatchError = code => {
     const temp = {};
