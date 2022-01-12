@@ -11,7 +11,7 @@ const AuthStack = () => {
   useEffect(() => {
     GoogleSignin.configure({
       webClientId:
-        '668023202159-mbtr2hsom3jk4hht8or1c2l0ngqm3klt.apps.googleusercontent.com',
+        '825836580494-20an0voff5i2tf2v7m1ee7bnjfrn01kq.apps.googleusercontent.com',
     });
   }, []);
   return (

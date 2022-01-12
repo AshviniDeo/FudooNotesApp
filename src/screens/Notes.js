@@ -1,4 +1,4 @@
-import React, {useState, createContext, useRef} from 'react';
+import React, {useState, useRef} from 'react';
 import {
   View,
   StyleSheet,
@@ -21,8 +21,8 @@ import 'react-native-get-random-values';
 import {v4 as uuidv4} from 'uuid';
 import ColorPalette from '../component/ColorPalette';
 import ReminderSheet from '../component/ReminderSheet';
+import moment from 'moment';
 
-export const LabelContext = createContext(null);
 const Notes = ({navigation, route}) => {
   const [Pinned, setPinned] = useState(route.params?.editData?.Pinned || false);
   const [Reminder, setReminder] = useState('');
@@ -34,11 +34,10 @@ const Notes = ({navigation, route}) => {
   const [Trash, setTrash] = useState(route.params?.editData?.Trash || false);
   const [IsList, setIsList] = useState(route.params?.IsList || false);
   const [List, setList] = useState(route.params?.editData?.List || []);
-  const [checkedArr, setCheckedArr] = useState([]);
   const [BackgroundColor, setBackgroundColor] = useState(
     route.params?.editData?.BackgroundColor || '',
   );
-  // const labelsData = route.params?.labels || [];
+  const labelData = route.params?.Labels || route.params?.editData?.Labels;
 
   const tempArr = [...List];
 
@@ -47,17 +46,6 @@ const Notes = ({navigation, route}) => {
 
   const refPalette = useRef();
   const refReminder = useRef();
-
-  const handleChecked = obj => {
-    const index = checkedArr.findIndex(item => item === obj.id);
-    if (index === -1) {
-      setCheckedArr([...checkedArr, obj]);
-    } else {
-      const temp = [...checkedArr];
-      temp.splice(index, 1);
-      setCheckedArr(tempArr);
-    }
-  };
 
   const newColor = BackgroundColor;
   const receiveId = route.params?.editId;
@@ -92,7 +80,6 @@ const Notes = ({navigation, route}) => {
     navigation.navigate('Dashboard');
   };
   const getId = () => uuidv4();
-  const id = getId();
 
   const handlePress = (changeData = {}) => {
     const noteId = receiveId || getId();
@@ -185,7 +172,7 @@ const Notes = ({navigation, route}) => {
       <View style={custome.NoteCard}>
         <TextInput
           style={custome.TitleText}
-          label={'Title'}
+          placeholder={'Title'}
           onChangeText={text => {
             setTitle(text);
           }}
@@ -201,7 +188,7 @@ const Notes = ({navigation, route}) => {
           {!IsList ? (
             <TextInput
               style={custome.Note}
-              label={'Note'}
+              placeholder={'Note'}
               onChangeText={text => {
                 setNote(text);
               }}
@@ -278,25 +265,29 @@ const Notes = ({navigation, route}) => {
               ))}
             </View>
           )}
+
+          <View>
+            <Text style={custome.chip}>hello</Text>
+          </View>
         </ScrollView>
       </View>
 
       {/* //Bottom-Bar ==> Start */}
-      <LabelContext.Provider value={{checkedArr, handleChecked}}>
-        <NoteBottomBar
-          Trash={Trash}
-          TrashPress={handleTrash}
-          onPress={addLabel}
-          plusPress={handleList}
-          palettePress={() => {
-            refPalette.current.open();
-          }}
-        />
-        <ColorPalette
-          refPalette={refPalette}
-          setBackgroundColor={setBackgroundColor}
-        />
-      </LabelContext.Provider>
+
+      <NoteBottomBar
+        Trash={Trash}
+        TrashPress={handleTrash}
+        onPress={addLabel}
+        plusPress={handleList}
+        palettePress={() => {
+          refPalette.current.open();
+        }}
+      />
+      <ColorPalette
+        refPalette={refPalette}
+        setBackgroundColor={setBackgroundColor}
+      />
+
       {/* //Bottom-Bar ==>End */}
     </SafeAreaView>
   );
@@ -322,6 +313,17 @@ const custome = StyleSheet.create({
   },
   NoteCard: {
     flex: 0.9,
+  },
+  chip: {
+    padding: PADDING.SECONADARY_PADDING,
+    margin: MARGIN.PRIMARY_MARGIN,
+    borderRadius: 5,
+    alignContent: 'center',
+    textAlign: 'center',
+    backgroundColor: 'rgba(0,0,0,0.2)',
+    width: WIDTH.DATE,
+    color: COLOR.HEADING,
+    fontSize: SIZES.SMALL_TEXT,
   },
 });
 export default Notes;

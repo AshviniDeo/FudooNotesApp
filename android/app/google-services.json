@@ -1,41 +1,49 @@
 {
   "project_info": {
-    "project_number": "668023202159",
-    "project_id": "fundoonotes-d2914",
-    "storage_bucket": "fundoonotes-d2914.appspot.com"
+    "project_number": "825836580494",
+    "project_id": "keepnotes-97182",
+    "storage_bucket": "keepnotes-97182.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:668023202159:android:e8edb86d91e5669a0d489a",
+        "mobilesdk_app_id": "1:825836580494:android:a58ce8ed4b96be7354e3df",
         "android_client_info": {
           "package_name": "com.fudoonotesapp"
         }
       },
       "oauth_client": [
         {
-          "client_id": "668023202159-p28222halgphq4g5bf752gesnirgd3pf.apps.googleusercontent.com",
+          "client_id": "825836580494-1joq23ua5tul2nacd5r6itlvp8jcbi59.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.fudoonotesapp",
-            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+            "certificate_hash": "457807c70c90d2c1b429d9ed2e5cc31bad84c957"
           }
         },
         {
-          "client_id": "668023202159-mbtr2hsom3jk4hht8or1c2l0ngqm3klt.apps.googleusercontent.com",
+          "client_id": "825836580494-5nj2ks40fmq2n9ebrcccjlu3q4snqg2p.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.fudoonotesapp",
+            "certificate_hash": "7a089e58f7d869f94e074ba955ddc768b82375af"
+          }
+        },
+        {
+          "client_id": "825836580494-20an0voff5i2tf2v7m1ee7bnjfrn01kq.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAMJuapLBPhCHwSaufAYd1mYmBzoeOFxdY"
+          "current_key": "AIzaSyC2iyn4vUpYbMm21TyHanGDzAA4YwFHEkY"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "668023202159-mbtr2hsom3jk4hht8or1c2l0ngqm3klt.apps.googleusercontent.com",
+              "client_id": "825836580494-20an0voff5i2tf2v7m1ee7bnjfrn01kq.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
