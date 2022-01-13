@@ -4,7 +4,8 @@ import {styles} from '../utility/StyleSheet';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {daleteLabel, updateLabel} from '../services/LabelServices';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import {COLOR, PADDING, SIZES} from '../utility/Theme';
+import {COLOR, MARGIN, PADDING, SIZES} from '../utility/Theme';
+import {widthPercentageToDP} from '../utility/DynamicDimension';
 
 const Label = props => {
   const [label, setlabel] = useState(props.Label);
@@ -49,7 +50,12 @@ const Label = props => {
         )}
         {props.toggle ? (
           <TextInput
-            style={[styles.label, styles.lableInput]}
+            style={{
+              width: widthPercentageToDP('70%'),
+              padding: PADDING.SECONADARY_PADDING,
+              fontSize: SIZES.MEDIUM_TEXT,
+              marginLeft: MARGIN.PRIMARY_MARGIN,
+            }}
             onChangeText={text => {
               setlabel(text);
             }}
@@ -59,10 +65,7 @@ const Label = props => {
             }}
           />
         ) : (
-          <Text
-            style={[styles.editText, {paddingLeft: PADDING.PRIMARY_PADDING}]}>
-            {props.Label}
-          </Text>
+          <Text style={styles.editText}>{props.Label}</Text>
         )}
         {props.toggle ? (
           <View>

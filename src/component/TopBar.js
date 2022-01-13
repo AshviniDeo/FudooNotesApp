@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import {View, TouchableOpacity, Text, TextInput} from 'react-native';
 import {styles} from '../utility/StyleSheet';
 import Ionicon from 'react-native-vector-icons/Ionicons';
@@ -17,6 +17,7 @@ const TopBar = ({
   icon,
   searchIcon,
   navigation,
+  profileData,
 }) => {
   const [toggle, setToggle] = useState(searchIcon);
   const [isVisible, setIsVisible] = useState(false);
@@ -83,18 +84,21 @@ const TopBar = ({
       </View>
       <View>
         <TouchableOpacity onPress={toggelModal}>
-          <Avatar.Image
-            size={SIZES.TOPBAR_ICON}
-            source={{uri: displayPicture}}
-          />
+          {
+            <Avatar.Image
+              size={SIZES.TOPBAR_ICON}
+              source={{uri: displayPicture}}
+            />
+          }
         </TouchableOpacity>
         <ModalScreen
           visible={isVisible}
           onBackdropPress={toggelModal}
           toggleModal={toggelModal}
-          setDisplayPicture={setDisplayPicture}
-          displayPicture={displayPicture}
           navigation={navigation}
+          profileData={profileData}
+          displayPicture={displayPicture}
+          setDisplayPicture={setDisplayPicture}
         />
       </View>
     </View>

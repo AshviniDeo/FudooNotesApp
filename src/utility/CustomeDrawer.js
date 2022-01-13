@@ -98,6 +98,7 @@ const CustomeDrawer = ({navigation, props}) => {
                   style={{
                     justifyContent: 'space-between',
                     flexDirection: 'row',
+                    paddingRight: PADDING.PRIMARY_PADDING,
                   }}>
                   <Text
                     style={{
@@ -188,7 +189,7 @@ const CustomeDrawer = ({navigation, props}) => {
             onPress={() => {
               signout();
             }}>
-            <View style={[styles.view, {justifyContent: 'center'}]}>
+            <View style={[styles.view, {alignItems: 'center'}]}>
               <MaterialCommunityIcons
                 name="logout"
                 size={SIZES.ICON_SMALL}
@@ -213,6 +214,7 @@ const styles = StyleSheet.create({
     color: COLOR.TEXT_COLOR,
     fontSize: SIZES.SMALL_TEXT,
     marginRight: MARGIN.PRIMARY_MARGIN,
+    paddingLeft: PADDING.SECONADARY_PADDING,
   },
   text: {
     fontSize: SIZES.MEDIUM_TEXT,

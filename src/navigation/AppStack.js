@@ -34,6 +34,6 @@ export const AppStack = () => {
         options={{headerShown: false}}
       />
     </Stack.Navigator>
-    // </Provider>
+    // {/* </Provider> */}
   );
 };

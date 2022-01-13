@@ -1,4 +1,4 @@
-import React, {useState, useCallback, useEffect} from 'react';
+import React, {useState, useCallback, useContext, useEffect} from 'react';
 import {View, Text, SafeAreaView, ScrollView} from 'react-native';
 import {styles} from '../utility/StyleSheet';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
@@ -10,7 +10,7 @@ import * as Animatable from 'react-native-animatable';
 import {LogBox} from 'react-native';
 import FlatListComponent from '../component/FlatListComponent';
 import SearchNote from '../utility/SearchNote';
-
+import {AuthContext} from '../navigation/AuthProvider';
 import useLocalisation from '../localisation/useLocalisation';
 
 LogBox.ignoreAllLogs(['VirtualList']);
@@ -20,21 +20,32 @@ const Reminder = ({navigation}) => {
   const [active, setActive] = useState(false);
   const [noteData, setNoteData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const dictonary = useLocalisation('EN');
+  const {fetch, getCurrentUser} = useContext(AuthContext);
+  const [profileData, setProfileData] = useState('');
 
   const fetchData = useCallback(async () => {
-    let data = await fetchNoteData();
+    let data = await fetchNoteData()
+      .then(item => item)
+      .catch(e => {
+        return e;
+      });
     const rem = [];
     data.forEach(item => item.Remainder && rem.push(item));
     setNoteData(rem);
     setIsLoading(false);
-  }, [setIsLoading]);
+    const profile = await fetch()
+      .then(item => item)
+      .catch(e => {
+        return e;
+      });
+    setProfileData(profile);
+  }, [setIsLoading, fetch]);
 
-  const dictonary = useLocalisation('EN');
   useEffect(() => {
     const unsubscribe = navigation.addListener('focus', () => {
       fetchData();
     });
-
     return unsubscribe;
   }, [navigation, fetchData]);
 
@@ -66,8 +77,9 @@ const Reminder = ({navigation}) => {
           }}
           icon={active}
           searchIcon={false}
+          navigation={navigation}
+          profileData={profileData}
         />
-
         {/* Header-End */}
         {search.length === 0 ? (
           <View style={styles.container}>
@@ -78,7 +90,7 @@ const Reminder = ({navigation}) => {
                   size={SIZES.EMPTY_ICON}
                   color={COLOR.EMPTY_FIELD_ICON}
                 />
-                <Text style={styles.blankText}>
+                <Text style={styles.middleText}>
                   {dictonary.REMINDER_EMPTY_TEXT}
                 </Text>
               </View>

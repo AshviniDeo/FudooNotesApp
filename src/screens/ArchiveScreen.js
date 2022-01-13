@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext, useCallback} from 'react';
 import {View, Text, ScrollView, SafeAreaView} from 'react-native';
 
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
@@ -11,6 +11,7 @@ import * as Animatable from 'react-native-animatable';
 import FlatListComponent from '../component/FlatListComponent';
 import SearchNote from '../utility/SearchNote';
 import useLocalisation from '../localisation/useLocalisation';
+import {AuthContext} from '../navigation/AuthProvider';
 
 LogBox.ignoreAllLogs(true);
 
@@ -19,10 +20,12 @@ const ArchiveScreen = ({navigation}) => {
   const [active, setActive] = useState(false);
   const [noteData, setNoteData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const {fetch, getCurrentUser} = useContext(AuthContext);
+  const [profileData, setProfileData] = useState('');
 
   const dictonary = useLocalisation('EN');
 
-  const fetchData = async () => {
+  const fetchData = useCallback(async () => {
     let data = await fetchNoteData();
     const unpin = [];
     data.forEach(item => {
@@ -32,14 +35,20 @@ const ArchiveScreen = ({navigation}) => {
     });
     setNoteData(unpin);
     setIsLoading(false);
-  };
+    const profile = await fetch()
+      .then(item => item)
+      .catch(e => {
+        return e;
+      });
+    setProfileData(profile);
+  }, [setIsLoading, fetch]);
 
   useEffect(() => {
     const unsubscribe = navigation.addListener('focus', () => {
       fetchData();
     });
     return unsubscribe;
-  }, [navigation]);
+  }, [navigation, fetchData]);
   if (isLoading) {
     return (
       <Animatable.Image
@@ -68,6 +77,8 @@ const ArchiveScreen = ({navigation}) => {
           }}
           icon={active}
           searchIcon={false}
+          navigation={navigation}
+          profileData={profileData}
         />
         {search.length === 0 ? (
           <View style={styles.container}>

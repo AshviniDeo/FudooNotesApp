@@ -9,9 +9,16 @@ import ImagePicker from 'react-native-image-crop-picker';
 
 const BottomBar = ({navigation, onPress, listPress, setImage}) => {
   const [isVisible, setIsVisible] = useState(false);
+  const [addImage, setAddImage] = useState('');
   const toggelModal = () => {
     setIsVisible(!isVisible);
   };
+
+  const data = addImage;
+  const handleNote = () => {
+    navigation.navigate('Notes', {Image: data});
+  };
+
   const takePhoto = () => {
     ImagePicker.openCamera({
       width: 300,
@@ -19,6 +26,7 @@ const BottomBar = ({navigation, onPress, listPress, setImage}) => {
       cropping: true,
     }).then(image => {
       console.log(image);
+      setAddImage(image.path);
     });
   };
 
@@ -29,6 +37,7 @@ const BottomBar = ({navigation, onPress, listPress, setImage}) => {
       cropping: true,
     }).then(image => {
       console.log(image);
+      setAddImage(image.path);
     });
   };
   return (
@@ -70,6 +79,7 @@ const BottomBar = ({navigation, onPress, listPress, setImage}) => {
           onBackdropPress={toggelModal}
           takePhoto={takePhoto}
           choosePhoto={choosePhoto}
+          onPress={handleNote}
         />
 
         <TouchableOpacity style={styles.barButton} onPress={onPress}>

@@ -100,7 +100,6 @@ const CreateNewLabel = ({navigation, route}) => {
               <View style={styles.editLabel}>
                 <View style={styles.icon}>
                   <TouchableOpacity
-                    style={styles.label}
                     onPress={() => {
                       navigation.navigate('Dashboard');
                       setActive(!active);
@@ -127,10 +126,6 @@ const CreateNewLabel = ({navigation, route}) => {
                 </View>
                 <View style={styles.icon}>
                   <TouchableOpacity
-                    style={[
-                      styles.label,
-                      {paddingLeft: PADDING.BUTTON_PADDING},
-                    ]}
                     onPress={() => {
                       handlePress();
                     }}>

@@ -1,5 +1,6 @@
 export const SET_NOTE = 'SET_NOTE';
 export const SET_LABEL_DATA = 'SET_LABEL_DATA';
+export const SET_PROFILE = 'SET_PROFILE';
 
 export const setNote = note => dispatch => {
   dispatch({
@@ -12,5 +13,12 @@ export const setLabelData = labelData => dispatch => {
   dispatch({
     type: SET_LABEL_DATA,
     payload: labelData,
+  });
+};
+
+export const setDisplayPicture = profileImage => dispatch => {
+  dispatch({
+    type: SET_PROFILE,
+    payload: profileImage,
   });
 };

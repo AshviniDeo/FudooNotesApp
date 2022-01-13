@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState, useContext} from 'react';
 import {
   View,
   Text,
@@ -18,7 +18,7 @@ import {COLOR, SIZES} from '../utility/Theme';
 import PushNotification from 'react-native-push-notification';
 import FlatListComponent from '../component/FlatListComponent';
 import SearchNote from '../utility/SearchNote';
-
+import {AuthContext} from '../navigation/AuthProvider';
 import useLocalisation from '../localisation/useLocalisation';
 import {createTable} from '../services/NotesSqliteService';
 // import {useSelector, useDispatch} from 'react-redux';
@@ -34,6 +34,8 @@ const DashboardScreen = ({navigation}) => {
   const [pinData, setPinData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [searchData, setSearchData] = useState([]);
+  const {fetch, getCurrentUser} = useContext(AuthContext);
+  const [profileData, setProfileData] = useState('');
 
   const createChannels = () => {
     PushNotification.createChannel({
@@ -45,7 +47,11 @@ const DashboardScreen = ({navigation}) => {
   const dictonary = useLocalisation('EN');
 
   const fetchData = useCallback(async () => {
-    let data = await fetchNoteData();
+    let data = await fetchNoteData()
+      .then(item => item)
+      .catch(e => {
+        return e;
+      });
     setSearchData(data);
     const pin = [];
     const unpin = [];
@@ -56,10 +62,19 @@ const DashboardScreen = ({navigation}) => {
         unpin.push(item);
       }
     });
+
+    const profile = await fetch()
+      .then(item => item)
+      .catch(e => {
+        return e;
+      });
+    const googleData = await getCurrentUser();
+    console.log('Google Info', googleData);
+    setProfileData(profile);
     setNoteData(unpin);
     setPinData(pin);
     setIsLoading(false);
-  }, [setIsLoading]);
+  }, [setIsLoading, fetch, getCurrentUser]);
 
   useEffect(() => {
     const unsubscribe = navigation.addListener('focus', () => {
@@ -108,6 +123,7 @@ const DashboardScreen = ({navigation}) => {
           }}
           icon={active}
           navigation={navigation}
+          profileData={profileData}
         />
 
         {search.length === 0 ? (
@@ -151,7 +167,6 @@ const DashboardScreen = ({navigation}) => {
                     active={active}
                     navigation={navigation}
                     keyExtractor={item => item.noteId}
-                    ListFooterComponent={renderLoader}
                     refreshing={isLoading}
                     onRefresh={fetchData}
                   />
@@ -179,6 +194,7 @@ const DashboardScreen = ({navigation}) => {
             IsList: true,
           });
         }}
+        navigation={navigation}
       />
     </SafeAreaView>
   );

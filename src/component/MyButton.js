@@ -1,5 +1,6 @@
 import React from 'react';
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
+import {widthPercentageToDP} from '../utility/DynamicDimension';
 import {BORDER, COLOR, HEIGHT, MARGIN, PADDING, WIDTH} from '../utility/Theme';
 
 export default function MyButton({onPress, children}) {
@@ -14,7 +15,7 @@ export default function MyButton({onPress, children}) {
 const styles = StyleSheet.create({
   btn: {
     backgroundColor: COLOR.SECONDARY,
-    width: WIDTH.HALF_WIDTH,
+    width: widthPercentageToDP('35%'),
     height: HEIGHT.SIGNBTN,
     borderBottomColor: COLOR.AUTH_COLOR,
     borderBottomWidth: BORDER.THICK_BORDER,

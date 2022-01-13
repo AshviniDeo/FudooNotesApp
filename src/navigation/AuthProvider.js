@@ -85,7 +85,7 @@ export const AuthProvider = ({children}) => {
             console.log(error);
           }
         },
-        fetch: async profileImage => {
+        fetch: async () => {
           try {
             const arr = [];
             const uid = await AsyncStorage.getItem('uid');
@@ -98,6 +98,13 @@ export const AuthProvider = ({children}) => {
                 arr.push(profileDetail);
               });
             return arr;
+          } catch (error) {
+            console.log(error);
+          }
+        },
+        getCurrentUser: async () => {
+          try {
+            return await GoogleSignin.getCurrentUser();
           } catch (error) {
             console.log(error);
           }

@@ -15,6 +15,8 @@ import TextBox from '../component/TextBox';
 import {AuthContext} from '../navigation/AuthProvider';
 
 import useLocalisation from '../localisation/useLocalisation';
+import {PADDING} from '../utility/Theme';
+import {heightPercentageToDP} from '../utility/DynamicDimension';
 
 export default function WelcomeScreen({navigation}) {
   const bg = require('../assets/bgimg.jpg');
@@ -67,10 +69,12 @@ export default function WelcomeScreen({navigation}) {
     navigation.navigate({name: 'Forgot Password'});
   };
   return (
-    <ImageBackground source={bg} style={styles.background}>
+    <ImageBackground
+      source={bg}
+      style={[styles.background, {paddingTop: heightPercentageToDP('25%')}]}>
       <KeyboardAvoidingView>
         <ScrollView>
-          <View style={[styles.window]}>
+          <View>
             <View>
               <TextBox
                 onChangeText={text => setUserName(text)}

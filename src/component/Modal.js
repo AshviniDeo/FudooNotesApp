@@ -1,4 +1,4 @@
-import React, {useCallback, useContext, useEffect, useState} from 'react';
+import React, {useContext} from 'react';
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import Modal from 'react-native-modal';
 import {BORDER, COLOR, MARGIN, PADDING, SIZES, WIDTH} from '../utility/Theme';
@@ -6,30 +6,20 @@ import Entypo from 'react-native-vector-icons/Entypo';
 import {Avatar} from 'react-native-paper';
 import ImagePicker from 'react-native-image-crop-picker';
 import {AuthContext} from '../navigation/AuthProvider';
+import {useSelector, useDispatch} from 'react-redux';
+import {setDisplayPicture} from '../redux/Actions';
 
 const ModalScreen = ({
   visible,
   onBackdropPress,
   toggleModal,
+  navigation,
+  profileData,
   displayPicture,
   setDisplayPicture,
-  navigation,
 }) => {
-  const [profileData, setProfileData] = useState([]);
-  const {fetch, update} = useContext(AuthContext);
-
-  const fetchProfile = useCallback(async () => {
-    const data = await fetch();
-    console.log(data);
-    setProfileData(data);
-  }, [fetch]);
-
-  useEffect(() => {
-    const unsubscribe = navigation.addListener('focus', () => {
-      fetchProfile();
-    });
-    return unsubscribe;
-  }, [navigation, fetchProfile]);
+  const {update} = useContext(AuthContext);
+  const data = Object.values(profileData);
 
   const takePhoto = () => {
     ImagePicker.openCamera({
@@ -49,11 +39,20 @@ const ModalScreen = ({
       cropping: true,
     }).then(image => {
       console.log(image);
-      setDisplayPicture(image.path);
+
       update(image.path);
     });
   };
+  let userName;
+  let email;
 
+  {
+    Object.values(data).forEach(item => {
+      userName = item.UserName;
+      email = item.Email;
+      setDisplayPicture(item.profileImage);
+    });
+  }
   return (
     <View>
       <Modal
@@ -62,10 +61,14 @@ const ModalScreen = ({
         animationOut={'bounceOut'}
         onBackdropPress={onBackdropPress}>
         <View style={styles.modal}>
-          {/* {Object.values(profileData).map((item, index) => { */}
           <View>
             <TouchableOpacity onPress={toggleModal}>
-              <Entypo name={'cross'} size={SIZES.ICON_MEDIUM} color={COLOR} />
+              <Entypo
+                style={{paddingLeft: PADDING.PRIMARY_PADDING}}
+                name={'cross'}
+                size={SIZES.ICON_MEDIUM}
+                color={COLOR}
+              />
             </TouchableOpacity>
             <View style={styles.view}>
               <Text style={[styles.heading, {color: 'blue'}]}>F</Text>
@@ -76,14 +79,19 @@ const ModalScreen = ({
               <Text style={[styles.heading, {color: 'blue'}]}>o</Text>
               <Text style={styles.heading}> Notes</Text>
             </View>
+            <View>
+              <View style={styles.avtar}>
+                <Avatar.Image
+                  size={SIZES.AVTAR}
+                  source={{uri: displayPicture}}
+                />
+              </View>
+              <View style={styles.avtar}>
+                <Text style={styles.username}>{userName}</Text>
+                <Text style={{color: COLOR.ACTIVE_COLOR}}>{email}</Text>
+              </View>
+            </View>
 
-            <View style={styles.avtar}>
-              <Avatar.Image size={SIZES.AVTAR} source={{uri: displayPicture}} />
-            </View>
-            <View style={styles.avtar}>
-              <Text style={styles.username}>Username</Text>
-              <Text style={{color: COLOR.ACTIVE_COLOR}}>email</Text>
-            </View>
             <View style={styles.avtar}>
               <View style={styles.button}>
                 <TouchableOpacity onPress={takePhoto}>
@@ -97,7 +105,6 @@ const ModalScreen = ({
               </View>
             </View>
           </View>
-          {/* })} */}
         </View>
       </Modal>
     </View>
@@ -116,7 +123,7 @@ const styles = StyleSheet.create({
     backgroundColor: COLOR.SECONDARY,
     padding: PADDING.SECONADARY_PADDING,
     borderWidth: BORDER.MEDIUM_BORDER,
-    borderRadius: BORDER.ROUND_CORNER,
+    borderRadius: BORDER.BORDER_RADIUS,
     borderColor: 'rgba(0,0,0,0.2)',
     margin: MARGIN.PRIMARY_MARGIN,
   },

@@ -11,7 +11,7 @@ import {
 import {createnote, updatenote} from '../services/NoteServices';
 import {styles} from '../utility/StyleSheet';
 import {COLOR, MARGIN, PADDING, SIZES, WIDTH} from '../utility/Theme';
-import {TextInput} from 'react-native-paper';
+import {Avatar, TextInput} from 'react-native-paper';
 import NoteTopBar from '../component/NoteTopBar';
 import NoteBottomBar from '../component/NoteBottomBar';
 import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -22,6 +22,7 @@ import {v4 as uuidv4} from 'uuid';
 import ColorPalette from '../component/ColorPalette';
 import ReminderSheet from '../component/ReminderSheet';
 import moment from 'moment';
+import {widthPercentageToDP} from '../utility/DynamicDimension';
 
 const Notes = ({navigation, route}) => {
   const [Pinned, setPinned] = useState(route.params?.editData?.Pinned || false);
@@ -38,7 +39,7 @@ const Notes = ({navigation, route}) => {
     route.params?.editData?.BackgroundColor || '',
   );
   const labelData = route.params?.Labels || route.params?.editData?.Labels;
-
+  const image = route.params?.Image;
   const tempArr = [...List];
 
   const checked = tempArr.filter(item => item.toggleCheckBox);
@@ -169,130 +170,148 @@ const Notes = ({navigation, route}) => {
 
       {/* //Header-Bar ===>End */}
 
-      <View style={custome.NoteCard}>
-        <TextInput
-          style={custome.TitleText}
-          placeholder={'Title'}
-          onChangeText={text => {
-            setTitle(text);
-          }}
-          value={Title}
-          editable
-          maxLength={40}
-          underlineColor={COLOR.TRANSPARENT}
-          activeUnderlineColor={COLOR.TRANSPARENT}
-          selectionColor={COLOR.TEXT_COLOR}
-          right={IsList && <TextInput.Icon name="table-column" />}
-        />
-        <ScrollView>
-          {!IsList ? (
-            <TextInput
-              style={custome.Note}
-              placeholder={'Note'}
-              onChangeText={text => {
-                setNote(text);
-              }}
-              value={Note}
-              editable
-              multiline
-              underlineColor={COLOR.TRANSPARENT}
-              activeUnderlineColor={COLOR.TEXT_COLOR}
-              selectionColor={COLOR.TEXT_COLOR}
-            />
-          ) : (
-            <View>
-              {unChecked.map((item, index) => (
-                <CreateList
-                  key={index}
-                  {...item}
-                  removeItem={() => {
-                    removeItem(item.id);
-                  }}
-                  toggleCheckBox={item.toggleCheckBox}
-                  handleChecked={() => {
-                    handleToggle(item.id);
-                  }}
-                  onChangeText={text => {
-                    handleText(text, item.id);
-                  }}
-                />
-              ))}
+      <View style={styles.window}>
+        {image && (
+          <View style={custome.image}>
+            <Avatar.Image size={widthPercentageToDP('70%')} source={image} />
+          </View>
+        )}
+        <View style={custome.NoteCard}>
+          <TextInput
+            style={custome.TitleText}
+            placeholder={'Title'}
+            onChangeText={text => {
+              setTitle(text);
+            }}
+            value={Title}
+            editable
+            maxLength={40}
+            underlineColor={COLOR.TRANSPARENT}
+            activeUnderlineColor={COLOR.TRANSPARENT}
+            selectionColor={COLOR.TEXT_COLOR}
+            right={IsList && <TextInput.Icon name="table-column" />}
+          />
+          <ScrollView>
+            {!IsList ? (
+              <TextInput
+                style={custome.Note}
+                placeholder={'Note'}
+                onChangeText={text => {
+                  setNote(text);
+                }}
+                value={Note}
+                editable
+                multiline
+                underlineColor={COLOR.TRANSPARENT}
+                activeUnderlineColor={COLOR.TEXT_COLOR}
+                selectionColor={COLOR.TEXT_COLOR}
+              />
+            ) : (
+              <View>
+                {unChecked.map((item, index) => (
+                  <CreateList
+                    key={index}
+                    {...item}
+                    removeItem={() => {
+                      removeItem(item.id);
+                    }}
+                    toggleCheckBox={item.toggleCheckBox}
+                    handleChecked={() => {
+                      handleToggle(item.id);
+                    }}
+                    onChangeText={text => {
+                      handleText(text, item.id);
+                    }}
+                  />
+                ))}
 
-              <TouchableOpacity
-                style={[styles.label, {paddingLeft: PADDING.PRIMARY_PADDING}]}
-                onPress={() =>
-                  setList([
-                    ...List,
-                    {name: '', id: List.length + 1, toggleCheckBox: false},
-                  ])
-                }>
-                <AntDesign
-                  name={'plus'}
-                  size={SIZES.ICON_MEDIUM}
-                  color={COLOR.TEXT_COLOR}
-                />
-                <Text style={styles.labelText}>Add item</Text>
-              </TouchableOpacity>
-              {checked.length !== 0 && (
-                <View
-                  style={[styles.label, {padding: PADDING.SECONADARY_PADDING}]}>
+                <TouchableOpacity
+                  style={[styles.label, {paddingLeft: PADDING.PRIMARY_PADDING}]}
+                  onPress={() =>
+                    setList([
+                      ...List,
+                      {name: '', id: List.length + 1, toggleCheckBox: false},
+                    ])
+                  }>
                   <AntDesign
-                    style={styles.icon}
-                    name="down"
-                    size={SIZES.ICON_SMALL}
+                    name={'plus'}
+                    size={SIZES.ICON_MEDIUM}
                     color={COLOR.TEXT_COLOR}
                   />
-                  <Text style={[styles.icon, {color: COLOR.TEXT_COLOR}]}>
-                    {checked.length} Checked item
-                  </Text>
-                </View>
-              )}
-              {checked.map((item, index) => (
-                <CreateList
-                  key={index}
-                  {...item}
-                  removeItem={() => {
-                    removeItem(item.id);
-                  }}
-                  toggleCheckBox={item.toggleCheckBox}
-                  handleChecked={() => {
-                    handleToggle(item.id);
-                  }}
-                  onChangeText={text => {
-                    handleText(text, item.id);
-                  }}
-                />
-              ))}
-            </View>
-          )}
+                  <Text style={styles.labelText}>Add item</Text>
+                </TouchableOpacity>
+                {checked.length !== 0 && (
+                  <View
+                    style={[
+                      styles.label,
+                      {padding: PADDING.SECONADARY_PADDING},
+                    ]}>
+                    <AntDesign
+                      style={styles.icon}
+                      name="down"
+                      size={SIZES.ICON_SMALL}
+                      color={COLOR.TEXT_COLOR}
+                    />
+                    <Text style={[styles.icon, {color: COLOR.TEXT_COLOR}]}>
+                      {checked.length} Checked item
+                    </Text>
+                  </View>
+                )}
+                {checked.map((item, index) => (
+                  <CreateList
+                    key={index}
+                    {...item}
+                    removeItem={() => {
+                      removeItem(item.id);
+                    }}
+                    toggleCheckBox={item.toggleCheckBox}
+                    handleChecked={() => {
+                      handleToggle(item.id);
+                    }}
+                    onChangeText={text => {
+                      handleText(text, item.id);
+                    }}
+                  />
+                ))}
+              </View>
+            )}
+            {Reminder && (
+              <View>
+                <Text style={custome.chip}>
+                  {JSON.stringify(Reminder) || ''}
+                </Text>
+              </View>
+            )}
+          </ScrollView>
+        </View>
 
-          <View>
-            <Text style={custome.chip}>hello</Text>
-          </View>
-        </ScrollView>
+        {/* //Bottom-Bar ==> Start */}
+
+        <NoteBottomBar
+          Trash={Trash}
+          TrashPress={handleTrash}
+          onPress={addLabel}
+          plusPress={handleList}
+          palettePress={() => {
+            refPalette.current.open();
+          }}
+        />
+        <ColorPalette
+          refPalette={refPalette}
+          setBackgroundColor={setBackgroundColor}
+        />
       </View>
-
-      {/* //Bottom-Bar ==> Start */}
-
-      <NoteBottomBar
-        Trash={Trash}
-        TrashPress={handleTrash}
-        onPress={addLabel}
-        plusPress={handleList}
-        palettePress={() => {
-          refPalette.current.open();
-        }}
-      />
-      <ColorPalette
-        refPalette={refPalette}
-        setBackgroundColor={setBackgroundColor}
-      />
 
       {/* //Bottom-Bar ==>End */}
     </SafeAreaView>
   );
 };
 const custome = StyleSheet.create({
+  image: {
+    justifyContent: 'center',
+    alignContent: 'center',
+    alignItems: 'center',
+  },
   TitleInput: {
     alignContent: 'center',
     flexWrap: 'wrap',

@@ -1,4 +1,5 @@
 import {StyleSheet} from 'react-native';
+import {heightPercentageToDP, widthPercentageToDP} from './DynamicDimension';
 import {COLOR, PADDING, SIZES, WIDTH, MARGIN, BORDER, HEIGHT} from './Theme';
 
 export const colors = [
@@ -39,13 +40,13 @@ export const styles = StyleSheet.create({
   },
   buttonLogIn: {
     flexDirection: 'row',
-    width: WIDTH.SECONDARY_WIDTH,
+    width: WIDTH.DATE,
     paddingTop: PADDING.PRIMARY_PADDING,
     margin: MARGIN.PRIMARY_MARGIN,
     alignItems: 'center',
     alignContent: 'center',
     justifyContent: 'center',
-    paddingLeft: PADDING.BUTTON_PADDING,
+    alignSelf: 'center',
   },
   googlebtn: {
     backgroundColor: 'rgba(225,0,0,0.2)',
@@ -98,7 +99,8 @@ export const styles = StyleSheet.create({
     paddingTop: PADDING.SECONADARY_PADDING,
     flexDirection: 'row',
     paddingLeft: PADDING.PRIMARY_PADDING,
-    width: WIDTH.SECONDARY_WIDTH,
+    width: widthPercentageToDP('50%'),
+    paddingHorizontal: PADDING.SECONADARY_PADDING,
   },
 
   lableInput: {
@@ -112,7 +114,7 @@ export const styles = StyleSheet.create({
     fontSize: SIZES.MEDIUM_TEXT,
     fontWeight: 'bold',
     color: COLOR.TEXT_COLOR,
-    width: WIDTH.FULL_WIDTH,
+    width: widthPercentageToDP('65%'),
     paddingTop: PADDING.SECONADARY_PADDING,
     paddingBottom: PADDING.SECONADARY_PADDING,
     alignContent: 'center',
@@ -125,7 +127,7 @@ export const styles = StyleSheet.create({
     paddingTop: PADDING.PRIMARY_PADDING,
   },
   editLabel: {
-    width: WIDTH.FULL_WIDTH,
+    width: widthPercentageToDP('40%'),
     flexDirection: 'row',
     justifyContent: 'flex-start',
     alignContent: 'center',
@@ -183,7 +185,7 @@ export const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     alignContent: 'space-between',
     paddingTop: PADDING.SECONADARY_PADDING,
-    width: WIDTH.FULL_WIDTH,
+    width: widthPercentageToDP('70%'),
   },
   noteBar: {
     justifyContent: 'flex-start',
@@ -218,6 +220,7 @@ export const styles = StyleSheet.create({
     color: COLOR.TEXT_COLOR,
     fontSize: SIZES.SMALL_TEXT,
     marginRight: MARGIN.PRIMARY_MARGIN,
+    paddingLeft: PADDING.SECONADARY_PADDING,
   },
   barButton: {
     justifyContent: 'flex-end',
@@ -269,13 +272,15 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     flex: 0.1,
     paddingVertical: PADDING.SECONADARY_PADDING,
-    margin: MARGIN.PRIMARY_MARGIN,
+    width: widthPercentageToDP('98%'),
+    marginTop: heightPercentageToDP('1%'),
   },
 
   background: {
     flex: 1,
     alignContent: 'center',
     justifyContent: 'center',
+    alignItems: 'center',
   },
   container: {
     justifyContent: 'center',

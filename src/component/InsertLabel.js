@@ -13,12 +13,10 @@ import {BORDER, COLOR, HEIGHT, PADDING, SIZES, WIDTH} from '../utility/Theme';
 import AddLabel from './AddLabel';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import useLocalisation from '../localisation/useLocalisation';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const InsertLabel = ({navigation, route}) => {
   const [label, setLabel] = useState('');
   const [labelData, setLabelData] = useState([]);
-  const [toggle, setToggle] = useState(true);
 
   const dictonary = useLocalisation('EN');
   const handlePress = () => {
@@ -39,16 +37,6 @@ const InsertLabel = ({navigation, route}) => {
     });
     return unsubscribe;
   }, [navigation]);
-
-  const handleToggle = id => {
-    let temp = [...labelData];
-    temp.forEach(item => {
-      if (item.labelId === id) {
-        setToggle(!toggle);
-      }
-    });
-    setLabelData(temp);
-  };
 
   return (
     <SafeAreaView style={styles.background}>
@@ -86,29 +74,6 @@ const InsertLabel = ({navigation, route}) => {
               <TouchableOpacity key={item.labelId}>
                 <AddLabel {...item} />
               </TouchableOpacity>
-              {toggle ? (
-                <TouchableOpacity
-                  onPress={() => {
-                    handleToggle(item.labelId);
-                  }}>
-                  <MaterialCommunityIcons
-                    name="checkbox-blank-outline"
-                    size={SIZES.ICON_MEDIUM}
-                    color={COLOR.TEXT_COLOR}
-                  />
-                </TouchableOpacity>
-              ) : (
-                <TouchableOpacity
-                  onPress={() => {
-                    handleToggle(item.labelId);
-                  }}>
-                  <Ionicons
-                    name="checkbox"
-                    size={SIZES.ICON_MEDIUM}
-                    color={COLOR.ACTIVE_COLOR}
-                  />
-                </TouchableOpacity>
-              )}
             </View>
           ))}
         </View>
@@ -134,29 +99,6 @@ const InsertLabel = ({navigation, route}) => {
                     <TouchableOpacity key={item.labelId}>
                       <AddLabel {...item} />
                     </TouchableOpacity>
-                    {toggle ? (
-                      <TouchableOpacity
-                        onPress={() => {
-                          handleToggle(item.labelId);
-                        }}>
-                        <MaterialCommunityIcons
-                          name="checkbox-blank-outline"
-                          size={SIZES.ICON_MEDIUM}
-                          color={COLOR.TEXT_COLOR}
-                        />
-                      </TouchableOpacity>
-                    ) : (
-                      <TouchableOpacity
-                        onPress={() => {
-                          handleToggle(item.labelId);
-                        }}>
-                        <Ionicons
-                          name="checkbox"
-                          size={SIZES.ICON_MEDIUM}
-                          color={COLOR.ACTIVE_COLOR}
-                        />
-                      </TouchableOpacity>
-                    )}
                   </View>
                 ),
             )}
@@ -204,7 +146,7 @@ const styles = StyleSheet.create({
   editLabel: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    width: WIDTH.SECONDARY_WIDTH,
+    width: WIDTH.DATE,
   },
 });
 export default InsertLabel;

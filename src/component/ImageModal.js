@@ -1,10 +1,17 @@
 import React from 'react';
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import Modal from 'react-native-modal';
-import {COLOR, PADDING, BORDER, SIZES} from '../utility/Theme';
+import {COLOR, PADDING, BORDER, SIZES, MARGIN} from '../utility/Theme';
 import Ionicon from 'react-native-vector-icons/Ionicons';
+import {heightPercentageToDP} from '../utility/DynamicDimension';
 
-const ImageModal = ({visible, onBackdropPress, takePhoto, choosePhoto}) => {
+const ImageModal = ({
+  visible,
+  onBackdropPress,
+  takePhoto,
+  choosePhoto,
+  handleNote,
+}) => {
   return (
     <View>
       <Modal
@@ -33,6 +40,11 @@ const ImageModal = ({visible, onBackdropPress, takePhoto, choosePhoto}) => {
               />
               <Text style={styles.moreText}>Choose Image</Text>
             </View>
+            <View style={styles.btnView}>
+              <TouchableOpacity onPress={handleNote}>
+                <Text style={styles.cancleBtn}>Add Note</Text>
+              </TouchableOpacity>
+            </View>
           </TouchableOpacity>
         </View>
       </Modal>
@@ -40,11 +52,24 @@ const ImageModal = ({visible, onBackdropPress, takePhoto, choosePhoto}) => {
   );
 };
 const styles = StyleSheet.create({
+  cancleBtn: {
+    fontSize: SIZES.TITLE,
+    fontWeight: 'bold',
+    color: COLOR.ACTIVE_COLOR,
+    marginTop: MARGIN.PRIMARY_MARGIN,
+  },
+  btnView: {
+    flexDirection: 'row',
+    paddingTop: PADDING.SECONADARY_PADDING,
+    justifyContent: 'space-around',
+    fontSize: SIZES.LARGE_TEXT,
+  },
   modal: {
-    flex: 0.2,
+    height: heightPercentageToDP('25%'),
     backgroundColor: COLOR.PRIMARY,
     padding: PADDING.PRIMARY_PADDING,
-    borderRadius: BORDER.ROUND_CORNER,
+    borderRadius: BORDER.BORDER_RADIUS,
+    alignContent: 'center',
   },
   heading: {
     fontSize: SIZES.LARGE_TEXT,
