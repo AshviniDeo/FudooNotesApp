@@ -7,6 +7,7 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {COLOR, MARGIN, PADDING, SIZES, BORDER, HEIGHT} from '../utility/Theme';
 import Modal from 'react-native-modal';
+import {Button} from 'react-native-paper';
 
 import useLocalisation from '../localisation/useLocalisation';
 
@@ -14,6 +15,7 @@ const ReminderSheet = ({setReminder, refReminder}) => {
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const [isTimePickerVisible, setTimePickerVisibility] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const dictonary = useLocalisation('EN');
 
@@ -137,11 +139,16 @@ const ReminderSheet = ({setReminder, refReminder}) => {
               </TouchableOpacity>
             </View>
             <View style={custome.btnView}>
-              <TouchableOpacity>
-                <Text style={custome.cancleBtn} onPress={toggelModal}>
+              <View>
+                <Button
+                  style={custome.btnView}
+                  mode="contained"
+                  onPress={toggelModal}
+                  loading={loading}
+                  labelStyle={{color: COLOR.ACTIVE_COLOR}}>
                   Cancel
-                </Text>
-              </TouchableOpacity>
+                </Button>
+              </View>
             </View>
           </View>
         </Modal>

@@ -13,9 +13,7 @@ import MyButton from '../component/MyButton';
 import {styles} from '../utility/StyleSheet';
 import TextBox from '../component/TextBox';
 import {AuthContext} from '../navigation/AuthProvider';
-
 import useLocalisation from '../localisation/useLocalisation';
-import {PADDING} from '../utility/Theme';
 import {heightPercentageToDP} from '../utility/DynamicDimension';
 
 export default function WelcomeScreen({navigation}) {
@@ -23,10 +21,12 @@ export default function WelcomeScreen({navigation}) {
   const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState({});
+  const [loading, setLoading] = useState(false);
 
   const dictonary = useLocalisation('EN');
   const {login, googlelogin} = useContext(AuthContext);
   const validation = () => {
+    setLoading(true);
     let valid = true;
     const temp = {};
     if (!userName) {
@@ -60,10 +60,14 @@ export default function WelcomeScreen({navigation}) {
   const onSignIn = () => {
     if (validation()) {
       login(userName, password, setCatchError);
+
+      setLoading(false);
     }
   };
   const onSignUp = () => {
-    navigation.navigate({name: 'Sign Up'});
+    setLoading(true);
+    navigation.navigate('Sign Up');
+    setLoading(false);
   };
   const forgetPassword = () => {
     navigation.navigate({name: 'Forgot Password'});
@@ -78,7 +82,7 @@ export default function WelcomeScreen({navigation}) {
             <View>
               <TextBox
                 onChangeText={text => setUserName(text)}
-                label={dictonary.ENTER_USERNAME_TEXT}
+                label={dictonary.ENTER_EMAIL_TEXT}
                 value={userName}
                 errorText={error.userName}
                 secureTextEntry={false}
@@ -102,10 +106,10 @@ export default function WelcomeScreen({navigation}) {
             </TouchableOpacity>
 
             <View style={styles.buttonLogIn}>
-              <MyButton onPress={onSignIn}>
+              <MyButton onPress={onSignIn} loading={loading}>
                 <Text style={styles.button}>{dictonary.SIGN_IN_TEXT}</Text>
               </MyButton>
-              <MyButton onPress={onSignUp}>
+              <MyButton onPress={onSignUp} loading={loading}>
                 <Text style={styles.button}>{dictonary.SIGN_UP_TEXT}</Text>
               </MyButton>
             </View>

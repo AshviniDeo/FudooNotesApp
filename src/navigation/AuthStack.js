@@ -1,20 +1,34 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import LogInScreen from '../screens/LogInScreen';
 import SignUpScreen from '../screens/SignUpScreen';
 import ForgotPasswordScreen from '../screens/ForgotPasswordScreen';
 import {COLOR} from '../utility/Theme';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
+import OnBoardingScreen from '../screens/OnBoardingScreen';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const AuthStack = () => {
   const Stack = createStackNavigator();
+  const [isFirstLaunch, setIsFirstLaunch] = useState(null);
+
   useEffect(() => {
     GoogleSignin.configure({
       webClientId:
         '825836580494-20an0voff5i2tf2v7m1ee7bnjfrn01kq.apps.googleusercontent.com',
     });
+    AsyncStorage.getItem('alreadyLaunched').then(value => {
+      if (value === null) {
+        AsyncStorage.setItem('alreadyLaunched', 'true');
+        setIsFirstLaunch(true);
+      } else {
+        setIsFirstLaunch(false);
+      }
+    });
   }, []);
-  return (
+  return isFirstLaunch ? (
+    <OnBoardingScreen />
+  ) : (
     <Stack.Navigator
       screenOptions={{
         headerStyle: {backgroundColor: COLOR.SECONDARY},

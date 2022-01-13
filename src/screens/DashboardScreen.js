@@ -98,14 +98,6 @@ const DashboardScreen = ({navigation}) => {
     );
   }
 
-  const renderLoader = () => {
-    return (
-      <View style={styles.loaderStyle}>
-        <ActivityIndicator color={COLOR.ACTIVE_COLOR} size={'large'} />
-      </View>
-    );
-  };
-
   return (
     <SafeAreaView style={styles.background}>
       <ScrollView nestedScrollEnabled={true}>

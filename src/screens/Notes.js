@@ -38,6 +38,7 @@ const Notes = ({navigation, route}) => {
   const [BackgroundColor, setBackgroundColor] = useState(
     route.params?.editData?.BackgroundColor || '',
   );
+
   const labelData = route.params?.Labels || route.params?.editData?.Labels;
   const image = route.params?.Image;
   const tempArr = [...List];
@@ -96,6 +97,7 @@ const Notes = ({navigation, route}) => {
       BackgroundColor,
       ...changeData,
     };
+
     if (receiveId) {
       updatenote(noteData, noteId, toNavigateDashboard);
     } else {
@@ -275,13 +277,13 @@ const Notes = ({navigation, route}) => {
                 ))}
               </View>
             )}
-            {Reminder && (
+            {/* {Reminder && (
               <View>
                 <Text style={custome.chip}>
                   {JSON.stringify(Reminder) || ''}
                 </Text>
               </View>
-            )}
+            )} */}
           </ScrollView>
         </View>
 

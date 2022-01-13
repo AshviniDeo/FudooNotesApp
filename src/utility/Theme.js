@@ -45,7 +45,7 @@ export const PADDING = {
 export const MARGIN = {
   PRIMARY_MARGIN: widthPercentageToDP('2%'),
   SECONDARY_MARGIN: widthPercentageToDP('7%'),
-  BUTTON_MARGIN: widthPercentageToDP('27%'),
+  BUTTON_MARGIN: widthPercentageToDP('30%'),
   BOTTOM_MARGIN: widthPercentageToDP('5%'),
 };
 

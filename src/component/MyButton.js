@@ -1,15 +1,21 @@
 import React from 'react';
-import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
+import {View, StyleSheet} from 'react-native';
 import {widthPercentageToDP} from '../utility/DynamicDimension';
-import {BORDER, COLOR, HEIGHT, MARGIN, PADDING, WIDTH} from '../utility/Theme';
+import {BORDER, COLOR, HEIGHT, MARGIN, PADDING} from '../utility/Theme';
+import {Button} from 'react-native-paper';
 
-export default function MyButton({onPress, children}) {
+export default function MyButton({onPress, children, loading = false}) {
   return (
-    <TouchableOpacity onPress={onPress} style={styles.btn}>
-      <View>
-        <Text>{children}</Text>
-      </View>
-    </TouchableOpacity>
+    <View>
+      <Button
+        style={styles.btn}
+        mode="contained"
+        onPress={onPress}
+        loading={loading}
+        labelStyle={{color: COLOR.AUTH_COLOR}}>
+        {children}
+      </Button>
+    </View>
   );
 }
 const styles = StyleSheet.create({

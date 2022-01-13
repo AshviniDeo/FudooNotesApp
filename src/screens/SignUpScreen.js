@@ -20,10 +20,12 @@ export default function SignUpScreen({navigation}) {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState({});
+  const [loading, setLoading] = useState(false);
 
   const dictonary = useLocalisation('EN');
   const {register} = useContext(AuthContext);
   const validation = () => {
+    setLoading(true);
     const emailRegx = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
 
     let valid = true;
@@ -87,6 +89,7 @@ export default function SignUpScreen({navigation}) {
         dateOfBirth,
         userName,
       );
+      setLoading(false);
     }
   };
   return (
@@ -151,7 +154,9 @@ export default function SignUpScreen({navigation}) {
               />
             </View>
             <View style={styles.buttonLogIn}>
-              <MyButton onPress={getRegister}>Register</MyButton>
+              <MyButton onPress={getRegister} loading={loading}>
+                Register
+              </MyButton>
             </View>
           </View>
         </KeyboardAvoidingView>

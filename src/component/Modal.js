@@ -6,8 +6,6 @@ import Entypo from 'react-native-vector-icons/Entypo';
 import {Avatar} from 'react-native-paper';
 import ImagePicker from 'react-native-image-crop-picker';
 import {AuthContext} from '../navigation/AuthProvider';
-import {useSelector, useDispatch} from 'react-redux';
-import {setDisplayPicture} from '../redux/Actions';
 
 const ModalScreen = ({
   visible,
@@ -29,6 +27,7 @@ const ModalScreen = ({
     }).then(image => {
       console.log(image);
       update(image.path);
+      setDisplayPicture(image.path);
     });
   };
 
@@ -39,7 +38,7 @@ const ModalScreen = ({
       cropping: true,
     }).then(image => {
       console.log(image);
-
+      setDisplayPicture(image.path);
       update(image.path);
     });
   };
