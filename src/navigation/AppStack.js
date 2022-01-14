@@ -1,11 +1,11 @@
 import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
-import Notes from '../screens/Notes';
 import Label from '../component/Label';
 import InsertLabel from '../component/InsertLabel';
 import AppDrawer from './AppDrawer';
 import {Provider} from 'react-redux';
 import {Store} from '../redux/Store';
+import index from '../screens/createnote';
 
 export const AppStack = () => {
   const Stack = createStackNavigator();
@@ -20,7 +20,7 @@ export const AppStack = () => {
       />
       <Stack.Screen
         name={'Notes'}
-        component={Notes}
+        component={index}
         options={{headerShown: false}}
       />
       <Stack.Screen

@@ -3,7 +3,6 @@ import {
   View,
   Text,
   TouchableOpacity,
-  ActivityIndicator,
   ScrollView,
   SafeAreaView,
 } from 'react-native';
@@ -40,13 +39,6 @@ const Trash = ({navigation}) => {
     return unsubscribe;
   }, [navigation]);
 
-  const renderLoader = () => {
-    return (
-      <View style={styles.loaderStyle}>
-        <ActivityIndicator color={COLOR.ACTIVE_COLOR} size={'large'} />
-      </View>
-    );
-  };
   return (
     <SafeAreaView style={styles.background}>
       <ScrollView>
@@ -87,7 +79,6 @@ const Trash = ({navigation}) => {
                 active={true}
                 key={1}
                 keyExtractor={item => item.noteId}
-                ListFooterComponent={renderLoader}
               />
             </View>
           )}

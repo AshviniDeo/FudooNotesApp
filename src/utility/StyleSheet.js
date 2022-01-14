@@ -169,7 +169,7 @@ export const styles = StyleSheet.create({
     width: WIDTH.FULL_WIDTH,
     paddingTop: PADDING.SECONADARY_PADDING,
     paddingBottom: PADDING.SECONADARY_PADDING,
-    flex: 0.9,
+    flex: 1,
   },
   labelBar: {
     flexDirection: 'row',
@@ -270,10 +270,8 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     alignContent: 'center',
     alignItems: 'center',
-    flex: 0.1,
-    paddingVertical: PADDING.SECONADARY_PADDING,
     width: widthPercentageToDP('98%'),
-    marginTop: heightPercentageToDP('1%'),
+    marginTop: MARGIN.PRIMARY_MARGIN,
   },
 
   background: {
@@ -326,7 +324,7 @@ export const styles = StyleSheet.create({
     alignContent: 'center',
     alignItems: 'center',
     paddingLeft: PADDING.SECONADARY_PADDING,
-    paddingTop: WIDTH.HALF_WIDTH,
+    paddingTop: widthPercentageToDP('10%'),
     flex: 0.9,
   },
   blankText: {

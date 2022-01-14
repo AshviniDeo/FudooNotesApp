@@ -30,6 +30,14 @@
           }
         },
         {
+          "client_id": "825836580494-7467h9e6r01qedoto0a5ccb0qj5m7pfb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.fudoonotesapp",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
           "client_id": "825836580494-20an0voff5i2tf2v7m1ee7bnjfrn01kq.apps.googleusercontent.com",
           "client_type": 3
         }

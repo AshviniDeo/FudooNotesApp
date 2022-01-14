@@ -2,10 +2,10 @@ import React, {useCallback, useEffect, useState, useContext} from 'react';
 import {
   View,
   Text,
-  ActivityIndicator,
-  ScrollView,
   SafeAreaView,
   Image,
+  SectionList,
+  TouchableOpacity,
 } from 'react-native';
 
 import Ionicon from 'react-native-vector-icons/Ionicons';
@@ -16,11 +16,11 @@ import TopBar from '../component/TopBar';
 import {LogBox} from 'react-native';
 import {COLOR, SIZES} from '../utility/Theme';
 import PushNotification from 'react-native-push-notification';
-import FlatListComponent from '../component/FlatListComponent';
 import SearchNote from '../utility/SearchNote';
 import {AuthContext} from '../navigation/AuthProvider';
 import useLocalisation from '../localisation/useLocalisation';
 import {createTable} from '../services/NotesSqliteService';
+import NoteCard from '../component/NoteCard';
 // import {useSelector, useDispatch} from 'react-redux';
 // import {setNote} from '../redux/Actions';
 
@@ -69,8 +69,11 @@ const DashboardScreen = ({navigation}) => {
         return e;
       });
     const googleData = await getCurrentUser();
-    console.log('Google Info', googleData);
-    setProfileData(profile);
+    if (googleData) {
+      setProfileData(googleData);
+    } else {
+      setProfileData(profile);
+    }
     setNoteData(unpin);
     setPinData(pin);
     setIsLoading(false);
@@ -97,86 +100,83 @@ const DashboardScreen = ({navigation}) => {
       />
     );
   }
-
+  const renderItem = ({item, index}) => (
+    <TouchableOpacity
+      key={item.noteId}
+      style={active ? styles.grid : styles.list}
+      onPress={() => {
+        navigation.navigate('Notes', {
+          editData: item,
+          editId: item.noteId,
+          IsList: item.IsList,
+        });
+      }}>
+      <NoteCard {...item} />
+    </TouchableOpacity>
+  );
   return (
     <SafeAreaView style={styles.background}>
-      <ScrollView nestedScrollEnabled={true}>
-        <TopBar
-          menuPress={() => {
-            navigation.openDrawer();
-          }}
-          searchIcon={true}
-          onSearch={text => {
-            setSearch(text);
-          }}
-          value={search}
-          onPress={() => {
-            setActive(!active);
-          }}
-          icon={active}
-          navigation={navigation}
-          profileData={profileData}
-        />
+      <TopBar
+        menuPress={() => {
+          navigation.openDrawer();
+        }}
+        searchIcon={true}
+        onSearch={text => {
+          setSearch(text);
+        }}
+        value={search}
+        onPress={() => {
+          setActive(!active);
+        }}
+        icon={active}
+        navigation={navigation}
+        profileData={profileData}
+      />
 
-        {search.length === 0 ? (
-          <View style={styles.container}>
-            {noteData.length === 0 ? (
-              <View style={styles.blank}>
-                <Ionicon
-                  name={'bulb-outline'}
-                  size={SIZES.EMPTY_ICON}
-                  color={COLOR.EMPTY_FIELD_ICON}
-                />
-                <Text style={styles.middleText}>
-                  {dictonary.DASHBOARD_EMPTY_TEXT}
-                </Text>
-              </View>
-            ) : (
-              <View style={styles.window}>
-                <View style={styles.window}>
-                  {pinData.find(item => item.Pinned) && (
-                    <Text style={styles.subtitles}>
-                      {dictonary.PINNED_TEXT}
-                    </Text>
-                  )}
-                  <FlatListComponent
-                    data={pinData}
-                    setData={({data}) => setPinData(data)}
-                    navigation={navigation}
-                    active={active}
-                    keyExtractor={item => item.noteId}
-                    refreshing={isLoading}
-                    onRefresh={fetchData}
-                  />
-                </View>
-                <View style={styles.window}>
-                  {pinData.find(item => item.Pinned === true) && (
-                    <Text style={styles.subtitles}>{dictonary.OTHER_TEXT}</Text>
-                  )}
-                  <FlatListComponent
-                    data={noteData}
-                    setData={({data}) => setNoteData(data)}
-                    active={active}
-                    navigation={navigation}
-                    keyExtractor={item => item.noteId}
-                    refreshing={isLoading}
-                    onRefresh={fetchData}
-                  />
-                </View>
-              </View>
-            )}
-          </View>
-        ) : (
-          <View style={styles.window}>
-            <SearchNote
-              search={search}
-              navigation={navigation}
-              active={active}
-              searchData={searchData}
-            />
-          </View>
-        )}
-      </ScrollView>
+      {search.length === 0 ? (
+        <View style={styles.window}>
+          {noteData.length === 0 ? (
+            <View style={styles.blank}>
+              <Ionicon
+                name={'bulb-outline'}
+                size={SIZES.EMPTY_ICON}
+                color={COLOR.EMPTY_FIELD_ICON}
+              />
+              <Text style={styles.middleText}>
+                {dictonary.DASHBOARD_EMPTY_TEXT}
+              </Text>
+            </View>
+          ) : (
+            <View style={styles.window}>
+              <SectionList
+                scrollEnabled={true}
+                sections={[
+                  {title: dictonary.PINNED_TEXT, data: pinData},
+                  {title: dictonary.OTHER_TEXT, data: noteData},
+                ]}
+                renderItem={renderItem}
+                renderSectionHeader={({section}) =>
+                  pinData.find(item => item.Pinned) && (
+                    <View>
+                      <Text style={styles.subtitles}>{section.title}</Text>
+                    </View>
+                  )
+                }
+              />
+            </View>
+          )}
+        </View>
+      ) : (
+        <View style={styles.window}>
+          <SearchNote
+            search={search}
+            navigation={navigation}
+            active={active}
+            searchData={searchData}
+          />
+        </View>
+      )}
+
       <BottomBar
         onPress={() => {
           navigation.navigate('Notes');

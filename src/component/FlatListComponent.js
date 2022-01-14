@@ -10,12 +10,12 @@ const FlatListComponent = ({
   active,
   navigation,
   data,
-  ListFooterComponent,
-  onEndReached,
-  onEndReachedThreshold,
   refreshing,
   onRefresh,
   setData,
+  title,
+  sections,
+  renderSectionHeader,
 }) => {
   const renderItem = ({item, index}) => (
     <TouchableOpacity
@@ -39,9 +39,6 @@ const FlatListComponent = ({
       numColumns={!active ? 1 : 2}
       key={active ? 3 : 4}
       keyExtractor={item => item.noteId}
-      ListFooterComponent={ListFooterComponent}
-      onEndReached={onEndReached}
-      onEndReachedThreshold={onEndReachedThreshold}
       refreshing={refreshing}
       onRefresh={onRefresh}
     />

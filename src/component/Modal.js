@@ -17,7 +17,6 @@ const ModalScreen = ({
   setDisplayPicture,
 }) => {
   const {update} = useContext(AuthContext);
-  const data = Object.values(profileData);
 
   const takePhoto = () => {
     ImagePicker.openCamera({
@@ -44,14 +43,14 @@ const ModalScreen = ({
   };
   let userName;
   let email;
-
-  {
-    Object.values(data).forEach(item => {
-      userName = item.UserName;
-      email = item.Email;
-      setDisplayPicture(item.profileImage);
+  if (profileData) {
+    Object.values(profileData).forEach(item => {
+      userName = item?.UserName || item?.name;
+      email = item?.Email || item?.email;
+      setDisplayPicture(item?.profileImage || item?.photo);
     });
   }
+
   return (
     <View>
       <Modal
@@ -90,19 +89,20 @@ const ModalScreen = ({
                 <Text style={{color: COLOR.ACTIVE_COLOR}}>{email}</Text>
               </View>
             </View>
-
-            <View style={styles.avtar}>
-              <View style={styles.button}>
-                <TouchableOpacity onPress={takePhoto}>
-                  <Text style={styles.button_text}>Take a Photo</Text>
-                </TouchableOpacity>
+            {Object.values(profileData).forEach(item => !item?.idToken) && (
+              <View style={styles.avtar}>
+                <View style={styles.button}>
+                  <TouchableOpacity onPress={takePhoto}>
+                    <Text style={styles.button_text}>Take a Photo</Text>
+                  </TouchableOpacity>
+                </View>
+                <View style={styles.button}>
+                  <TouchableOpacity onPress={choosePhoto}>
+                    <Text style={styles.button_text}>Upload a Photo</Text>
+                  </TouchableOpacity>
+                </View>
               </View>
-              <View style={styles.button}>
-                <TouchableOpacity onPress={choosePhoto}>
-                  <Text style={styles.button_text}>Upload a Photo</Text>
-                </TouchableOpacity>
-              </View>
-            </View>
+            )}
           </View>
         </View>
       </Modal>

@@ -16,6 +16,7 @@ const AuthStack = () => {
     GoogleSignin.configure({
       webClientId:
         '825836580494-20an0voff5i2tf2v7m1ee7bnjfrn01kq.apps.googleusercontent.com',
+      offlineAccess: true,
     });
     AsyncStorage.getItem('alreadyLaunched').then(value => {
       if (value === null) {
@@ -27,12 +28,15 @@ const AuthStack = () => {
     });
   }, []);
   return isFirstLaunch ? (
-    <OnBoardingScreen />
-  ) : (
     <Stack.Navigator
       screenOptions={{
         headerStyle: {backgroundColor: COLOR.SECONDARY},
       }}>
+      <Stack.Screen
+        name={'OnBoard'}
+        component={OnBoardingScreen}
+        options={{headerShown: false}}
+      />
       <Stack.Screen
         name={'Sign In'}
         component={LogInScreen}
@@ -50,6 +54,8 @@ const AuthStack = () => {
         options={{headerTintColor: COLOR.TEXT_COLOR}}
       />
     </Stack.Navigator>
+  ) : (
+    <LogInScreen />
   );
 };
 
