@@ -79,6 +79,7 @@ export default function SignUpScreen({navigation}) {
     setError(temp);
   };
   const getRegister = () => {
+    setLoading(true);
     if (validation()) {
       register(
         email,

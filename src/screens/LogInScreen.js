@@ -16,7 +16,7 @@ import {AuthContext} from '../navigation/AuthProvider';
 import useLocalisation from '../localisation/useLocalisation';
 import {heightPercentageToDP} from '../utility/DynamicDimension';
 
-export default function WelcomeScreen({navigation}) {
+export default function LogInScreen({navigation}) {
   const bg = require('../assets/bgimg.jpg');
   const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
@@ -58,6 +58,7 @@ export default function WelcomeScreen({navigation}) {
     setError(temp);
   };
   const onSignIn = () => {
+    setLoading(true);
     if (validation()) {
       login(userName, password, setCatchError);
 
@@ -70,7 +71,7 @@ export default function WelcomeScreen({navigation}) {
     setLoading(false);
   };
   const forgetPassword = () => {
-    navigation.navigate({name: 'Forgot Password'});
+    navigation.navigate('Forgot Password');
   };
   return (
     <ImageBackground
@@ -114,7 +115,7 @@ export default function WelcomeScreen({navigation}) {
               </MyButton>
             </View>
             {Platform.OS === 'android' && (
-              <View style={styles.middle}>
+              <View style={styles.blank}>
                 <Text style={styles.blankText}>Or</Text>
 
                 <View style={styles.googlebtn}>

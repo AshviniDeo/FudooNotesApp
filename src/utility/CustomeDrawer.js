@@ -28,6 +28,7 @@ const CustomeDrawer = ({navigation, props}) => {
     return unsubscribe;
   }, [navigation]);
   const dictonary = useLocalisation('EN');
+
   return (
     <DrawerContentScrollView
       {...props}
@@ -42,6 +43,7 @@ const CustomeDrawer = ({navigation, props}) => {
             onPress={() => {
               navigation.navigate('Dashboard');
               setActive(!active);
+              fetchData();
             }}>
             <View style={styles.view}>
               <Ionicon
@@ -58,6 +60,7 @@ const CustomeDrawer = ({navigation, props}) => {
             onPress={() => {
               navigation.navigate('Reminder');
               setActive(!active);
+              fetchData();
             }}>
             <View style={styles.view}>
               <FontAwesome
@@ -75,6 +78,7 @@ const CustomeDrawer = ({navigation, props}) => {
             onPress={() => {
               navigation.navigate('Create new label');
               setActive(!active);
+              fetchData();
             }}>
             <View style={[styles.view, styles.labelView]}>
               <AntDesign
@@ -110,6 +114,7 @@ const CustomeDrawer = ({navigation, props}) => {
                   <TouchableOpacity
                     onPress={() => {
                       navigation.navigate('Create new label');
+                      fetchData();
                     }}>
                     <Text style={styles.editText}>Edits</Text>
                   </TouchableOpacity>
@@ -141,6 +146,7 @@ const CustomeDrawer = ({navigation, props}) => {
             onPress={() => {
               navigation.navigate('Archive');
               setActive(!active);
+              fetchData();
             }}>
             <View style={[styles.view, {paddingTop: PADDING.PRIMARY_PADDING}]}>
               <Ionicon
@@ -157,6 +163,7 @@ const CustomeDrawer = ({navigation, props}) => {
             onPress={() => {
               navigation.navigate('Trash');
               setActive(!active);
+              fetchData();
             }}>
             <View style={styles.view}>
               <Ionicon
@@ -173,6 +180,7 @@ const CustomeDrawer = ({navigation, props}) => {
             onPress={() => {
               navigation.navigate('Settings');
               setActive(!active);
+              fetchData();
             }}>
             <View style={styles.view}>
               <Ionicon

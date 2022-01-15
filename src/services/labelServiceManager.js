@@ -21,6 +21,15 @@ export const setLabel = async (id, labelId, data) => {
   }
 };
 
+export const setNoteId = async (id, labelId, noteId) => {
+  try {
+    const noteData = {noteId};
+    await dbData.doc(id).collection('Labels').doc(labelId).set(noteData);
+  } catch (e) {
+    console.log(e);
+  }
+};
+
 export const removeLabel = async (id, labelId) => {
   await dbData.doc(id).collection('Labels').doc(labelId).delete();
 };

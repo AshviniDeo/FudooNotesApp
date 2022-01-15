@@ -17,6 +17,7 @@ import useLocalisation from '../localisation/useLocalisation';
 const InsertLabel = ({navigation, route}) => {
   const [label, setLabel] = useState('');
   const [labelData, setLabelData] = useState([]);
+  const [checkedArr, setCheckedArr] = useState(route.params?.Labels || []);
 
   const dictonary = useLocalisation('EN');
   const handlePress = () => {
@@ -31,6 +32,19 @@ const InsertLabel = ({navigation, route}) => {
     setLabelData(data);
   };
 
+  const handelCheckedArr = labelItem => {
+    const index = checkedArr.findIndex(
+      item => item.labelId === labelItem.labelId,
+    );
+    if (index === -1) {
+      setCheckedArr([...checkedArr, labelItem]);
+    } else {
+      let tempArr = [...checkedArr];
+      tempArr.splice(index, 1);
+      setCheckedArr(tempArr);
+    }
+  };
+  console.log('Current Array', checkedArr);
   useEffect(() => {
     const unsubscribe = navigation.addListener('focus', () => {
       fetchData();
@@ -44,7 +58,7 @@ const InsertLabel = ({navigation, route}) => {
         <View style={styles.arrow}>
           <TouchableOpacity
             onPress={() => {
-              navigation.navigate('Notes', {Labels: labelData});
+              navigation.navigate('Notes', {Labels: checkedArr});
             }}>
             <Ionicons
               name={'arrow-back'}
@@ -70,10 +84,12 @@ const InsertLabel = ({navigation, route}) => {
       {label.length === 0 ? (
         <View style={styles.window}>
           {labelData.map((item, index) => (
-            <View style={styles.editLabel}>
-              <TouchableOpacity key={item.labelId}>
-                <AddLabel {...item} />
-              </TouchableOpacity>
+            <View style={styles.editLabel} key={item.labelId}>
+              <AddLabel
+                {...item}
+                handleCheck={handelCheckedArr}
+                checked={checkedArr.find(box => box.labelId === item.labelId)}
+              />
             </View>
           ))}
         </View>

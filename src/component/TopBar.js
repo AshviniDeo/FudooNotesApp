@@ -21,7 +21,7 @@ const TopBar = ({
 }) => {
   const [toggle, setToggle] = useState(searchIcon);
   const [isVisible, setIsVisible] = useState(false);
-  const [displayPicture, setDisplayPicture] = useState('');
+  const [displayPicture, setDisplayPicture] = useState('../assets/user.png');
 
   const toggelModal = () => {
     setIsVisible(!isVisible);

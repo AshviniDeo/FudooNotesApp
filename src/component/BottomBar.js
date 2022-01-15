@@ -54,7 +54,7 @@ const BottomBar = ({navigation, onPress, listPress, setImage}) => {
         <Ionicon
           style={styles.icon}
           name={'brush'}
-          color={COLOR}
+          color={'rgba(0,0,0,0.2)'}
           size={SIZES.ICON_MEDIUM}
         />
 

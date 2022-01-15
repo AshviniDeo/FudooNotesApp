@@ -8,21 +8,23 @@ import {
   Text,
 } from 'react-native';
 
-import {createnote, updatenote} from '../../services/NoteServices';
-import {styles} from '../../utility/StyleSheet';
-import {COLOR, MARGIN, PADDING, SIZES, WIDTH} from '../../utility/Theme';
+import {createnote, updatenote} from '../services/NoteServices';
+import {styles} from '../utility/StyleSheet';
+import {COLOR, MARGIN, PADDING, SIZES, WIDTH} from '../utility/Theme';
 import {Avatar, TextInput} from 'react-native-paper';
-import NoteTopBar from './NoteTopBar';
-import NoteBottomBar from './NoteBottomBar';
+import NoteTopBar from '../component/NoteTopBar';
+import NoteBottomBar from '../component/NoteBottomBar';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import CreateList from '../../component/CreateList';
+import CreateList from '../component/CreateList';
 import PushNotification from 'react-native-push-notification';
 import 'react-native-get-random-values';
 import {v4 as uuidv4} from 'uuid';
-import ColorPalette from '../../component/ColorPalette';
-import ReminderSheet from '../../component/ReminderSheet';
+import ColorPalette from '../component/ColorPalette';
+import ReminderSheet from '../component/ReminderSheet';
 import moment from 'moment';
-import {widthPercentageToDP} from '../../utility/DynamicDimension';
+import {Chip} from 'react-native-paper';
+import {widthPercentageToDP} from '../utility/DynamicDimension';
+import {setlabel} from '../services/LabelServices';
 
 const Notes = ({navigation, route}) => {
   const [Pinned, setPinned] = useState(route.params?.editData?.Pinned || false);
@@ -39,8 +41,9 @@ const Notes = ({navigation, route}) => {
     route.params?.editData?.BackgroundColor || '',
   );
 
-  const labelData = route.params?.Labels || route.params?.editData?.Labels;
-  const image = route.params?.Image;
+  const labelData = route.params?.Labels || route.params?.editData.labelData;
+  console.log(Reminder);
+  // const image = route.params?.Image;
   const tempArr = [...List];
 
   const checked = tempArr.filter(item => item.toggleCheckBox);
@@ -95,6 +98,7 @@ const Notes = ({navigation, route}) => {
       List,
       IsList,
       BackgroundColor,
+      labelData,
       ...changeData,
     };
 
@@ -106,10 +110,16 @@ const Notes = ({navigation, route}) => {
         handleNotification();
       }
     }
+
+    if (labelData) {
+      labelData.forEach(item => {
+        setlabel(item.labelId, noteId);
+      });
+    }
   };
 
   const addLabel = () => {
-    navigation.navigate('AddLabel');
+    navigation.navigate('AddLabel', {Labels: labelData});
   };
   const handlePinned = () => {
     setPinned(prev => {
@@ -173,11 +183,10 @@ const Notes = ({navigation, route}) => {
       {/* //Header-Bar ===>End */}
 
       <View style={styles.window}>
-        {image && (
-          <View style={custome.image}>
-            <Avatar.Image size={widthPercentageToDP('70%')} source={image} />
-          </View>
-        )}
+        {/* <View style={custome.image}>
+          <Avatar.Image size={widthPercentageToDP('70%')} source={image} />
+        </View> */}
+
         <View style={custome.NoteCard}>
           <TextInput
             style={custome.TitleText}
@@ -277,13 +286,16 @@ const Notes = ({navigation, route}) => {
                 ))}
               </View>
             )}
-            {/* {Reminder && (
-              <View>
-                <Text style={custome.chip}>
-                  {JSON.stringify(Reminder) || ''}
-                </Text>
-              </View>
-            )} */}
+            <View style={{flexDirection: 'row', flexWrap: 'wrap'}}>
+              {labelData &&
+                labelData.map(item => (
+                  <View>
+                    <Chip style={custome.chip} icon={'label'}>
+                      {item.label}
+                    </Chip>
+                  </View>
+                ))}
+            </View>
           </ScrollView>
         </View>
 
@@ -338,13 +350,11 @@ const custome = StyleSheet.create({
   chip: {
     padding: PADDING.SECONADARY_PADDING,
     margin: MARGIN.PRIMARY_MARGIN,
-    borderRadius: 5,
     alignContent: 'center',
-    textAlign: 'center',
-    backgroundColor: 'rgba(0,0,0,0.2)',
-    width: WIDTH.DATE,
+    justifyContent: 'center',
     color: COLOR.HEADING,
     fontSize: SIZES.SMALL_TEXT,
+    width: widthPercentageToDP('30%'),
   },
 });
 export default Notes;

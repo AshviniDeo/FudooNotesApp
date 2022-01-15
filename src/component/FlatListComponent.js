@@ -13,9 +13,6 @@ const FlatListComponent = ({
   refreshing,
   onRefresh,
   setData,
-  title,
-  sections,
-  renderSectionHeader,
 }) => {
   const renderItem = ({item, index}) => (
     <TouchableOpacity

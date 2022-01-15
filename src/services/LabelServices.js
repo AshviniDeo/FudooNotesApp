@@ -4,6 +4,7 @@ import {
   getLabels,
   removeLabel,
   setLabel,
+  setNoteId,
 } from './labelServiceManager';
 
 const getUid = async () => {
@@ -14,6 +15,15 @@ export const createLabel = async Label => {
   try {
     const id = await getUid();
     await addLabel(Label, id);
+  } catch (error) {
+    return error;
+  }
+};
+
+export const setlabel = async (labelId, noteId) => {
+  try {
+    const id = await getUid();
+    await setNoteId(id, labelId, noteId);
   } catch (error) {
     return error;
   }

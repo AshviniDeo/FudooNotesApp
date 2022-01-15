@@ -61,7 +61,7 @@ const Trash = ({navigation}) => {
         </View>
         <View style={styles.window}>
           {noteData.length === 0 ? (
-            <View style={styles.blank}>
+            <View style={styles.middle}>
               <FontAwesome
                 name={'trash'}
                 size={SIZES.EMPTY_ICON}

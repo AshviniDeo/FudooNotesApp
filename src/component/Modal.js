@@ -16,7 +16,7 @@ const ModalScreen = ({
   displayPicture,
   setDisplayPicture,
 }) => {
-  const {update} = useContext(AuthContext);
+  const {update, googleSignOut} = useContext(AuthContext);
 
   const takePhoto = () => {
     ImagePicker.openCamera({
@@ -43,6 +43,7 @@ const ModalScreen = ({
   };
   let userName;
   let email;
+
   if (profileData) {
     Object.values(profileData).forEach(item => {
       userName = item?.UserName || item?.name;
@@ -89,7 +90,7 @@ const ModalScreen = ({
                 <Text style={{color: COLOR.ACTIVE_COLOR}}>{email}</Text>
               </View>
             </View>
-            {Object.values(profileData).forEach(item => !item?.idToken) && (
+            {Object.values(profileData).forEach(item => !item.photo) ? (
               <View style={styles.avtar}>
                 <View style={styles.button}>
                   <TouchableOpacity onPress={takePhoto}>
@@ -101,6 +102,16 @@ const ModalScreen = ({
                     <Text style={styles.button_text}>Upload a Photo</Text>
                   </TouchableOpacity>
                 </View>
+              </View>
+            ) : (
+              <View style={styles.button}>
+                <TouchableOpacity
+                  onPress={() => {
+                    googleSignOut();
+                    setDisplayPicture(require('../assets/user.png'));
+                  }}>
+                  <Text style={styles.button_text}>Logout</Text>
+                </TouchableOpacity>
               </View>
             )}
           </View>

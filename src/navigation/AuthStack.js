@@ -27,8 +27,11 @@ const AuthStack = () => {
       }
     });
   }, []);
-  return isFirstLaunch ? (
+
+  const initialroute = isFirstLaunch ? 'OnBoard' : 'Sign In';
+  return (
     <Stack.Navigator
+      initialRouteName={initialroute}
       screenOptions={{
         headerStyle: {backgroundColor: COLOR.SECONDARY},
       }}>
@@ -54,8 +57,6 @@ const AuthStack = () => {
         options={{headerTintColor: COLOR.TEXT_COLOR}}
       />
     </Stack.Navigator>
-  ) : (
-    <LogInScreen />
   );
 };
 

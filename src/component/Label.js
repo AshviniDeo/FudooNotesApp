@@ -13,6 +13,7 @@ const Label = props => {
   const handlePress = () => {
     setEdit(true);
     const labelData = label;
+    console.log(labelData);
     const labelId = props.labelId;
     updateLabel(labelData, labelId).then(() => {
       props.fetchData();

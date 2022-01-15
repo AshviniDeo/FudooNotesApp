@@ -116,7 +116,7 @@ export const styles = StyleSheet.create({
     color: COLOR.TEXT_COLOR,
     width: widthPercentageToDP('65%'),
     paddingTop: PADDING.SECONADARY_PADDING,
-    paddingBottom: PADDING.SECONADARY_PADDING,
+    paddingBottom: -20,
     alignContent: 'center',
     justifyContent: 'center',
   },
@@ -156,6 +156,7 @@ export const styles = StyleSheet.create({
     flex: 1,
     paddingBottom: PADDING.SECONADARY_PADDING,
     padding: PADDING.SECONADARY_PADDING,
+    width: widthPercentageToDP('50%'),
   },
   labelText: {
     color: COLOR.TEXT_COLOR,
@@ -344,6 +345,7 @@ export const styles = StyleSheet.create({
     alignContent: 'center',
     alignItems: 'center',
     paddingLeft: PADDING.SECONADARY_PADDING,
+    paddingTop: widthPercentageToDP('50%'),
   },
   middleText: {
     color: COLOR.TEXT_COLOR,

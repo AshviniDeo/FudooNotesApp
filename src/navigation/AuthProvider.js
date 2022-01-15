@@ -109,6 +109,15 @@ export const AuthProvider = ({children}) => {
             console.log(error);
           }
         },
+        googleSignOut: async () => {
+          try {
+            await GoogleSignin.signOut();
+            await AsyncStorage.clear();
+            setSignIn(false);
+          } catch (error) {
+            console.error(error);
+          }
+        },
       }}>
       {children}
     </AuthContext.Provider>

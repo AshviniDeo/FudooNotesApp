@@ -8,6 +8,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import {COLOR, MARGIN, PADDING, SIZES, BORDER, HEIGHT} from '../utility/Theme';
 import Modal from 'react-native-modal';
 import {Button} from 'react-native-paper';
+import moment from 'moment';
 
 import useLocalisation from '../localisation/useLocalisation';
 
@@ -54,7 +55,17 @@ const ReminderSheet = ({setReminder, refReminder}) => {
   return (
     <View>
       <RBSheet ref={refReminder} height={HEIGHT.FBSHEET}>
-        <TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => {
+            setReminder(
+              moment()
+                .add(1, 'd')
+                .hour(8)
+                .minute(0)
+                .format('DD-MM-YYYY hh:mm a'),
+              refReminder.current.close(),
+            );
+          }}>
           <View style={[custome.moreSheet, {marginTop: MARGIN.PRIMARY_MARGIN}]}>
             <MaterialCommunityIcons
               name={'alarm'}
@@ -67,7 +78,17 @@ const ReminderSheet = ({setReminder, refReminder}) => {
             <Text style={custome.moreText}>8:00 AM</Text>
           </View>
         </TouchableOpacity>
-        <TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => {
+            setReminder(
+              moment()
+                .add(1, 'd')
+                .hour(15)
+                .minute(0)
+                .format('DD-MM-YYYY hh:mm a'),
+              refReminder.current.close(),
+            );
+          }}>
           <View style={custome.moreSheet}>
             <MaterialCommunityIcons
               name={'alarm'}
@@ -80,7 +101,17 @@ const ReminderSheet = ({setReminder, refReminder}) => {
             <Text style={custome.moreText}>3:00 PM</Text>
           </View>
         </TouchableOpacity>
-        <TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => {
+            setReminder(
+              moment()
+                .add(1, 'd')
+                .hour(18)
+                .minute(0)
+                .format('DD-MM-YYYY hh:mm a'),
+              refReminder.current.close(),
+            );
+          }}>
           <View style={custome.moreSheet}>
             <MaterialCommunityIcons
               name={'alarm'}
@@ -90,7 +121,7 @@ const ReminderSheet = ({setReminder, refReminder}) => {
             <Text style={custome.moreText}>
               {dictonary.TOMORROW_EVENING_TEXT}
             </Text>
-            <Text style={custome.moreText}>Thu 6:00 PM</Text>
+            <Text style={custome.moreText}>6:00 PM</Text>
           </View>
         </TouchableOpacity>
         <TouchableOpacity onPress={toggelModal}>
@@ -126,7 +157,9 @@ const ReminderSheet = ({setReminder, refReminder}) => {
               <TouchableOpacity
                 style={custome.dateStyle}
                 onPress={showDatePicker}>
-                <Text style={custome.dateText}>Pick a Date</Text>
+                <Text style={custome.dateText}>
+                  {moment().format('DD-MM-YYYY')}
+                </Text>
                 <FontAwesome name="calendar" size={SIZES.ICON_SMALL} />
               </TouchableOpacity>
             </View>
@@ -134,7 +167,9 @@ const ReminderSheet = ({setReminder, refReminder}) => {
               <TouchableOpacity
                 style={custome.dateStyle}
                 onPress={showTimePicker}>
-                <Text style={custome.dateText}>Pick a Time</Text>
+                <Text style={custome.dateText}>
+                  {moment().format('hh:mm a')}
+                </Text>
                 <MaterialIcons name="more-time" size={SIZES.ICON_SMALL} />
               </TouchableOpacity>
             </View>

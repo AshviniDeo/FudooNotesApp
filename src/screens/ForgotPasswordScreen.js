@@ -4,6 +4,7 @@ import TextBox from '../component/TextBox';
 import {styles} from '../utility/StyleSheet';
 import MyButton from '../component/MyButton';
 import useLocalisation from '../localisation/useLocalisation';
+import {widthPercentageToDP} from '../utility/DynamicDimension';
 
 export default function ForgotPasswordScreen() {
   const [email, setEmail] = useState('');
@@ -17,25 +18,29 @@ export default function ForgotPasswordScreen() {
   };
   const dictonary = useLocalisation('EN');
   return (
-    <ImageBackground
-      source={require('../assets/key.jpg')}
-      style={[{opacity: 6}, styles.background]}>
-      <SafeAreaView style={styles.container}>
-        <View>
-          <TextBox
-            onChangeText={text => setEmail(text)}
-            value={email}
-            errorText={error.email}
-            placeHolder={dictonary.ENTER_EMAIL_TEXT}
-          />
-        </View>
+    <SafeAreaView style={styles.background}>
+      <View
+        style={[
+          styles.window,
+          {justifyContent: 'space-around', alignContent: 'center'},
+        ]}>
+        <TextBox
+          style={styles.labelBox}
+          onChangeText={text => setEmail(text)}
+          label={dictonary.ENTER_EMAIL_TEXT}
+          value={email}
+          errorText={error.email}
+          secureTextEntry={false}
+        />
+      </View>
 
-        <View style={{alignItems: 'center'}}>
-          <MyButton onPress={getPassword}>
-            {dictonary.GET_PASSWORD_TEXT}
-          </MyButton>
-        </View>
-      </SafeAreaView>
-    </ImageBackground>
+      <View style={{alignItems: 'center', justifyContent: 'flex-start'}}>
+        <MyButton
+          onPress={getPassword}
+          style={{width: widthPercentageToDP('100%')}}>
+          Get
+        </MyButton>
+      </View>
+    </SafeAreaView>
   );
 }

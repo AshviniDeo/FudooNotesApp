@@ -5,7 +5,7 @@ import InsertLabel from '../component/InsertLabel';
 import AppDrawer from './AppDrawer';
 import {Provider} from 'react-redux';
 import {Store} from '../redux/Store';
-import index from '../screens/createnote';
+import Notes from '../screens/Notes';
 
 export const AppStack = () => {
   const Stack = createStackNavigator();
@@ -20,7 +20,7 @@ export const AppStack = () => {
       />
       <Stack.Screen
         name={'Notes'}
-        component={index}
+        component={Notes}
         options={{headerShown: false}}
       />
       <Stack.Screen

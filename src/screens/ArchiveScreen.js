@@ -20,7 +20,7 @@ const ArchiveScreen = ({navigation}) => {
   const [active, setActive] = useState(false);
   const [noteData, setNoteData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const {fetch, getCurrentUser} = useContext(AuthContext);
+  const {fetch} = useContext(AuthContext);
   const [profileData, setProfileData] = useState('');
 
   const dictonary = useLocalisation('EN');
@@ -83,7 +83,7 @@ const ArchiveScreen = ({navigation}) => {
         {search.length === 0 ? (
           <View style={styles.container}>
             {noteData.length === 0 ? (
-              <View style={styles.blank}>
+              <View style={styles.middle}>
                 <FontAwesome
                   name={'archive'}
                   size={SIZES.EMPTY_ICON}

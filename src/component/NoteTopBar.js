@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, TouchableOpacity, StyleSheet} from 'react-native';
-import {styles} from '../../utility/StyleSheet';
-import {SIZES, COLOR, WIDTH, PADDING} from '../../utility/Theme';
+import {styles} from '../utility/StyleSheet';
+import {SIZES, COLOR, WIDTH, PADDING} from '../utility/Theme';
 import Ionicon from 'react-native-vector-icons/Ionicons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 

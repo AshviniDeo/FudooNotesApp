@@ -4,17 +4,10 @@ import Ionicon from 'react-native-vector-icons/Ionicons';
 import Feather from 'react-native-vector-icons/Feather';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import {styles} from '../../utility/StyleSheet';
-import {
-  COLOR,
-  HEIGHT,
-  MARGIN,
-  PADDING,
-  SIZES,
-  WIDTH,
-} from '../../utility/Theme';
+import {styles} from '../utility/StyleSheet';
+import {COLOR, HEIGHT, MARGIN, PADDING, SIZES, WIDTH} from '../utility/Theme';
 import RBSheet from 'react-native-raw-bottom-sheet';
-import useLocalisation from '../../localisation/useLocalisation';
+import useLocalisation from '../localisation/useLocalisation';
 
 const NoteBottomBar = ({
   TrashPress,
