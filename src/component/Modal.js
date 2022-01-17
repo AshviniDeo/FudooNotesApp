@@ -16,7 +16,7 @@ const ModalScreen = ({
   displayPicture,
   setDisplayPicture,
 }) => {
-  const {update, googleSignOut} = useContext(AuthContext);
+  const {update, googleSignOut, signout} = useContext(AuthContext);
 
   const takePhoto = () => {
     ImagePicker.openCamera({
@@ -43,7 +43,7 @@ const ModalScreen = ({
   };
   let userName;
   let email;
-
+  console.log(profileData);
   if (profileData) {
     Object.values(profileData).forEach(item => {
       userName = item?.UserName || item?.name;
@@ -90,7 +90,7 @@ const ModalScreen = ({
                 <Text style={{color: COLOR.ACTIVE_COLOR}}>{email}</Text>
               </View>
             </View>
-            {Object.values(profileData).forEach(item => item.UserName) ? (
+            {Object.values(profileData).map(item => !item?.idToken) && (
               <View style={styles.avtar}>
                 <View style={styles.button}>
                   <TouchableOpacity onPress={takePhoto}>
@@ -103,12 +103,16 @@ const ModalScreen = ({
                   </TouchableOpacity>
                 </View>
               </View>
-            ) : (
+            )}
+            {Object.values(profileData).map(item => item?.idToken) && (
               <View style={styles.button}>
                 <TouchableOpacity
                   onPress={() => {
                     googleSignOut();
                     setDisplayPicture('');
+                    signout();
+                    email = '';
+                    userName = '';
                   }}>
                   <Text style={styles.button_text}>Logout</Text>
                 </TouchableOpacity>
@@ -144,7 +148,7 @@ const styles = StyleSheet.create({
     paddingTop: PADDING.SECONADARY_PADDING,
   },
   modal: {
-    flex: 0.5,
+    flex: 0.6,
     justifyContent: 'flex-start',
     backgroundColor: COLOR.PRIMARY,
     padding: PADDING.PRIMARY_PADDING,
