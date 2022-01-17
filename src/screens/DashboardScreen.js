@@ -57,13 +57,13 @@ const DashboardScreen = ({navigation}) => {
     const pin = [];
     const unpin = [];
     data.forEach(item => {
-      if (item.Pinned && !item.Trash) {
+      if (item.Pinned && !item.Trash && !item.Archive) {
         pin.push(item);
-      } else if (!item.Pinned && !item.Trash) {
+      } else if (!item.Pinned && !item.Trash && !item.Archive) {
         unpin.push(item);
       }
     });
-    console.log(data);
+
     const profile = await fetch()
       .then(item => item)
       .catch(e => {
@@ -103,7 +103,7 @@ const DashboardScreen = ({navigation}) => {
   }
   const renderItem = ({item, index}) => (
     <TouchableOpacity
-      key={item => item.noteId}
+      key={item.noteId}
       style={active ? styles.grid : styles.list}
       onPress={() => {
         navigation.navigate('Notes', {
@@ -151,6 +151,7 @@ const DashboardScreen = ({navigation}) => {
             <View style={styles.window}>
               <SectionList
                 scrollEnabled={true}
+                horizontal={active ? true : false}
                 sections={[
                   {title: dictonary.PINNED_TEXT, data: pinData},
                   {title: dictonary.OTHER_TEXT, data: noteData},
