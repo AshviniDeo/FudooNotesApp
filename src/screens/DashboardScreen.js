@@ -36,6 +36,7 @@ const DashboardScreen = ({navigation}) => {
   const [searchData, setSearchData] = useState([]);
   const {fetch, getCurrentUser} = useContext(AuthContext);
   const [profileData, setProfileData] = useState('');
+  const [image, setImage] = useState('');
 
   const createChannels = () => {
     PushNotification.createChannel({
@@ -62,7 +63,7 @@ const DashboardScreen = ({navigation}) => {
         unpin.push(item);
       }
     });
-
+    console.log(data);
     const profile = await fetch()
       .then(item => item)
       .catch(e => {
@@ -102,7 +103,7 @@ const DashboardScreen = ({navigation}) => {
   }
   const renderItem = ({item, index}) => (
     <TouchableOpacity
-      key={item.noteId}
+      key={item => item.noteId}
       style={active ? styles.grid : styles.list}
       onPress={() => {
         navigation.navigate('Notes', {
@@ -186,7 +187,13 @@ const DashboardScreen = ({navigation}) => {
             IsList: true,
           });
         }}
-        navigation={navigation}
+        setImage={setImage}
+        handleNote={() => {
+          navigation.navigate('Notes', {
+            isImageNote: true,
+            imageData: image,
+          });
+        }}
       />
     </SafeAreaView>
   );

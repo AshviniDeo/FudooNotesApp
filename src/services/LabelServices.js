@@ -29,7 +29,7 @@ export const setlabel = async (labelId, noteId) => {
   }
 };
 
-export const updateLabel = async (Label, labelId) => {
+export const updateLabel = async (labelId, Label) => {
   try {
     const id = await getUid();
     await setLabel(id, labelId, Label);

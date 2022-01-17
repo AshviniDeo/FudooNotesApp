@@ -7,16 +7,11 @@ import {COLOR, SIZES} from '../utility/Theme';
 import ImageModal from './ImageModal';
 import ImagePicker from 'react-native-image-crop-picker';
 
-const BottomBar = ({navigation, onPress, listPress, setImage}) => {
+const BottomBar = ({onPress, listPress, setImage, handleNote}) => {
   const [isVisible, setIsVisible] = useState(false);
-  const [addImage, setAddImage] = useState('');
+
   const toggelModal = () => {
     setIsVisible(!isVisible);
-  };
-
-  const data = addImage;
-  const handleNote = () => {
-    navigation.navigate('Notes', {Image: data});
   };
 
   const takePhoto = () => {
@@ -26,8 +21,10 @@ const BottomBar = ({navigation, onPress, listPress, setImage}) => {
       cropping: true,
     }).then(image => {
       console.log(image);
-      setAddImage(image.path);
+      setImage(image.path);
+      handleNote();
     });
+    toggelModal();
   };
 
   const choosePhoto = () => {
@@ -37,9 +34,12 @@ const BottomBar = ({navigation, onPress, listPress, setImage}) => {
       cropping: true,
     }).then(image => {
       console.log(image);
-      setAddImage(image.path);
+      setImage(image.path);
+      handleNote();
     });
+    toggelModal();
   };
+
   return (
     <View style={styles.bottomBar}>
       <View style={styles.bottomIcon}>
@@ -79,7 +79,6 @@ const BottomBar = ({navigation, onPress, listPress, setImage}) => {
           onBackdropPress={toggelModal}
           takePhoto={takePhoto}
           choosePhoto={choosePhoto}
-          onPress={handleNote}
         />
 
         <TouchableOpacity style={styles.barButton} onPress={onPress}>

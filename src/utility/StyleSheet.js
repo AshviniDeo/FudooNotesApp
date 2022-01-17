@@ -325,7 +325,7 @@ export const styles = StyleSheet.create({
     alignContent: 'center',
     alignItems: 'center',
     paddingLeft: PADDING.SECONADARY_PADDING,
-    paddingTop: widthPercentageToDP('10%'),
+    paddingTop: widthPercentageToDP('5%'),
     flex: 0.9,
   },
   blankText: {

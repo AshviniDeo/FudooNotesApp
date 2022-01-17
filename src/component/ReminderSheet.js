@@ -63,8 +63,8 @@ const ReminderSheet = ({setReminder, refReminder}) => {
                 .hour(8)
                 .minute(0)
                 .format('DD-MM-YYYY hh:mm a'),
-              refReminder.current.close(),
             );
+            refReminder.current.close();
           }}>
           <View style={[custome.moreSheet, {marginTop: MARGIN.PRIMARY_MARGIN}]}>
             <MaterialCommunityIcons
@@ -86,8 +86,8 @@ const ReminderSheet = ({setReminder, refReminder}) => {
                 .hour(15)
                 .minute(0)
                 .format('DD-MM-YYYY hh:mm a'),
-              refReminder.current.close(),
             );
+            refReminder.current.close();
           }}>
           <View style={custome.moreSheet}>
             <MaterialCommunityIcons
@@ -109,8 +109,8 @@ const ReminderSheet = ({setReminder, refReminder}) => {
                 .hour(18)
                 .minute(0)
                 .format('DD-MM-YYYY hh:mm a'),
-              refReminder.current.close(),
             );
+            refReminder.current.close();
           }}>
           <View style={custome.moreSheet}>
             <MaterialCommunityIcons

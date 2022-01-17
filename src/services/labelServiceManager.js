@@ -24,7 +24,12 @@ export const setLabel = async (id, labelId, data) => {
 export const setNoteId = async (id, labelId, noteId) => {
   try {
     const noteData = {noteId};
-    await dbData.doc(id).collection('Labels').doc(labelId).set(noteData);
+    await dbData
+      .doc(id)
+      .collection('Labels')
+      .doc(labelId)
+      .collection('NoteId')
+      .add(noteData);
   } catch (e) {
     console.log(e);
   }

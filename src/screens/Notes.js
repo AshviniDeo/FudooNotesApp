@@ -24,7 +24,7 @@ import ReminderSheet from '../component/ReminderSheet';
 import moment from 'moment';
 import {Chip} from 'react-native-paper';
 import {widthPercentageToDP} from '../utility/DynamicDimension';
-import {setlabel} from '../services/LabelServices';
+import {setlabel, updateLabel} from '../services/LabelServices';
 
 const Notes = ({navigation, route}) => {
   const [Pinned, setPinned] = useState(route.params?.editData?.Pinned || false);
@@ -40,10 +40,14 @@ const Notes = ({navigation, route}) => {
   const [BackgroundColor, setBackgroundColor] = useState(
     route.params?.editData?.BackgroundColor || '',
   );
+  const isImageNote =
+    route.params?.isImageNote || route.params?.editData?.isImageNote || false;
 
-  const labelData = route.params?.Labels || route.params?.editData.labelData;
+  const labelData =
+    route.params?.Labels || route.params?.editData?.labelData || [];
   console.log(Reminder);
-  // const image = route.params?.Image;
+  const image = route.params?.imageData || route.params?.editData?.image || '';
+
   const tempArr = [...List];
 
   const checked = tempArr.filter(item => item.toggleCheckBox);
@@ -93,12 +97,14 @@ const Notes = ({navigation, route}) => {
       Note,
       Archive,
       Pinned,
-      Reminder: JSON.stringify(Reminder),
+      Reminder: Reminder.toISOString?.() || '',
       Trash,
       List,
       IsList,
       BackgroundColor,
       labelData,
+      isImageNote,
+      image,
       ...changeData,
     };
 
@@ -110,7 +116,7 @@ const Notes = ({navigation, route}) => {
         handleNotification();
       }
     }
-
+    console.log(noteData);
     if (labelData) {
       labelData.forEach(item => {
         setlabel(item.labelId, noteId);
@@ -146,7 +152,7 @@ const Notes = ({navigation, route}) => {
   };
 
   const handleNotification = (item, id) => {
-    let data = Reminder;
+    let data = new Date(Reminder);
 
     PushNotification.localNotificationSchedule({
       channelId: 'test-channel',
@@ -183,9 +189,14 @@ const Notes = ({navigation, route}) => {
       {/* //Header-Bar ===>End */}
 
       <View style={styles.window}>
-        {/* <View style={custome.image}>
-          <Avatar.Image size={widthPercentageToDP('70%')} source={image} />
-        </View> */}
+        {isImageNote && (
+          <View style={custome.image}>
+            <Avatar.Image
+              size={widthPercentageToDP('70%')}
+              source={{uri: image}}
+            />
+          </View>
+        )}
 
         <View style={custome.NoteCard}>
           <TextInput
@@ -295,6 +306,15 @@ const Notes = ({navigation, route}) => {
                     </Chip>
                   </View>
                 ))}
+              <View>
+                {Reminder ? (
+                  <Chip
+                    style={[custome.chip, {width: widthPercentageToDP('50%')}]}
+                    icon={'alarm'}>
+                    <Text> {moment(Reminder).format('MMM DD hh:mm a')}</Text>
+                  </Chip>
+                ) : null}
+              </View>
             </View>
           </ScrollView>
         </View>

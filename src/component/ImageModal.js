@@ -40,11 +40,6 @@ const ImageModal = ({
               />
               <Text style={styles.moreText}>Choose Image</Text>
             </View>
-            <View style={styles.btnView}>
-              <TouchableOpacity onPress={handleNote}>
-                <Text style={styles.cancleBtn}>Add Note</Text>
-              </TouchableOpacity>
-            </View>
           </TouchableOpacity>
         </View>
       </Modal>

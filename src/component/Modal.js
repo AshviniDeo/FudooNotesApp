@@ -90,7 +90,7 @@ const ModalScreen = ({
                 <Text style={{color: COLOR.ACTIVE_COLOR}}>{email}</Text>
               </View>
             </View>
-            {Object.values(profileData).forEach(item => !item.photo) ? (
+            {Object.values(profileData).forEach(item => item.UserName) ? (
               <View style={styles.avtar}>
                 <View style={styles.button}>
                   <TouchableOpacity onPress={takePhoto}>
@@ -108,7 +108,7 @@ const ModalScreen = ({
                 <TouchableOpacity
                   onPress={() => {
                     googleSignOut();
-                    setDisplayPicture(require('../assets/user.png'));
+                    setDisplayPicture('');
                   }}>
                   <Text style={styles.button_text}>Logout</Text>
                 </TouchableOpacity>

@@ -25,6 +25,7 @@ export const updatenote = async (noteData, noteId, callback) => {
     const id = await getUid();
     await updateNote(id, noteData, noteId, callback);
     await setNote(id, noteData, noteId, callback);
+    console.log('data call');
   } catch (error) {
     console.log(error.code);
   }
