@@ -108,7 +108,8 @@ const ReminderSheet = ({setReminder, refReminder}) => {
                 .add(1, 'd')
                 .hour(18)
                 .minute(0)
-                .format('DD-MM-YYYY hh:mm a'),
+                .format('DD-MM-YYYY hh:mm a')
+                .toISOString?.() || '',
             );
             refReminder.current.close();
           }}>
@@ -238,7 +239,7 @@ const custome = StyleSheet.create({
   cancleBtn: {
     fontSize: SIZES.NOTE,
     fontWeight: 'bold',
-    color: COLOR.ACTIVE_COLOR,
+    color: COLOR.PRIMARY,
     marginTop: MARGIN.PRIMARY_MARGIN,
   },
   btnView: {
