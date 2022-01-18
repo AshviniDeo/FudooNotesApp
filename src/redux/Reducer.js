@@ -11,7 +11,7 @@ function userReducer(state = initialState, action) {
     case SET_NOTE:
       return {...state, note: action.payload};
     case SET_LABEL_DATA:
-      return {...state, labelData: [...state.labelData, action.payload]};
+      return {...state, labelData: action.payload};
     case SET_PROFILE:
       return {...state, profileImage: action.payload};
     default:

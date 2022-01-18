@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useCallback} from 'react';
 import {
   TouchableOpacity,
   View,
@@ -13,11 +13,15 @@ import {BORDER, COLOR, HEIGHT, PADDING, SIZES, WIDTH} from '../utility/Theme';
 import AddLabel from './AddLabel';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import useLocalisation from '../localisation/useLocalisation';
+import {useDispatch, useSelector} from 'react-redux';
+import {setLabelData} from '../redux/Actions';
 
 const InsertLabel = ({navigation, route}) => {
   const [label, setLabel] = useState('');
-  const [labelData, setLabelData] = useState([]);
+  // const [labelData, setLabelData] = useState([]);
   const [checkedArr, setCheckedArr] = useState(route.params?.Labels || []);
+  const labelData = useSelector(state => state.labelData);
+  const dispatch = useDispatch();
 
   const dictonary = useLocalisation('EN');
   const handlePress = () => {
@@ -27,10 +31,10 @@ const InsertLabel = ({navigation, route}) => {
     setLabel('');
   };
 
-  const fetchData = async () => {
+  const fetchData = useCallback(async () => {
     let data = await fetchLabels();
-    setLabelData(data);
-  };
+    dispatch(setLabelData(data));
+  }, [dispatch]);
 
   const handelCheckedArr = labelItem => {
     const index = checkedArr.findIndex(
@@ -50,7 +54,7 @@ const InsertLabel = ({navigation, route}) => {
       fetchData();
     });
     return unsubscribe;
-  }, [navigation]);
+  }, [navigation, fetchData]);
 
   return (
     <SafeAreaView style={styles.background}>

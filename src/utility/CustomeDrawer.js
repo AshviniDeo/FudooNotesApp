@@ -1,4 +1,4 @@
-import React, {useContext, useState, useEffect} from 'react';
+import React, {useContext, useState, useEffect, useCallback} from 'react';
 import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
 import {DrawerContentScrollView} from '@react-navigation/drawer';
 import Ionicon from 'react-native-vector-icons/Ionicons';
@@ -8,25 +8,29 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import {AuthContext} from '../navigation/AuthProvider';
 import {fetchLabels} from '../services/LabelServices';
 import Label from '../component/Label';
+import {useSelector, useDispatch} from 'react-redux';
+import {setLabelData} from '../redux/Actions';
 import {COLOR, SIZES, PADDING, MARGIN, BORDER, WIDTH} from './Theme';
 
 import useLocalisation from '../localisation/useLocalisation';
 
 const CustomeDrawer = ({navigation, props}) => {
   const {signout} = useContext(AuthContext);
-  const [labelData, setLabelData] = useState([]);
+  // const [labelData, setLabelData] = useState([]);
   const [active, setActive] = useState(false);
-  const fetchData = async () => {
+  const labelData = useSelector(state => state.labelData);
+  const dispatch = useDispatch();
+  const fetchData = useCallback(async () => {
     let data = await fetchLabels();
-    setLabelData(data);
-  };
+    dispatch(setLabelData(data));
+  }, [dispatch]);
 
   useEffect(() => {
     const unsubscribe = navigation.addListener('focus', () => {
       fetchData();
     });
     return unsubscribe;
-  }, [navigation]);
+  }, [navigation, fetchData]);
   const dictonary = useLocalisation('EN');
 
   return (
@@ -43,7 +47,6 @@ const CustomeDrawer = ({navigation, props}) => {
             onPress={() => {
               navigation.navigate('Dashboard');
               setActive(!active);
-              fetchData();
             }}>
             <View style={styles.view}>
               <Ionicon
@@ -60,7 +63,6 @@ const CustomeDrawer = ({navigation, props}) => {
             onPress={() => {
               navigation.navigate('Reminder');
               setActive(!active);
-              fetchData();
             }}>
             <View style={styles.view}>
               <FontAwesome
@@ -78,7 +80,6 @@ const CustomeDrawer = ({navigation, props}) => {
             onPress={() => {
               navigation.navigate('Create new label');
               setActive(!active);
-              fetchData();
             }}>
             <View style={[styles.view, styles.labelView]}>
               <AntDesign
@@ -114,7 +115,6 @@ const CustomeDrawer = ({navigation, props}) => {
                   <TouchableOpacity
                     onPress={() => {
                       navigation.navigate('Create new label');
-                      fetchData();
                     }}>
                     <Text style={styles.editText}>Edits</Text>
                   </TouchableOpacity>
@@ -146,7 +146,6 @@ const CustomeDrawer = ({navigation, props}) => {
             onPress={() => {
               navigation.navigate('Archive');
               setActive(!active);
-              fetchData();
             }}>
             <View style={[styles.view, {paddingTop: PADDING.PRIMARY_PADDING}]}>
               <Ionicon
@@ -163,7 +162,6 @@ const CustomeDrawer = ({navigation, props}) => {
             onPress={() => {
               navigation.navigate('Trash');
               setActive(!active);
-              fetchData();
             }}>
             <View style={styles.view}>
               <Ionicon

@@ -17,18 +17,19 @@ import Label from '../component/Label';
 import {COLOR, SIZES} from '../utility/Theme';
 import {LogBox} from 'react-native';
 import useLocalisation from '../localisation/useLocalisation';
-// import {setLabelData} from '../redux/Actions';
+import {useSelector, useDispatch} from 'react-redux';
+import {setLabelData} from '../redux/Actions';
 
 LogBox.ignoreAllLogs(true);
 const CreateNewLabel = ({navigation, route}) => {
   const [active, setActive] = useState(false);
   const [label, setLabel] = useState('');
-  const [labelData, setLabelData] = useState([]);
+  // const [labelData, setLabelData] = useState([]);
 
   const dictonary = useLocalisation('EN');
 
-  // const labelData = useSelector(state => state.SET_LABEL_DATA);
-  // const dispatch = useDispatch();
+  const labelData = useSelector(state => state.labelData);
+  const dispatch = useDispatch();
 
   const handlePress = () => {
     createLabel(label)
@@ -44,8 +45,8 @@ const CreateNewLabel = ({navigation, route}) => {
 
   const fetchData = useCallback(async () => {
     let data = await fetchLabels();
-    setLabelData(data);
-  }, []);
+    dispatch(setLabelData(data));
+  }, [dispatch]);
 
   useEffect(() => {
     const unsubscribe = navigation.addListener('focus', () => {
